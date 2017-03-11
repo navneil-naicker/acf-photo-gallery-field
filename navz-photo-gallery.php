@@ -109,6 +109,7 @@ function acf_photo_gallery($field = null, $post_id){
 			$url = get_post_meta($image->ID, $field . '_url', true);
 			$target = get_post_meta($image->ID, $field . '_target', true);
 			$array[] = array(
+				'id' => $image->ID,
 				'title' => $title,
 				'caption' => $content,
 				'full_image_url' => $full_url,

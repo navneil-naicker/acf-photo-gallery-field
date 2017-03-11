@@ -2,7 +2,7 @@
 Contributors: navzme
 Tags: acf, advanced, custom, fields, photo gallery, album, fancybox, litebox
 Requires at least: 3.8
-Tested up to: 4.7
+Tested up to: 4.7.3
 Stable tag: 1.5.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -28,13 +28,15 @@ The following example is using Twitter Bootstrap framework to layout. You can us
 	if( count($images) ):
 		//Cool, we got some data so now let's loop over it
 		foreach($images as $image):
-			$title = $image['title'];
-			$caption= $image['content'];
-			$full_image_url= $image['full_image_url'];
-			$full_image_url = acf_photo_gallery_resize_image($full_image_url, 262, 160);
-			$thumbnail_image_url= $image['thumbnail_image_url'];
-			$url= $image['url'];
-			$target= $image['target'];
+			$title = $image['title']; //The title
+			$caption= $image['caption']; //The caption
+			$full_image_url= $image['full_image_url']; //Full size image url
+			$full_image_url = acf_photo_gallery_resize_image($full_image_url, 262, 160); //Resized size to 262px width by 160px height image url
+			$thumbnail_image_url= $image['thumbnail_image_url']; //Get the thumbnail size image url 150px by 150px
+			$url= $image['url']; //Goto any link when clicked
+			$target= $image['target']; //Open normal or new tab
+			$alt = get_field('photo_gallery_alt', $id); //Get the alt which is a extra field (See below how to add extra fields)
+			$class = get_field('photo_gallery_class', $id); //Get the class which is a extra field (See below how to add extra fields)
 ?>
 <div class="col-xs-6 col-md-3">
 	<div class="thumbnail">
@@ -45,20 +47,25 @@ The following example is using Twitter Bootstrap framework to layout. You can us
 </div>
 <?php endforeach; endif; ?>`
 
+= Add Extra Fields =
+To add extra fields add the following to your themes functions.php file.
+
+`//Create extra fields called Altnative Text and Custom Classess
+function my_extra_gallery_fields( $args, $attachment_id, $field ){
+	$args['alt'] = array('type' => 'text', 'label' => 'Altnative Text', 'name' => 'alt', 'value' => get_field($field . '_alt', $attachment_id) ); // Creates Altnative Text field
+	$args['class'] = array('type' => 'text', 'label' => 'Custom Classess', 'name' => 'class', 'value' => get_field($field . '_class', $attachment_id) ); // Creates Custom Classess field
+	return $args;
+}
+add_filter( 'acf_photo_gallery_image_fields', 'my_extra_gallery_fields', 10, 3 );`
+
+= How to get values of extra fields =
+You can use ACF helper function `get_field`
+`get_field('photo_gallery_alt', $id);
+get_field('photo_gallery_class', $id);`
+
 = Compatibility =
 This ACF field type is compatible with:
 * ACF 4
-
-= Tested on =
-* Mac Firefox 	:)
-* Mac Safari 	:)
-* Mac Chrome	:)
-* PC Safari 	:)
-* PC Chrome		:)
-* PC Firefox	:)
-* iPhone Safari :)
-* iPad Safari 	:)
-* PC ie7		:S
 
 == Installation ==
 
@@ -68,6 +75,11 @@ This ACF field type is compatible with:
 4. Please refer to the description for more info regarding the field type settings
 
 == Changelog ==
+= 1.5.0 =
+* [Added] Support for SVG
+* [Added] Support for legacy PHP version
+* [Added] Add extra fields
+
 = 1.4.0 =
 * [Added] Can sortable gallery images
 * [Bugfix] Fixed the order to follow the sort order for gallery images

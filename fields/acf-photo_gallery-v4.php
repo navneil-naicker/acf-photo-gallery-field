@@ -12,7 +12,7 @@ function acf_photo_gallery_save( $post_id ){
 	remove_action( 'save_post', 'acf_photo_gallery_save' );
 	$field = isset($_POST['acf-photo-gallery-field'])? $_POST['acf-photo-gallery-field']: null;
 	$field_id = isset($_POST['acf-photo-gallery-field-id'])? $_POST['acf-photo-gallery-field-id']: null;
-	$ids = !empty($field)? $_POST[$field_id]: null;		
+	$ids = !empty($field)? $_POST[$field_id]: null;
 	if( !empty($ids) ){
 		$ids = implode(',', $ids);
 		update_post_meta( $post_id, $field_id, $ids );
@@ -211,7 +211,7 @@ class acf_field_photo_gallery extends acf_field {
 						endif;				
 					?>
         </div>
-      	<ul id="acf-photo-gallery-metabox-list">
+      	<ul id="acf-photo-gallery-metabox-list" class="acf-photo-gallery-metabox-list">
         	<?php
 						if( $_name ):
 							$acf_photo_gallery_attachments =  $_name;
@@ -219,8 +219,8 @@ class acf_field_photo_gallery extends acf_field {
 							foreach($acf_photo_gallery_attachments as $image):
 					?>
         	<li id="acf-photo-gallery-mediabox-<?php echo $image; ?>">
-          	<a class="dashicons dashicons-edit" href="#" title="Edit" data-id="<?php echo $image; ?>"></a>
-          	<a class="dashicons dashicons-dismiss" href="<?php echo admin_url('admin-ajax.php'); ?>?action=acf_photo_gallery_remove_photo&_wpnonce=<?php echo $nonce_acf_photo_gallery; ?>&post=<?php echo $post->ID; ?>&photo=<?php echo $image; ?>&field=<?php echo $field['key']; ?>&id=<?php echo $field['id']; ?>" data-id="<?php echo $image; ?>" title="Remove this photo from the gallery"></a>
+          	<a class="dashicons dashicons-edit" href="#" title="Edit" data-id="<?php echo $image; ?>" data-field="<?php echo $field['_name']; ?>"></a>
+          	<a class="dashicons dashicons-dismiss" href="<?php echo admin_url('admin-ajax.php'); ?>?action=acf_photo_gallery_remove_photo&_wpnonce=<?php echo $nonce_acf_photo_gallery; ?>&post=<?php echo $post->ID; ?>&photo=<?php echo $image; ?>&field=<?php echo $field['key']; ?>&id=<?php echo $field['id']; ?>" data-id="<?php echo $image; ?>" data-field="<?php echo $field['_name']; ?>" title="Remove this photo from the gallery"></a>
           	<input type="hidden" name="<?php echo $field['_name']; ?>[]" value="<?php echo $image; ?>"/>
             <img src="<?php echo wp_get_attachment_thumb_url( $image ); ?>"/>
            </li>
