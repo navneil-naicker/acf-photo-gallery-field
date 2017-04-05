@@ -3,14 +3,13 @@ Contributors: navzme
 Tags: acf, advanced, custom, fields, photo gallery, album, fancybox, litebox
 Requires at least: 3.8
 Tested up to: 4.7.3
-Stable tag: 1.5.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 A cool plugin that extends the Advanced Custom Fields (ACF) functionality to add ‘Photo Gallery’ to any post/pages of your choice.
 
 == Description ==
-We are just a lightweight extension of Advanced Custom Field (ACF) that adds ‘Photo Gallery’ field to any post/pages on your WordPress website. 
+This plugin is alternative of ACF Gallery Pro. We are just a lightweight extension of Advanced Custom Field (ACF) that adds ‘Photo Gallery’ field to any post/pages on your WordPress website.
 
 * Visually create your Fields
 * Add multiple photos and you can also modify title, caption and link to anything
@@ -21,6 +20,7 @@ We are just a lightweight extension of Advanced Custom Field (ACF) that adds ‘
 
 = Usage =
 The following example is using Twitter Bootstrap framework to layout. You can use any framework of your choice.
+
 `<?php
 	//Get the images ids from the post_metadata
 	$images = acf_photo_gallery('gallery_images', $post->ID);
@@ -60,12 +60,17 @@ add_filter( 'acf_photo_gallery_image_fields', 'my_extra_gallery_fields', 10, 3 )
 
 = How to get values of extra fields =
 You can use ACF helper function `get_field`
-`get_field('photo_gallery_alt', $id);
-get_field('photo_gallery_class', $id);`
+
+`get_field('photo_gallery_alt', $id);`
+`get_field('photo_gallery_class', $id);`
 
 = Compatibility =
 This ACF field type is compatible with:
 * ACF 4
+
+= Issues =
+We have tested this plugins amongst the latest version of WordPress and famous themes and plugins. Just like any other WordPress plugin, this plugin can also cause issues with other themes and plugins. If you are facing issues making this plugin work on your WordPress site, please do ask for help in the support forum. This way we can help you out and prevent this issue from happening to someone else.
+If you want to talk to me directly, you can contact me via my website <https://www.navz.me/>
 
 == Installation ==
 
