@@ -12,7 +12,7 @@ function acf_photo_gallery_save( $post_id ){
 	remove_action( 'save_post', 'acf_photo_gallery_save' );
 	$field = isset($_POST['acf-photo-gallery-field'])? $_POST['acf-photo-gallery-field']: null;
 	$field_id = isset($_POST['acf-photo-gallery-field-id'])? $_POST['acf-photo-gallery-field-id']: null;
-	$ids = !empty($field)? $_POST[$field_id]: null;
+	$ids = !empty($field) && isset($_POST[$field_id])? $_POST[$field_id]: null;
 	if( !empty($ids) ){
 		$ids = implode(',', $ids);
 		update_post_meta( $post_id, $field_id, $ids );
