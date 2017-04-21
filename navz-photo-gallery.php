@@ -36,7 +36,7 @@ class acf_plugin_photo_gallery {
 		
 		// vars
 		$this->settings = array(
-			'version'	=> '1.5.0',
+			'version'	=> '1.5.1',
 			'url'		=> plugin_dir_url( __FILE__ ),
 			'path'		=> plugin_dir_path( __FILE__ )
 		);
