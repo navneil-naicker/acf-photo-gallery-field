@@ -10,12 +10,22 @@ function acf_photo_gallery_save( $post_id ){
 	$post_id = $parent_id;
 	// unhook this function so it doesn't loop infinitely
 	remove_action( 'save_post', 'acf_photo_gallery_save' );
-	$field = isset($_POST['acf-photo-gallery-field'])? $_POST['acf-photo-gallery-field']: null;
-	$field_id = isset($_POST['acf-photo-gallery-field-id'])? $_POST['acf-photo-gallery-field-id']: null;
-	$ids = !empty($field) && isset($_POST[$field_id])? $_POST[$field_id]: null;
-	if( !empty($ids) ){
-		$ids = implode(',', $ids);
-		update_post_meta( $post_id, $field_id, $ids );
+
+	$field = isset($_POST['acf-photo-gallery-field-id'])? $_POST['acf-photo-gallery-field-id']: null;
+	$field = array_filter( $field );
+	if( count($field) ){
+		//file_put_contents( dirname(__FILE__) . 'dump.php', print_r(count($field), true));
+		foreach($field as $k => $v ){
+			$field_id = isset($_POST['acf-photo-gallery-field-id'][$k])? $_POST['acf-photo-gallery-field-id'][$k]: null;
+			if( !empty($field_id) ){
+				$ids = !empty($field) && isset($_POST[$field_id])? $_POST[$field_id]: null;
+			
+				if( !empty($ids) ){
+					$ids = implode(',', $ids);
+					update_post_meta( $post_id, $field_id, $ids );
+				}
+			}
+		}
 	}
 	// re-hook this function
 	add_action( 'save_post', 'acf_photo_gallery_save' );
@@ -233,26 +243,26 @@ class acf_field_photo_gallery extends acf_field {
 	?>
 		<div id="acf-photo-gallery-metabox">
     		<input type="hidden" name="acf-photo-gallery-field" value="<?php echo $field['key']; ?>"/>
-    		<input type="hidden" name="acf-photo-gallery-field-id" value="<?php echo str_replace('acf-field-', '', $field['id']); ?>"/>
+    		<input type="hidden" name="acf-photo-gallery-field-id[]" value="<?php echo str_replace('acf-field-', '', $field['id']); ?>"/>
     		<!---<input type="hidden" name="acf-photo-gallery-field-max" value="<?php //echo $field['max']; ?>"/>-->
         <div id="acf-photo-gallery-metabox-edit">
         	<?php 
-						if( $_name ):
-							$acf_photo_gallery_attachments =  $_name;
-							$acf_photo_gallery_attachments = explode(',', $acf_photo_gallery_attachments);
-							$args = array( 'post_type' => 'attachment', 'posts_per_page' => -1, 'post__in' => $acf_photo_gallery_attachments ); 
-							$acf_photo_gallery_attachments = get_posts( $args );
-							$nonce = wp_create_nonce('acf_photo_gallery_edit_save');
-							foreach($acf_photo_gallery_attachments as $attachment):
-								$id = $attachment->ID;
-								$url = get_post_meta($id, $field['_name'] . '_url', true);
-								$target = get_post_meta($id, $field['_name'] . '_target', true);
-								$title = $attachment->post_title;
-								$caption = $attachment->post_content;
-								acf_photo_gallery_edit($field['_name'], $nonce, $id, $url, $title, $caption, $target);	
-							endforeach;
-						endif;				
-					?>
+				if( $_name ):
+					$acf_photo_gallery_attachments =  $_name;
+					$acf_photo_gallery_attachments = explode(',', $acf_photo_gallery_attachments);
+					$args = array( 'post_type' => 'attachment', 'posts_per_page' => -1, 'post__in' => $acf_photo_gallery_attachments ); 
+					$acf_photo_gallery_attachments = get_posts( $args );
+					$nonce = wp_create_nonce('acf_photo_gallery_edit_save');
+					foreach($acf_photo_gallery_attachments as $attachment):
+						$id = $attachment->ID;
+						$url = get_post_meta($id, $field['_name'] . '_url', true);
+						$target = get_post_meta($id, $field['_name'] . '_target', true);
+						$title = $attachment->post_title;
+						$caption = $attachment->post_content;
+						acf_photo_gallery_edit($field['_name'], $nonce, $id, $url, $title, $caption, $target);	
+					endforeach;
+				endif;				
+			?>
         </div>
       	<ul id="acf-photo-gallery-metabox-list" class="acf-photo-gallery-metabox-list">
 			<?php
