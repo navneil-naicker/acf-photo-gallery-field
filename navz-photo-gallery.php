@@ -109,7 +109,6 @@ function acf_photo_gallery($field = null, $post_id){
 			$meta_data = wp_get_attachment_metadata($image->ID);
 			$large_srcset = wp_get_attachment_image_srcset( $image->ID,'large', $meta_data);
 			$medium_srcset = wp_get_attachment_image_srcset( $image->ID,'medium', $meta_data);
-			$thumb_srcset = wp_get_attachment_image_srcset( $image->ID,array(150,150), $meta_data);
 			$url = get_post_meta($image->ID, $field . '_url', true);
 			$target = get_post_meta($image->ID, $field . '_target', true);
 			$array[] = array(
@@ -120,7 +119,6 @@ function acf_photo_gallery($field = null, $post_id){
 				'thumbnail_image_url' => $thumbnail_url,
 				'large_srcset' => $large_srcset,
 				'medium_srcset' => $medium_srcset,
-				'thumb_srcset' => $thumb_srcset,	
 				'url' => $url,
 				'target' => $target
 			);

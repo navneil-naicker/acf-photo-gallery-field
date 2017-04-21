@@ -12,6 +12,21 @@
         }).disableSelection();
     });
 
+    /*function acf_photo_gallery_limit_images( $el ){
+        var field = $el.context.id;
+        $(document).on('click', '.attachments-browser ul.attachments li.attachment', function(){
+            var max = $('#' + field + ' input[name="acf-photo-gallery-field-max"]').val();
+            var selCount = $('#' + field + ' .acf-photo-gallery-metabox-list li').length;
+            var count = $('.attachments-browser ul.attachments li.attachment[aria-checked=true]').length;
+            var finalCount = selCount + +count;
+            if( finalCount > max ){
+                alert('You are only allowed to select maximum of ' + max + ' images.');
+                $(this).attr('aria-checked', false).removeClass('selected details');
+                return false;
+            }
+        });
+    }*/
+
     function acf_photo_gallery_edit(id, url, title, caption) {
         var html;
         html = '<div id="acf-photo-gallery-metabox-edit-' + id + '" class="acf-edit-photo-gallery">';
@@ -39,7 +54,7 @@
 
         html = acf_photo_gallery_edit(id, url, title, caption);
         $('#acf-' + field + ' .acf-photo-gallery-metabox-edit').append(html);
-        $('#acf-' + field + ' .acf-photo-gallery-metabox-list').prepend('<li id="acf-photo-gallery-mediabox-' + id + '"><a class="dashicons dashicons-edit" href="#" title="Edit" data-id="' + id + '"></a><a class="dashicons dashicons-dismiss" href="#" data-id="' + id + '" data-field="' + field + '" title="Remove this photo from the gallery"></a><input type="hidden" name="' + field + '[]" value="' + id + '"/><img src="' + url + '"/></li>');
+        $('#acf-' + field + ' .acf-photo-gallery-metabox-list').prepend('<li id="acf-photo-gallery-mediabox-' + id + '" data-id="' + id + '"><a class="dashicons dashicons-edit" href="#" title="Edit" data-id="' + id + '"></a><a class="dashicons dashicons-dismiss" href="#" data-id="' + id + '" data-field="' + field + '" title="Remove this photo from the gallery"></a><input type="hidden" name="' + field + '[]" value="' + id + '"/><img src="' + url + '"/></li>');
     }
 
     function acf_photo_gallery_add_media($el) {
@@ -51,13 +66,28 @@
                     var button = $(this);
                     var id = button.prev();
                     var field = button.attr('data-id');
-                    wp.media.editor.send.attachment = function(props, attachment) {
+
+                    var pre_selected_list = $('#acf-' + field + ' .acf-photo-gallery-metabox-list li');
+                    var pre_selected = pre_selected_list.length;
+
+                    wp.media.editor.send.attachment = function(props, attachment){
                         acf_photo_gallery_html(attachment, field);
                     };
-                    wp.media.editor.open(button);
+
+                    wp.media.editor.open( button, function(){} );                    
                     if ($('#acf-' + field + ' .acf-photo-gallery-metabox-list li.acf-photo-gallery-media-box-placeholder').length > 0) {
                         $('#acf-' + field + ' .acf-photo-gallery-metabox-list li.acf-photo-gallery-media-box-placeholder').remove();
                     }
+
+                    /*if( pre_selected > 0 ){
+                        pre_selected_list.each(function( key, item ){
+                            var pre_selected_id = $(this).attr('data-id');
+                            //$('.attachments-browser ul.attachments li[data-id=' + pre_selected_id + ']').attr('aria-checked', true).addClass('details selected');
+                            console.log( $('.attachments-browser ul.attachments li[data-id=269]').attr('class') );
+                            $('.attachments-browser ul.attachments li[data-id="' + pre_selected_id + '"]').attr('aria-checked', true);            
+                        });
+                    }*/
+
                     return false;
                 });
             }
@@ -72,7 +102,7 @@
             var field = $(this).attr('data-field');
             if (confirm('You are about to remove this photo from the gallery. Are you sure?')) {
                 $.get(url, function(data) {
-                    $('#acf-' + field + ' #acf-photo-gallery-mediabox-' + id).fadeOut('fast').remove();
+                    $('#acf-' + field + ' #acf-photo-gallery-mediabox-' + id).fadeOut('fast').remove();  
                     if ($('#acf-' + field + ' .acf-photo-gallery-metabox-list li').length < 1) {
                         $('#acf-' + field + ' .acf-photo-gallery-metabox-list').append('<li class="acf-photo-gallery-media-box-placeholder"><span class="dashicons dashicons-format-image"></span></li>');
                     }
@@ -139,9 +169,10 @@
             // search $el for fields of type 'photo_gallery'
             acf.get_fields({ type: 'photo_gallery' }, $el).each(function() {
                 initialize_field($(this));
-                acf_photo_gallery_add_media($(this));
-                acf_photo_gallery_remove_photo($(this));
-                acf_photo_gallery_edit_popover($(this));
+                acf_photo_gallery_add_media( $(this) );
+                acf_photo_gallery_remove_photo( $(this) );
+                acf_photo_gallery_edit_popover( $(this) );
+                //acf_photo_gallery_limit_images( $(this) );
             });
         });
     } else {
@@ -162,9 +193,10 @@
         $(document).on('acf/setup_fields', function(e, postbox) {
             $(postbox).find('.field[data-field_type="photo_gallery"]').each(function() {
                 initialize_field($(this));
-                acf_photo_gallery_add_media($(this));
-                acf_photo_gallery_remove_photo($(this));
-                acf_photo_gallery_edit_popover($(this));
+                acf_photo_gallery_add_media( $(this) );
+                acf_photo_gallery_remove_photo( $(this) );
+                acf_photo_gallery_edit_popover( $(this) );
+                //acf_photo_gallery_limit_images( $(this) );
             });
         });
     }

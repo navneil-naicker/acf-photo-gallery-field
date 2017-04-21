@@ -168,8 +168,50 @@ class acf_field_photo_gallery extends acf_field {
 		$this->settings = $settings;
 
 	}
+
 	
+	/*
+	*  create_options()
+	*
+	*  Create extra options for your field. This is rendered when editing a field.
+	*  The value of $field['name'] can be used (like below) to save extra data to the $field
+	*
+	*  @type	action
+	*  @since	3.6
+	*  @date	23/01/13
+	*
+	*  @param	$field	- an array holding all the field's data
+	*/
 	
+	function test_create_options( $field ){
+		// defaults?
+		/*
+		$field = array_merge($this->defaults, $field);
+		*/
+		
+		// key is needed in the field names to correctly save the data
+		$key = $field['name'];
+		
+		// Create Field Options HTML
+?>
+	<tr class="field_option field_option_<?php echo $this->name; ?>">
+		<td class="label">
+			<label><?php _e("Max",'acf'); ?></label>
+			<p class="description"><?php _e("Leave it empty for no limit",'acf'); ?></p>
+		</td>
+		<td>
+		<?php
+			do_action('acf/create_field', array(
+				'type'		=>	'number',
+				'name'		=>	'fields['.$key.'][max]',
+				'value'		=>	!empty($field['max'])? preg_replace('/\D/', '', $field['max']):'',
+				'layout'	=>	'horizontal'
+			));
+		?>
+		</td>
+	</tr>
+<?php }
+
 	/*
 	*  create_field()
 	*
@@ -192,6 +234,7 @@ class acf_field_photo_gallery extends acf_field {
 		<div id="acf-photo-gallery-metabox">
     		<input type="hidden" name="acf-photo-gallery-field" value="<?php echo $field['key']; ?>"/>
     		<input type="hidden" name="acf-photo-gallery-field-id" value="<?php echo str_replace('acf-field-', '', $field['id']); ?>"/>
+    		<!---<input type="hidden" name="acf-photo-gallery-field-max" value="<?php //echo $field['max']; ?>"/>-->
         <div id="acf-photo-gallery-metabox-edit">
         	<?php 
 						if( $_name ):
@@ -212,21 +255,19 @@ class acf_field_photo_gallery extends acf_field {
 					?>
         </div>
       	<ul id="acf-photo-gallery-metabox-list" class="acf-photo-gallery-metabox-list">
-        	<?php
-						if( $_name ):
-							$acf_photo_gallery_attachments =  $_name;
-							$acf_photo_gallery_attachments = explode(',', $acf_photo_gallery_attachments);
-							foreach($acf_photo_gallery_attachments as $image):
-					?>
-        	<li id="acf-photo-gallery-mediabox-<?php echo $image; ?>">
+			<?php
+				if( $_name ):
+					$acf_photo_gallery_attachments =  $_name;
+					$acf_photo_gallery_attachments = explode(',', $acf_photo_gallery_attachments);
+					foreach($acf_photo_gallery_attachments as $image):
+			?>
+        	<li id="acf-photo-gallery-mediabox-<?php echo $image; ?>" data-id="<?php echo $image; ?>">
           	<a class="dashicons dashicons-edit" href="#" title="Edit" data-id="<?php echo $image; ?>" data-field="<?php echo $field['_name']; ?>"></a>
           	<a class="dashicons dashicons-dismiss" href="<?php echo admin_url('admin-ajax.php'); ?>?action=acf_photo_gallery_remove_photo&_wpnonce=<?php echo $nonce_acf_photo_gallery; ?>&post=<?php echo $post->ID; ?>&photo=<?php echo $image; ?>&field=<?php echo $field['key']; ?>&id=<?php echo $field['id']; ?>" data-id="<?php echo $image; ?>" data-field="<?php echo $field['_name']; ?>" title="Remove this photo from the gallery"></a>
           	<input type="hidden" name="<?php echo $field['_name']; ?>[]" value="<?php echo $image; ?>"/>
             <img src="<?php echo wp_get_attachment_thumb_url( $image ); ?>"/>
            </li>
-           <?php endforeach; else: ?>
-					 <li class="acf-photo-gallery-media-box-placeholder"><span class="dashicons dashicons-format-image"></span></li>
-					 <?php endif; ?>
+			<?php endforeach; else: ?><li class="acf-photo-gallery-media-box-placeholder"><span class="dashicons dashicons-format-image"></span></li><?php endif; ?>
         </ul>
         <button class="button button-primary button-large" id="acf-photo-gallery-metabox-add-images" type="button" data-id="<?php echo $field['_name']; ?>">Add Images</button>
       </p>
