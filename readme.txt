@@ -80,6 +80,9 @@ If you want to talk to me directly, you can contact me via my website <https://w
 4. Please refer to the description for more info regarding the field type settings
 
 == Changelog ==
+=1.6.1=
+* [Bugfix] Edit image box disappears on click of pencil edit button reported by @rickytoof9
+
 =1.6.0=
 * [Bugfix] Error on saving post with empty gallery. Patch provided by @ugy
 * [Bugfix] Showing multiple photo gallery fields in the same page reported by @rickytoof9
