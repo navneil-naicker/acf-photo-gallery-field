@@ -138,14 +138,13 @@
         return false;
     });
 
-    function acf_photo_gallery_edit_popover() {
-        $(document).on('click', '.acf-photo-gallery-metabox-list .dashicons-edit', function() {
-            var id;
-            id = $(this).attr('data-id');
-            $('#acf-photo-gallery-metabox-edit #acf-photo-gallery-metabox-edit-' + id).fadeToggle('fast');
-            return false;
-        });
-    }
+    $(document).on('click', '.acf-photo-gallery-metabox-list .dashicons-edit', function() {
+        var id, field;
+        id = $(this).attr('data-id');
+        field = $(this).attr('data-field');
+        $('#acf-' + field + ' #acf-photo-gallery-metabox-edit-' + id).fadeToggle('fast');
+        return false;
+    });
 
     if (typeof acf.add_action !== 'undefined') {
         /*
@@ -166,7 +165,7 @@
             acf.get_fields({ type: 'photo_gallery' }, $el).each(function() {
                 initialize_field($(this));
                 acf_photo_gallery_add_media( $(this) );
-                acf_photo_gallery_edit_popover( $(this) );
+                //acf_photo_gallery_edit_popover( $(this) );
                 //acf_photo_gallery_limit_images( $(this) );
             });
         });
@@ -189,7 +188,7 @@
             $(postbox).find('.field[data-field_type="photo_gallery"]').each(function() {
                 initialize_field($(this));
                 acf_photo_gallery_add_media( $(this) );
-                acf_photo_gallery_edit_popover( $(this) );
+                //acf_photo_gallery_edit_popover( $(this) );
                 //acf_photo_gallery_limit_images( $(this) );
             });
         });
