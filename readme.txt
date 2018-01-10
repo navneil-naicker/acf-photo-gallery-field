@@ -28,6 +28,7 @@ The following example is using Twitter Bootstrap framework to layout. You can us
 	if( count($images) ):
 		//Cool, we got some data so now let's loop over it
 		foreach($images as $image):
+			$id = $image['id']; // The attachment id of the media
 			$title = $image['title']; //The title
 			$caption= $image['caption']; //The caption
 			$full_image_url= $image['full_image_url']; //Full size image url
@@ -78,6 +79,9 @@ If you want to talk to me directly, you can contact me via my website <https://w
 2. Activate the Advanced Custom Fields: Photo Gallery plugin via the plugins admin page
 3. Create a new field via ACF and select the Photo Gallery type
 4. Please refer to the description for more info regarding the field type settings
+
+== FAQ ==
+*	[Tutorial 1 - Installing and Basic Usage ](https://youtu.be/MBBE7R-JQOw)
 
 == Changelog ==
 =1.6.1=
