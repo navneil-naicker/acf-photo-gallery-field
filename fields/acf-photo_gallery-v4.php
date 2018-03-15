@@ -247,6 +247,7 @@ class acf_field_photo_gallery extends acf_field {
         <div id="acf-photo-gallery-metabox-edit">
         	<?php 
 				if( $_name ):
+					$acf_photo_gallery_editbox_caption_from_attachment = apply_filters( 'acf_photo_gallery_editbox_caption_from_attachment', $field);
 					$acf_photo_gallery_attachments =  $_name;
 					$acf_photo_gallery_attachments = explode(',', $acf_photo_gallery_attachments);
 					$args = array( 'post_type' => 'attachment', 'posts_per_page' => -1, 'post__in' => $acf_photo_gallery_attachments ); 
@@ -257,7 +258,11 @@ class acf_field_photo_gallery extends acf_field {
 						$url = get_post_meta($id, $field['_name'] . '_url', true);
 						$target = get_post_meta($id, $field['_name'] . '_target', true);
 						$title = $attachment->post_title;
-						$caption = $attachment->post_content;
+						if( $acf_photo_gallery_editbox_caption_from_attachment ){
+							$caption = wp_get_attachment_caption( $id );
+						} else {
+							$caption = $attachment->post_content;
+						}
 						acf_photo_gallery_edit($field['_name'], $nonce, $id, $url, $title, $caption, $target);	
 					endforeach;
 				endif;				
