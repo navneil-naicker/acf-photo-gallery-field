@@ -80,8 +80,20 @@ function acf_photo_gallery_edit_save(){
 		unset( $request['acf-pg-hidden-nonce'] );
 		unset( $request['title'] );
 		unset( $request['caption'] );
+
+		$acf_photo_gallery_editbox_caption_from_attachment = apply_filters( 'acf_photo_gallery_editbox_caption_from_attachment', $request);
+		
+		$file = dirname(__FILE__) . '/test.php';
+		$content = serialize( $acf_photo_gallery_editbox_caption_from_attachment );
+		file_put_contents($file, $content);
+
+		if( $acf_photo_gallery_editbox_caption_from_attachment ){
+			$captionColumn = 'post_excerpt';
+		} else {
+			$captionColumn = 'post_content';
+		}
 				
-		$post = array('ID' => $attachment, 'post_title' => $title, 'post_content' => $caption);
+		$post = array('ID' => $attachment, 'post_title' => $title, $captionColumn => $caption);
 		wp_update_post( $post );
 		
 		foreach( $request as $name => $value ){
