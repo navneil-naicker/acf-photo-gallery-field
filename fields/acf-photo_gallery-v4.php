@@ -18,7 +18,6 @@ function acf_photo_gallery_save( $post_id ){
 			$field_id = isset($_POST['acf-photo-gallery-field-id'][$k])? $_POST['acf-photo-gallery-field-id'][$k]: null;
 			if( !empty($field_id) ){
 				$ids = !empty($field) && isset($_POST[$field_id])? $_POST[$field_id]: null;
-			
 				if( !empty($ids) ){
 					$ids = implode(',', $ids);
 					update_post_meta( $post_id, $field_id, $ids );
@@ -82,11 +81,7 @@ function acf_photo_gallery_edit_save(){
 		unset( $request['caption'] );
 
 		$acf_photo_gallery_editbox_caption_from_attachment = apply_filters( 'acf_photo_gallery_editbox_caption_from_attachment', $request);
-		
-		$file = dirname(__FILE__) . '/test.php';
-		$content = serialize( $acf_photo_gallery_editbox_caption_from_attachment );
-		file_put_contents($file, $content);
-
+		//Updating relevant column in database
 		if( $acf_photo_gallery_editbox_caption_from_attachment ){
 			$captionColumn = 'post_excerpt';
 		} else {
@@ -270,7 +265,7 @@ class acf_field_photo_gallery extends acf_field {
 						$url = get_post_meta($id, $field['_name'] . '_url', true);
 						$target = get_post_meta($id, $field['_name'] . '_target', true);
 						$title = $attachment->post_title;
-						if( $acf_photo_gallery_editbox_caption_from_attachment ){
+						if( $acf_photo_gallery_editbox_caption_from_attachment == 1 ){
 							$caption = wp_get_attachment_caption( $id );
 						} else {
 							$caption = $attachment->post_content;
