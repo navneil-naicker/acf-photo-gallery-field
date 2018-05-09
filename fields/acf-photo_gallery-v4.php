@@ -12,7 +12,7 @@ function acf_photo_gallery_save( $post_id ){
 	remove_action( 'save_post', 'acf_photo_gallery_save' );
 
 	$field = isset($_POST['acf-photo-gallery-field-id'])? $_POST['acf-photo-gallery-field-id']: null;
-	if( count($field) ){
+	if( $field && count($field) ){
 		//file_put_contents( dirname(__FILE__) . 'dump.php', print_r(count($field), true));
 		foreach($field as $k => $v ){
 			$field_id = isset($_POST['acf-photo-gallery-field-id'][$k])? $_POST['acf-photo-gallery-field-id'][$k]: null;
@@ -32,11 +32,11 @@ add_action( 'save_post', 'acf_photo_gallery_save' );
 
 //Remove photo from the database array
 function acf_photo_gallery_remove_photo(){
-	if( wp_verify_nonce( $_GET['_wpnonce'], 'nonce_acf_photo_gallery') and !empty($_GET['post']) and !empty($_GET['photo']) and !empty($_GET['field']) ){		
+	if( wp_verify_nonce( $_GET['_wpnonce'], 'nonce_acf_photo_gallery') and !empty($_GET['post']) and !empty($_GET['photo']) and !empty($_GET['field']) ){
 		$field = $_GET['field'];
 		$post = $_GET['post'];
 		$photo = $_GET['photo'];
-		$photo = preg_replace('/\D/', '', $photo);		
+		$photo = preg_replace('/\D/', '', $photo);
 		$id = str_replace('acf-field-', '', $_GET['id']);
 		$meta = get_post_meta($post, $id, true);
 		$meta_arr = explode(',', $meta);
@@ -62,16 +62,16 @@ add_action( 'wp_ajax_acf_photo_gallery_remove_photo', 'acf_photo_gallery_remove_
 //Editing and saving photo details
 function acf_photo_gallery_edit_save(){
 
-	if( wp_verify_nonce( $_POST['acf-pg-hidden-nonce'], 'acf_photo_gallery_edit_save') and !empty($_POST['acf-pg-hidden-field']) and !empty($_POST['acf-pg-hidden-post'])  and !empty($_POST['acf-pg-hidden-attachment']) ){		
-		
+	if( wp_verify_nonce( $_POST['acf-pg-hidden-nonce'], 'acf_photo_gallery_edit_save') and !empty($_POST['acf-pg-hidden-field']) and !empty($_POST['acf-pg-hidden-post'])  and !empty($_POST['acf-pg-hidden-attachment']) ){
+
 		$request = $_POST;
-			
+
 		$field = sanitize_text_field($_POST['acf-pg-hidden-field']);
 		$post = sanitize_text_field($_POST['acf-pg-hidden-post']);
 		$attachment = sanitize_text_field($_POST['acf-pg-hidden-attachment']);
 		$title = sanitize_text_field($_POST['title']);
 		$caption = sanitize_text_field($_POST['caption']);
-		
+
 		unset( $request['acf-pg-hidden-field'] );
 		unset( $request['acf-pg-hidden-post'] );
 		unset( $request['acf-pg-hidden-attachment'] );
@@ -81,16 +81,15 @@ function acf_photo_gallery_edit_save(){
 		unset( $request['caption'] );
 
 		$acf_photo_gallery_editbox_caption_from_attachment = apply_filters( 'acf_photo_gallery_editbox_caption_from_attachment', $request);
-		//Updating relevant column in database
-		if( $acf_photo_gallery_editbox_caption_from_attachment ){
+		if( $acf_photo_gallery_editbox_caption_from_attachment == 1 ){
 			$captionColumn = 'post_excerpt';
 		} else {
 			$captionColumn = 'post_content';
 		}
-				
+
 		$post = array('ID' => $attachment, 'post_title' => $title, $captionColumn => $caption);
 		wp_update_post( $post );
-		
+
 		foreach( $request as $name => $value ){
 			$name = sanitize_text_field( $name );
 			$value = sanitize_text_field( $value );
@@ -107,7 +106,7 @@ add_action( 'wp_ajax_nopriv_acf_photo_gallery_edit_save', 'acf_photo_gallery_edi
 add_action( 'wp_ajax_acf_photo_gallery_edit_save', 'acf_photo_gallery_edit_save' );
 
 //Metabox for the photo edit
-function acf_photo_gallery_edit($field, $nonce, $attachment, $url = '', $title, $caption, $target = 0){ 
+function acf_photo_gallery_edit($field, $nonce, $attachment, $url = '', $title, $caption, $target = 0){
 	$args = array();
 	$args['url'] = $url;
 	$args['title'] = $title;
@@ -133,7 +132,7 @@ function acf_photo_gallery_edit($field, $nonce, $attachment, $url = '', $title, 
 			<label><?php echo $label; ?></label><input class="acf-photo-gallery-edit-field" type="<?php echo $type; ?>" name="<?php echo $name; ?>" value="<?php echo $value; ?>"/>
 			<?php } else if( $type == 'checkbox' ){ ?>
 			<label><input class="acf-photo-gallery-edit-field" type="checkbox" name="target" value="<?php echo $value; ?>" <?php if( $target == 'true' ){?> checked<?php } ?>/><?php echo $label; ?></label>
-			<?php } else if( $type == 'textarea' ){ ?>		
+			<?php } else if( $type == 'textarea' ){ ?>
 			<label><?php echo $label; ?></label><textarea class="acf-photo-gallery-edit-field" name="<?php echo $name; ?>"><?php echo $value; ?></textarea>
 			<?php } ?>
 		<?php } ?>
@@ -148,12 +147,12 @@ function acf_photo_gallery_edit($field, $nonce, $attachment, $url = '', $title, 
 if( !class_exists('acf_field_photo_gallery') ) :
 
 class acf_field_photo_gallery extends acf_field {
-	
+
 	// vars
 	var $settings, // will hold info such as dir / path
 		$defaults; // will hold default field options
-		
-		
+
+
 	/*
 	*  __construct
 	*
@@ -162,7 +161,7 @@ class acf_field_photo_gallery extends acf_field {
 	*  @since	3.6
 	*  @date	23/01/13
 	*/
-	
+
 	function __construct( $settings )
 	{
 		// vars
@@ -170,22 +169,22 @@ class acf_field_photo_gallery extends acf_field {
 		$this->label = __('Photo Gallery');
 		$this->category = __("Content",'acf'); // Basic, Content, Choice, etc
 		$this->defaults = array(
-			// add default here to merge into your field. 
+			// add default here to merge into your field.
 			// This makes life easy when creating the field options as you don't need to use any if( isset('') ) logic. eg:
 			//'preview_size' => 'thumbnail'
 		);
-		
-		
+
+
 		// do not delete!
     	parent::__construct();
-    	
-    	
+
+
     	// settings
 		$this->settings = $settings;
 
 	}
 
-	
+
 	/*
 	*  create_options()
 	*
@@ -198,16 +197,16 @@ class acf_field_photo_gallery extends acf_field {
 	*
 	*  @param	$field	- an array holding all the field's data
 	*/
-	
+
 	function test_create_options( $field ){
 		// defaults?
 		/*
 		$field = array_merge($this->defaults, $field);
 		*/
-		
+
 		// key is needed in the field names to correctly save the data
 		$key = $field['name'];
-		
+
 		// Create Field Options HTML
 ?>
 	<tr class="field_option field_option_<?php echo $this->name; ?>">
@@ -239,7 +238,7 @@ class acf_field_photo_gallery extends acf_field {
 	*  @since	3.6
 	*  @date	23/01/13
 	*/
-	
+
 	function create_field( $field )
 	{
 		// create Field HTML
@@ -252,12 +251,12 @@ class acf_field_photo_gallery extends acf_field {
     		<input type="hidden" name="acf-photo-gallery-field-id[]" value="<?php echo str_replace('acf-field-', '', $field['id']); ?>"/>
     		<!---<input type="hidden" name="acf-photo-gallery-field-max" value="<?php //echo $field['max']; ?>"/>-->
         <div id="acf-photo-gallery-metabox-edit">
-        	<?php 
+        	<?php
 				if( $_name ):
 					$acf_photo_gallery_editbox_caption_from_attachment = apply_filters( 'acf_photo_gallery_editbox_caption_from_attachment', $field);
 					$acf_photo_gallery_attachments =  $_name;
 					$acf_photo_gallery_attachments = explode(',', $acf_photo_gallery_attachments);
-					$args = array( 'post_type' => 'attachment', 'posts_per_page' => -1, 'post__in' => $acf_photo_gallery_attachments ); 
+					$args = array( 'post_type' => 'attachment', 'posts_per_page' => -1, 'post__in' => $acf_photo_gallery_attachments );
 					$acf_photo_gallery_attachments = get_posts( $args );
 					$nonce = wp_create_nonce('acf_photo_gallery_edit_save');
 					foreach($acf_photo_gallery_attachments as $attachment):
@@ -270,9 +269,9 @@ class acf_field_photo_gallery extends acf_field {
 						} else {
 							$caption = $attachment->post_content;
 						}
-						acf_photo_gallery_edit($field['_name'], $nonce, $id, $url, $title, $caption, $target);	
+						acf_photo_gallery_edit($field['_name'], $nonce, $id, $url, $title, $caption, $target);
 					endforeach;
-				endif;				
+				endif;
 			?>
         </div>
       	<ul id="acf-photo-gallery-metabox-list" class="acf-photo-gallery-metabox-list">
@@ -295,8 +294,8 @@ class acf_field_photo_gallery extends acf_field {
 		</div>
 		<?php
 	}
-	
-	
+
+
 	/*
 	*  input_admin_enqueue_scripts()
 	*
@@ -312,22 +311,22 @@ class acf_field_photo_gallery extends acf_field {
 	function input_admin_enqueue_scripts()
 	{
 		// Note: This function can be removed if not used
-		
-		
+
+
 		// vars
 		$url = $this->settings['url'];
 		$version = $this->settings['version'];
-		
-		
+
+
 		// register & include JS
 		wp_enqueue_script( 'jquery-ui-sortable' );
 		wp_register_script( 'acf-input-photo_gallery', "{$url}assets/js/input.js", array('acf-input'), $version );
 		wp_enqueue_script( 'acf-input-photo_gallery');
-		
+
 		// register & include CSS
 		wp_register_style( 'acf-input-photo_gallery', "{$url}assets/css/input.css", array('acf-input'), $version );
 		wp_enqueue_style('acf-input-photo_gallery');
-		
+
 	}
 
 }
