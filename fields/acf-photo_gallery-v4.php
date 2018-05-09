@@ -12,8 +12,7 @@ function acf_photo_gallery_save( $post_id ){
 	remove_action( 'save_post', 'acf_photo_gallery_save' );
 
 	$field = isset($_POST['acf-photo-gallery-field-id'])? $_POST['acf-photo-gallery-field-id']: null;
-	if( $field && count($field) ){
-		//file_put_contents( dirname(__FILE__) . 'dump.php', print_r(count($field), true));
+	if( $field && count($field) ){ //This fix php error when the field is null. Thanks to @JulienRobitaille on Github for the fix
 		foreach($field as $k => $v ){
 			$field_id = isset($_POST['acf-photo-gallery-field-id'][$k])? $_POST['acf-photo-gallery-field-id'][$k]: null;
 			if( !empty($field_id) ){
