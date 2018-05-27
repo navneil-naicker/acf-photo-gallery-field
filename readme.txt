@@ -1,15 +1,17 @@
 === ACF Photo Gallery Field ===
 Contributors: navzme
-Tags: acf, advanced, custom, fields, photo gallery, album, fancybox, litebox
+Tags: acf, advanced, custom, fields, photo, gallery, album, fancybox, litebox, lightbox
 Requires at least: 3.8
-Tested up to: 4.7.4
+Tested up to: 4.9.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 A cool plugin that extends the Advanced Custom Fields (ACF) functionality to add ‘Photo Gallery’ to any post/pages of your choice.
 
 == Description ==
-This plugin is alternative of ACF Gallery Pro. We are just a lightweight extension of Advanced Custom Field (ACF) that adds ‘Photo Gallery’ field to any post/pages on your WordPress website.
+This plugin is alternative of ACF Gallery Pro. 
+
+We are just a lightweight extension of Advanced Custom Field (ACF) that adds ‘Photo Gallery’ field to any post/pages on your WordPress website.
 
 * Visually create your Fields
 * Add multiple photos and you can also modify title, caption and link to anything
@@ -68,6 +70,7 @@ You can use ACF helper function `get_field`
 = Compatibility =
 This ACF field type is compatible with:
 * ACF 4
+* ACF 5 (Coming Soon)
 
 = Issues =
 We have tested this plugins amongst the latest version of WordPress and famous themes and plugins. Just like any other WordPress plugin, this plugin can also cause issues with other themes and plugins. If you are facing issues making this plugin work on your WordPress site, please do ask for help in the support forum. This way we can help you out and prevent this issue from happening to someone else.
@@ -80,10 +83,11 @@ If you want to talk to me directly, you can contact me via my website <https://w
 3. Create a new field via ACF and select the Photo Gallery type
 4. Please refer to the description for more info regarding the field type settings
 
-== FAQ ==
-*	[Tutorial 1 - Installing and Basic Usage ](https://youtu.be/MBBE7R-JQOw)
-
 == Changelog ==
+=1.6.2=
+* [Bugfix] Pull caption attachment caption using add filters
+* [Bugfix] PHP 7.2 count() error 
+
 =1.6.1=
 * [Bugfix] Edit image box disappears on click of pencil edit button reported by @rickytoof9
 
