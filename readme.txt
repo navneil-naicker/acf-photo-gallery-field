@@ -1,8 +1,9 @@
-=== ACF Photo Gallery Field ===
+﻿=== ACF Photo Gallery Field ===
 Contributors: navzme
 Tags: acf, advanced, custom, fields, photo, gallery, album, fancybox, litebox, lightbox
 Requires at least: 3.8
 Tested up to: 4.9.6
+Stable tag: 1.6.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -67,6 +68,10 @@ You can use ACF helper function `get_field`
 `get_field('photo_gallery_alt', $id);`
 `get_field('photo_gallery_class', $id);`
 
+= Pull caption from attachment caption field =
+By default the caption is being pulled from description field. Add the following filter to your `function.php` to pull the caption from attachment caption field.
+`add_filter( 'acf_photo_gallery_caption_from_attachment', '__return_true' );`
+
 = Compatibility =
 This ACF field type is compatible with:
 * ACF 4
@@ -85,6 +90,7 @@ If you want to talk to me directly, you can contact me via my website <https://w
 
 == Changelog ==
 =1.6.2=
+* [Bugfix] Keep data synced with the attachment data
 * [Bugfix] Pull caption attachment caption using add filters
 * [Bugfix] PHP 7.2 count() error 
 

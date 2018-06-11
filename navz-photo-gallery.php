@@ -167,7 +167,5 @@ add_filter( 'acf_photo_gallery_image_fields', 'acf_photo_gallery_image_fields', 
 
 
 
-
-
 	
 ?>
