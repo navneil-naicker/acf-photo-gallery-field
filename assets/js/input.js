@@ -4,6 +4,19 @@
         //$el.doStuff();
     }
 
+    function remove($btn) {
+        var url = $btn.attr('href');
+        var id = $btn.attr('data-id');
+        var field = $btn.attr('data-field');
+
+        $.get(url, function() {
+            $('#acf-' + field + ' #acf-photo-gallery-mediabox-' + id).fadeOut('fast').remove();
+            if ($('#acf-' + field + ' .acf-photo-gallery-metabox-list li').length < 1) {
+                $('#acf-' + field + ' .acf-photo-gallery-metabox-list').append('<li class="acf-photo-gallery-media-box-placeholder"><span class="dashicons dashicons-format-image"></span></li>');
+            }
+        });
+    }
+
     $(document).ready(function() {
         $(".acf-photo-gallery-metabox-list").sortable({
             containment: "parent",
@@ -41,7 +54,10 @@
         return html;
     }
 
-    function acf_photo_gallery_html(attachment, field) {
+    /**
+     * @param {{ index: number, splice: number }} options
+     */
+    function acf_photo_gallery_html(attachment, field, options) {
         var html, id, url, title, caption;
         id = attachment.id;
         url = attachment.url;
@@ -54,7 +70,21 @@
 
         html = acf_photo_gallery_edit(id, url, title, caption);
         $('#acf-' + field + ' .acf-photo-gallery-metabox-edit').append(html);
-        $('#acf-' + field + ' .acf-photo-gallery-metabox-list').prepend('<li id="acf-photo-gallery-mediabox-' + id + '" data-id="' + id + '"><a class="dashicons dashicons-edit" href="#" title="Edit" data-id="' + id + '"></a><a class="dashicons dashicons-dismiss" href="#" data-id="' + id + '" data-field="' + field + '" title="Remove this photo from the gallery"></a><input type="hidden" name="' + field + '[]" value="' + id + '"/><img src="' + url + '"/></li>');
+
+        var $list = $('#acf-' + field + ' .acf-photo-gallery-metabox-list');
+
+        html = '<li id="acf-photo-gallery-mediabox-' + id + '" data-id="' + id + '"><a class="dashicons dashicons-edit" href="#" title="Edit" data-id="' + id + '"></a><a class="dashicons dashicons-dismiss" href="#" data-id="' + id + '" data-field="' + field + '" title="Remove this photo from the gallery"></a><input type="hidden" name="' + field + '[]" value="' + id + '"/><img src="' + url + '"/></li>';
+
+        if (options.index) {
+            var $cursor = $list.children().eq(options.index);
+            $cursor.before(html);
+
+            if (options.splice) {
+                $cursor.remove();
+            }
+        } else {
+            $list.prepend(html);
+        }
     }
 
     function acf_photo_gallery_add_media($el) {
@@ -71,7 +101,10 @@
                     var pre_selected = pre_selected_list.length;
 
                     wp.media.editor.send.attachment = function(props, attachment){
-                        acf_photo_gallery_html(attachment, field);
+                        acf_photo_gallery_html(attachment, field, {
+                            index: 0,
+                            splice: 0
+                        });
                     };
 
                     wp.media.editor.open( button, function(){} );                    
@@ -95,16 +128,8 @@
     }
 
     $(document).on('click', '.acf-photo-gallery-metabox-list .dashicons-dismiss', function() {
-        var url = $(this).attr('href');
-        var id = $(this).attr('data-id');
-        var field = $(this).attr('data-field');
         if (confirm('You are about to remove this photo from the gallery. Are you sure?')) {
-            $.get(url, function(data) {
-                $('#acf-' + field + ' #acf-photo-gallery-mediabox-' + id).fadeOut('fast').remove();  
-                if ($('#acf-' + field + ' .acf-photo-gallery-metabox-list li').length < 1) {
-                    $('#acf-' + field + ' .acf-photo-gallery-metabox-list').append('<li class="acf-photo-gallery-media-box-placeholder"><span class="dashicons dashicons-format-image"></span></li>');
-                }
-            });
+            remove($(this));
         }
         return false;
     });
@@ -139,10 +164,53 @@
     });
 
     $(document).on('click', '.acf-photo-gallery-metabox-list .dashicons-edit', function() {
-        var id, field;
-        id = $(this).attr('data-id');
-        field = $(this).attr('data-field');
-        $('#acf-' + field + ' #acf-photo-gallery-metabox-edit-' + id).fadeToggle('fast');
+        var $btn = $(this);
+        var id = $btn.attr('data-id');
+        var field = $btn.attr('data-field');
+        var modal = $btn.closest('.field').find('[name="acf-photo-gallery-edit-modal"]').val();
+        var index = $btn.closest('li').index();
+        var $list = $btn.closest('ul');
+
+        if (modal === 'Native') {
+            wp.media.editor.send.attachment = function(_, attachment){
+                acf_photo_gallery_html(attachment, field, {
+                    index: index,
+                    splice: 1
+                });
+            };
+
+            var editor = wp.media.editor.open($btn, function() {}).state();
+            editor.set('menu', false);
+
+            var selection = editor.get('selection');
+            selection.multiple = false;
+            selection.reset([wp.media.attachment(id)]);
+
+            /**
+             * @param {{ id: number }} deleted
+             */
+            var handleDestroy = function (deleted) {
+                $list.children().each(function () {
+                    var $elem = $(this);
+
+                    if ($elem.data('id') === deleted.id) {
+                        remove($elem.find('.dashicons-dismiss'));
+                    }
+                });
+            };
+
+            var library = editor.get('library');
+            library.on('destroy', handleDestroy);
+
+            editor.on('close', function () {
+                library.off('destroy', handleDestroy);
+            });
+
+            $('#acf-' + field + ' .acf-photo-gallery-metabox-list li.acf-photo-gallery-media-box-placeholder').remove();
+        } else {
+            $('#acf-' + field + ' #acf-photo-gallery-metabox-edit-' + id).fadeToggle('fast');
+        }
+
         return false;
     });
 

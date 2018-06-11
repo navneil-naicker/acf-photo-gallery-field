@@ -170,6 +170,7 @@ class acf_field_photo_gallery extends acf_field {
 		$this->defaults = array(
 			// add default here to merge into your field.
 			// This makes life easy when creating the field options as you don't need to use any if( isset('') ) logic. eg:
+			'edit_modal' => 'Default',
 			//'preview_size' => 'thumbnail'
 		);
 
@@ -201,16 +202,32 @@ class acf_field_photo_gallery extends acf_field {
 	*  @param	$field	- an array holding all the field's data
 	*/
 
-	function test_create_options( $field ){
-		// defaults?
-		/*
+	function create_options( $field ){
 		$field = array_merge($this->defaults, $field);
-		*/
 
 		// key is needed in the field names to correctly save the data
 		$key = $field['name'];
 
 		// Create Field Options HTML
+?>
+	<tr class="field_option field_option_<?php echo $this->name; ?>">
+		<td class="label">
+			<label><?php _e("Edit modal",'acf'); ?></label>
+			<p class="description"><?php _e("Native lets you delete permanently or select another, but is heavier",'acf'); ?></p>
+		</td>
+		<td>
+		<?php
+			do_action('acf/create_field', array(
+				'type'		=>	'select',
+				'name'		=>	'fields['.$key.'][edit_modal]',
+				'value'		=>	$field['edit_modal'],
+				'choices'	=>	array('Default' => 'Default', 'Native' => 'Native')
+			));
+		?>
+		</td>
+	</tr>
+<?php }
+/*
 ?>
 	<tr class="field_option field_option_<?php echo $this->name; ?>">
 		<td class="label">
@@ -229,6 +246,7 @@ class acf_field_photo_gallery extends acf_field {
 		</td>
 	</tr>
 <?php }
+*/
 
 	/*
 	*  create_field()
@@ -250,6 +268,7 @@ class acf_field_photo_gallery extends acf_field {
 		$_name = get_post_meta($post->ID, str_replace('acf-field-', '', $field['id']), true );
 	?>
 		<div id="acf-photo-gallery-metabox">
+			<input type="hidden" name="acf-photo-gallery-edit-modal" value="<?php echo empty($field['edit_modal']) ? 'Default' : $field['edit_modal']; ?>" />
     		<input type="hidden" name="acf-photo-gallery-field" value="<?php echo $field['key']; ?>"/>
     		<input type="hidden" name="acf-photo-gallery-field-id[]" value="<?php echo str_replace('acf-field-', '', $field['id']); ?>"/>
     		<!---<input type="hidden" name="acf-photo-gallery-field-max" value="<?php //echo $field['max']; ?>"/>-->
