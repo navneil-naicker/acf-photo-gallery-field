@@ -208,6 +208,7 @@
 
             $('#acf-' + field + ' .acf-photo-gallery-metabox-list li.acf-photo-gallery-media-box-placeholder').remove();
         } else {
+            console.log(field);
             $('#acf-' + field + ' #acf-photo-gallery-metabox-edit-' + id).fadeToggle('fast');
         }
 
