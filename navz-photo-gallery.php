@@ -95,98 +95,13 @@ new acf_plugin_photo_gallery();
 endif;
 
 //Helper function for pulling the images
-function acf_photo_gallery($field = null, $post_id){
-	$images = get_post_meta($post_id, $field, true);
-	$images = explode(',', $images);
-	$args = array( 'post_type' => 'attachment', 'posts_per_page' => -1, 'post__in' => $images, 'orderby' => 'post__in' ); 
-	$images = get_posts( $args );
-	$images = array_filter($images);
-	$array = array();
-	if( count($images) ):
-		foreach($images as $image):
-			$title = $image->post_title;
-			$content = $image->post_content;
-			$full_url = wp_get_attachment_url($image->ID);
-			$thumbnail_url = wp_get_attachment_thumb_url($image->ID);
-			$meta_data = wp_get_attachment_metadata($image->ID);
-			$large_srcset = wp_get_attachment_image_srcset( $image->ID,'large', $meta_data);
-			$medium_srcset = wp_get_attachment_image_srcset( $image->ID,'medium', $meta_data);
-			$url = get_post_meta($image->ID, $field . '_url', true);
-			$target = get_post_meta($image->ID, $field . '_target', true);
-			$array[] = array(
-				'id' => $image->ID,
-				'title' => $title,
-				'caption' => $content,
-				'full_image_url' => $full_url,
-				'thumbnail_image_url' => $thumbnail_url,
-				'large_srcset' => $large_srcset,
-				'medium_srcset' => $medium_srcset,
-				'url' => $url,
-				'target' => $target
-			);
-		endforeach;
-	endif;
-	return $array;
-}
+require_once( dirname(__FILE__) . '/includes/acf_photo_gallery.php' );
 
 //Resizes the image
-function acf_photo_gallery_resize_image( $img_url, $width = 150, $height = 150){
-	if( !function_exists('aq_resize') ){
-		require_once( dirname(__FILE__) . '/aq_resizer.php');
-	}
-	$extension = explode('.', $img_url);
-	$extension = strtolower(end($extension));
-	if( $extension != 'svg' ){
-		$img_url = aq_resize( $img_url, $width, $height, true, true, true);
-	}
-	return $img_url;
-}
+require_once( dirname(__FILE__) . '/includes/acf_photo_gallery_resize_image.php' );
 
 //Set the default fields for the edit gallery
-function acf_photo_gallery_image_fields( $args, $attachment_id, $field){
-	return array(
-		'url' => array('type' => 'text', 'label' => 'URL', 'name' => 'url', 'value' => ($args['url'])?$args['url']:null),
-		'target' => array('type' => 'checkbox', 'label' => 'Open in new tab', 'name' => 'target', 'value' => ($args['target'])?$args['target']:null),
-		'title' => array('type' => 'text', 'label' => 'Title', 'name' => 'title', 'value' => ($args['title'])?$args['title']:null),
-		'caption' => array('type' => 'textarea', 'label' => 'Caption', 'name' => 'caption', 'value' => ($args['caption'])?$args['caption']:null)
-	);
-}
-add_filter( 'acf_photo_gallery_image_fields', 'acf_photo_gallery_image_fields', 10, 3 );
+require_once( dirname(__FILE__) . '/includes/acf_photo_gallery_image_fields.php' );
 
 //Metabox for the photo edit
-function acf_photo_gallery_edit($field, $nonce, $attachment, $url = '', $title, $caption, $target = 0){
-	$args = array();
-	$args['url'] = $url;
-	$args['title'] = $title;
-	$args['caption'] = $caption;
-	$args['target'] = $target;
-	$filter_fields = apply_filters( 'acf_photo_gallery_image_fields', $args, $attachment, $field );
-?>
-	<div id="acf-photo-gallery-metabox-edit-<?php echo $attachment; ?>" class="acf-edit-photo-gallery">
-		<h3>Edit Image</h3>
-		<input class="acf-photo-gallery-edit-field" type="hidden" name="acf-pg-hidden-field" value="<?php echo $field; ?>"/>
-		<input class="acf-photo-gallery-edit-field" type="hidden" name="acf-pg-hidden-post" value="<?php echo $_GET['post']; ?>"/>
-		<input class="acf-photo-gallery-edit-field" type="hidden" name="acf-pg-hidden-attachment" value="<?php echo $attachment; ?>"/>
-		<input class="acf-photo-gallery-edit-field" type="hidden" name="acf-pg-hidden-action" value="acf_photo_gallery_edit_save"/>
-		<input class="acf-photo-gallery-edit-field" type="hidden" name="acf-pg-hidden-nonce" value="<?php echo $nonce; ?>"/>
-		<?php
-			foreach( $filter_fields as $key => $item ){
-				$type = ($item['type'])?$item['type']:null;
-				$label = $item['label']?$item['label']:null;
-				$name = $item['name']?$item['name']:null;
-				$value = $item['value']?$item['value']:null;
-		?>
-			<?php if( $type == 'text' ){ ?>
-			<label><?php echo $label; ?></label><input class="acf-photo-gallery-edit-field" type="<?php echo $type; ?>" name="<?php echo $name; ?>" value="<?php echo $value; ?>"/>
-			<?php } else if( $type == 'checkbox' ){ ?>
-			<label><input class="acf-photo-gallery-edit-field" type="checkbox" name="target" value="<?php echo $value; ?>" <?php if( $target == 'true' ){?> checked<?php } ?>/><?php echo $label; ?></label>
-			<?php } else if( $type == 'textarea' ){ ?>
-			<label><?php echo $label; ?></label><textarea class="acf-photo-gallery-edit-field" name="<?php echo $name; ?>"><?php echo $value; ?></textarea>
-			<?php } ?>
-		<?php } ?>
-		<div class="save-changes-wrap">
-			<button class="button button-primary button-large" type="submit" data-id="<?php echo $attachment; ?>">Save Changes</button>
-			<button class="button button-large button-close" type="button" data-close="<?php echo $attachment; ?>">Close</button>
-		</div>
-	</div>
-<?php }
+require_once( dirname(__FILE__) . '/includes/acf_photo_gallery_edit.php' );
