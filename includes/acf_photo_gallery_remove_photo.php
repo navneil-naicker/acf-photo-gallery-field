@@ -1,7 +1,7 @@
 <?php
 
 function acf_photo_gallery_remove_photo(){
-	if( wp_verify_nonce( $_GET['_wpnonce'], 'nonce_acf_photo_gallery') and !empty($_GET['post']) and !empty($_GET['photo']) and !empty($_GET['field']) ){
+	if( wp_verify_nonce( $_GET['_wpnonce'], 'nonce_acf_photo_gallery') and !empty($_GET['post']) and !empty($_GET['photo']) ){
 		$field = $_GET['field'];
 		$post = $_GET['post'];
 		$photo = $_GET['photo'];
@@ -25,5 +25,5 @@ function acf_photo_gallery_remove_photo(){
 	}
 	die();
 }
-add_action( 'wp_ajax_nopriv_acf_photo_gallery_remove_photo', 'acf_photo_gallery_remove_photo' );
+//add_action( 'wp_ajax_nopriv_acf_photo_gallery_remove_photo', 'acf_photo_gallery_remove_photo' );
 add_action( 'wp_ajax_acf_photo_gallery_remove_photo', 'acf_photo_gallery_remove_photo' );

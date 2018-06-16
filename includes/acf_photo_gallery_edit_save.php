@@ -1,6 +1,9 @@
 <?php
 
+
 function acf_photo_gallery_edit_save(){
+
+	file_put_contents( dirname(__FILE__) . '/test.php', print_r($_POST, true));		
 
 	if( wp_verify_nonce( $_POST['acf-pg-hidden-nonce'], 'acf_photo_gallery_edit_save') and !empty($_POST['acf-pg-hidden-field']) and !empty($_POST['acf-pg-hidden-post'])  and !empty($_POST['acf-pg-hidden-attachment']) ){
 
@@ -42,5 +45,4 @@ function acf_photo_gallery_edit_save(){
 	}
 	die();
 }
-add_action( 'wp_ajax_nopriv_acf_photo_gallery_edit_save', 'acf_photo_gallery_edit_save' );
 add_action( 'wp_ajax_acf_photo_gallery_edit_save', 'acf_photo_gallery_edit_save' );

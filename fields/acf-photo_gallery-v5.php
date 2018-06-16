@@ -12,99 +12,92 @@ require_once( dirname(dirname(__FILE__)) . '/includes/acf_photo_gallery_remove_p
 //Editing and saving photo details
 require_once( dirname(dirname(__FILE__)) . '/includes/acf_photo_gallery_edit_save.php' );
 
-
 // check if class already exists
 if( !class_exists('acf_field_photo_gallery') ) :
 
+	class acf_field_photo_gallery extends acf_field {
+		
+		
+		/*
+		*  __construct
+		*
+		*  This function will setup the field type data
+		*
+		*  @type	function
+		*  @date	5/03/2014
+		*  @since	5.0.0
+		*
+		*  @param	n/a
+		*  @return	n/a
+		*/
+		
+		function __construct( $settings )
+		{
+			require_once( dirname(dirname(__FILE__)) . '/includes/__construct.php' );			
+		}
 
-class acf_field_photo_gallery extends acf_field {
-	
-	
-	/*
-	*  __construct
-	*
-	*  This function will setup the field type data
-	*
-	*  @type	function
-	*  @date	5/03/2014
-	*  @since	5.0.0
-	*
-	*  @param	n/a
-	*  @return	n/a
-	*/
-	
-	function __construct( $settings )
-	{
-		require_once( dirname(dirname(__FILE__)) . '/includes/__construct.php' );    	
+
+		/*
+		*  render_field_settings()
+		*
+		*  Create extra settings for your field. These are visible when editing a field
+		*
+		*  @type	action
+		*  @since	3.6
+		*  @date	23/01/13
+		*
+		*  @param	$field (array) the $field being edited
+		*  @return	n/a
+		*/
+
+		function render_field_settings( $field )
+		{
+			require_once( dirname(dirname(__FILE__)) . '/includes/v5/render_field_settings.php' );
+		}
+
+		
+		/*
+		*  render_field()
+		*
+		*  Create the HTML interface for your field
+		*
+		*  @param	$field (array) the $field being rendered
+		*
+		*  @type	action
+		*  @since	3.6
+		*  @date	23/01/13
+		*
+		*  @param	$field (array) the $field being edited
+		*  @return	n/a
+		*/
+		
+		function render_field( $field )
+		{
+			require_once( dirname(dirname(__FILE__)) . '/includes/v5/render_field.php' );
+		}
+		
+			
+		/*
+		*  input_admin_enqueue_scripts()
+		*
+		*  This action is called in the admin_enqueue_scripts action on the edit screen where your field is created.
+		*  Use this action to add CSS + JavaScript to assist your create_field() action.
+		*
+		*  $info	http://codex.wordpress.org/Plugin_API/Action_Reference/admin_enqueue_scripts
+		*  @type	action
+		*  @since	3.6
+		*  @date	23/01/13
+		*/
+
+		function input_admin_enqueue_scripts()
+		{
+			require_once( dirname(dirname(__FILE__)) . '/includes/input_admin_enqueue_scripts.php' );
+		}
+				
 	}
-	
-	
-	/*
-	*  render_field_settings()
-	*
-	*  Create extra settings for your field. These are visible when editing a field
-	*
-	*  @type	action
-	*  @since	3.6
-	*  @date	23/01/13
-	*
-	*  @param	$field (array) the $field being edited
-	*  @return	n/a
-	*/
-	
-	function render_field_settings( $field )
-	{
-		require_once( dirname(dirname(__FILE__)) . '/includes/create_options.php' );
-	}
-	
-	
-	/*
-	*  render_field()
-	*
-	*  Create the HTML interface for your field
-	*
-	*  @param	$field (array) the $field being rendered
-	*
-	*  @type	action
-	*  @since	3.6
-	*  @date	23/01/13
-	*
-	*  @param	$field (array) the $field being edited
-	*  @return	n/a
-	*/
-	
-	function render_field( $field )
-	{
-		require_once( dirname(dirname(__FILE__)) . '/includes/create_field.php' );
-	}
-	
 
-	/*
-	*  input_admin_enqueue_scripts()
-	*
-	*  This action is called in the admin_enqueue_scripts action on the edit screen where your field is created.
-	*  Use this action to add CSS + JavaScript to assist your render_field() action.
-	*
-	*  @type	action (admin_enqueue_scripts)
-	*  @since	3.6
-	*  @date	23/01/13
-	*
-	*  @param	n/a
-	*  @return	n/a
-	*/
-	
-	function input_admin_enqueue_scripts() {
-		require_once( dirname(dirname(__FILE__)) . '/includes/input_admin_enqueue_scripts.php' );		
-	}
-
-}
-
-
-// initialize
-new acf_field_photo_gallery( $this->settings );
-
+	// initialize
+	new acf_field_photo_gallery( $this->settings );
 
 // class_exists check
 endif;
-
-?>

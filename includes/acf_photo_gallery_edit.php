@@ -31,7 +31,7 @@ function acf_photo_gallery_edit($field, $nonce, $attachment, $url = '', $title, 
 			<?php } ?>
 		<?php } ?>
 		<div class="save-changes-wrap">
-			<button class="button button-primary button-large" type="submit" data-id="<?php echo $attachment; ?>">Save Changes</button>
+			<button class="button button-primary button-large" type="submit" data-id="<?php echo $attachment; ?>" data-ajaxurl="<?php echo admin_url('admin-ajax.php'); ?>">Save Changes</button>
 			<button class="button button-large button-close" type="button" data-close="<?php echo $attachment; ?>">Close</button>
 		</div>
 	</div>
