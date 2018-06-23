@@ -127,6 +127,12 @@
         $('#acf-photo-gallery-metabox-edit-' + attachment + ' .acf-photo-gallery-edit-field').each(function(i, obj) {
             if (obj.name == 'acf-pg-hidden-action') {
                 form['action'] = obj.value;
+            } else if( obj.type == 'checkbox'){
+                if( $(this).prop("checked") ){
+                    form[obj.name] = obj.value;
+                } else {
+                    form[obj.name] = null;
+                }
             } else {
                 form[obj.name] = obj.value;
             }
@@ -135,6 +141,7 @@
         button = $(this);
         button.attr('disabled', true).html('Saving...');
         $.post(url, form, function(data) {
+            console.log(form);
             button.attr('disabled', false).html('Save Changes');
             $('#acf-photo-gallery-metabox-edit #acf-photo-gallery-metabox-edit-' + attachment).fadeOut('fast');
         });

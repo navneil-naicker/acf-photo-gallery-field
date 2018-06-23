@@ -9,13 +9,13 @@
     *  Please note that you must also have a matching $defaults value for the field name (font_size)
     */
 
-    $key = $field['name'];
-    $value = $field['fields[gallery_images'];
+    $name = $field['name'];
+    $value = $field['fields['.$name];
 
     acf_render_field_setting( $field, array(
         'label'			=> __('Edit modal','TEXTDOMAIN'),
         'type'          => 'select',
-        'name'          => 'fields['.$key.'][edit_modal]',
+        'name'          => 'fields['.$name.'][edit_modal]',
         'value'         => $value,
         'choices'       => array('Default' => 'Default', 'Native' => 'Native')
     ));

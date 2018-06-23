@@ -224,10 +224,6 @@ if(!class_exists('Aq_Resize')) {
     }
 }
 
-
-
-
-
 if(!function_exists('aq_resize')) {
 
     /**
