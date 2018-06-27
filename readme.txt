@@ -3,7 +3,7 @@ Contributors: navzme
 Tags: acf, advanced, custom, fields, photo, gallery, album, fancybox, litebox, lightbox
 Requires at least: 3.8
 Tested up to: 4.9.6
-Stable tag: 1.6.2
+Stable tag: 1.6.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -89,6 +89,11 @@ If you want to talk to me directly, you can contact me via my website <https://w
 4. Please refer to the description for more info regarding the field type settings
 
 == Changelog ==
+=1.6.3=
+* [Added] Support for ACF 5
+* [Added] Edit gallery with built-in or WordPress native model
+* [Added] Under the hood improvements of the codebase
+
 =1.6.2=
 * [Bugfix] Keep data synced with the attachment data
 * [Bugfix] Pull caption attachment caption using add filters
