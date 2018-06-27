@@ -73,7 +73,7 @@ if( !class_exists('acf_field_photo_gallery') ) :
 		
 		function render_field( $field )
 		{
-			include( dirname(dirname(__FILE__)) . '/includes/v5/render_field.php' );
+			include( dirname(dirname(__FILE__)) . '/includes/render_field.php' );
 		}
 		
 			
