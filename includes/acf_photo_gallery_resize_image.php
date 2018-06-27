@@ -2,7 +2,7 @@
 
 function acf_photo_gallery_resize_image( $img_url, $width = 150, $height = 150){
 	if( !function_exists('aq_resize') ){
-		require_once( dirname(__FILE__) . '/aq_resizer.php');
+		require_once( dirname(dirname(__FILE__)) . '/aq_resizer.php');
 	}
 	$extension = explode('.', $img_url);
 	$extension = strtolower(end($extension));

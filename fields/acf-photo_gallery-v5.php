@@ -4,13 +4,13 @@
 if( ! defined( 'ABSPATH' ) ) exit;
 
 //Saving the gallery image ids into the database postmeta table in the same order.
-require_once( dirname(dirname(__FILE__)) . '/includes/acf_photo_gallery_save.php' );
+include( dirname(dirname(__FILE__)) . '/includes/acf_photo_gallery_save.php' );
 
 //Remove photo from the database array
-require_once( dirname(dirname(__FILE__)) . '/includes/acf_photo_gallery_remove_photo.php' );
+include( dirname(dirname(__FILE__)) . '/includes/acf_photo_gallery_remove_photo.php' );
 
 //Editing and saving photo details
-require_once( dirname(dirname(__FILE__)) . '/includes/acf_photo_gallery_edit_save.php' );
+include( dirname(dirname(__FILE__)) . '/includes/acf_photo_gallery_edit_save.php' );
 
 // check if class already exists
 if( !class_exists('acf_field_photo_gallery') ) :
@@ -33,7 +33,7 @@ if( !class_exists('acf_field_photo_gallery') ) :
 		
 		function __construct( $settings )
 		{
-			require_once( dirname(dirname(__FILE__)) . '/includes/__construct.php' );			
+			include( dirname(dirname(__FILE__)) . '/includes/__construct.php' );			
 		}
 
 
@@ -52,7 +52,7 @@ if( !class_exists('acf_field_photo_gallery') ) :
 
 		function render_field_settings( $field )
 		{
-			require_once( dirname(dirname(__FILE__)) . '/includes/v5/render_field_settings.php' );
+			include( dirname(dirname(__FILE__)) . '/includes/v5/render_field_settings.php' );
 		}
 
 		
@@ -73,7 +73,7 @@ if( !class_exists('acf_field_photo_gallery') ) :
 		
 		function render_field( $field )
 		{
-			require_once( dirname(dirname(__FILE__)) . '/includes/v5/render_field.php' );
+			include( dirname(dirname(__FILE__)) . '/includes/v5/render_field.php' );
 		}
 		
 			
@@ -91,7 +91,7 @@ if( !class_exists('acf_field_photo_gallery') ) :
 
 		function input_admin_enqueue_scripts()
 		{
-			require_once( dirname(dirname(__FILE__)) . '/includes/input_admin_enqueue_scripts.php' );
+			include( dirname(dirname(__FILE__)) . '/includes/input_admin_enqueue_scripts.php' );
 		}
 				
 	}
