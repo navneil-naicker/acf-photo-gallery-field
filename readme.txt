@@ -91,8 +91,9 @@ If you want to talk to me directly, you can contact me via my website <https://w
 == Changelog ==
 =1.6.3=
 * [Added] Support for ACF 5
-* [Added] Edit gallery with built-in or WordPress native model
+* [Added] Edit gallery with built-in or WordPress native model. Thanks to Github @makepost
 * [Added] Under the hood improvements of the codebase
+* [Added] Support for RESTFul API with ACF to REST API plugin
 
 =1.6.2=
 * [Bugfix] Keep data synced with the attachment data
