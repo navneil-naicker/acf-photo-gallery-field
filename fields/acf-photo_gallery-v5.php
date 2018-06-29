@@ -3,6 +3,8 @@
 // exit if accessed directly
 if( ! defined( 'ABSPATH' ) ) exit;
 
+if( !defined('ACF_VERSION') ){ define('ACF_VERSION', $version); }
+
 //Saving the gallery image ids into the database postmeta table in the same order.
 include( dirname(dirname(__FILE__)) . '/includes/acf_photo_gallery_save.php' );
 

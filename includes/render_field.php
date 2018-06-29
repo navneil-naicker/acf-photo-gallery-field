@@ -1,11 +1,18 @@
 <?php
     // create Field HTML
-    global $post;
+    global $post;    
     $nonce_acf_photo_gallery = wp_create_nonce( 'nonce_acf_photo_gallery' );
-    $filename = $field['_name'];
-    $value = $field['value'];
-    $key = $field['key'];
-    $edit_model = (!empty($field['fields[' . $filename]['edit_modal']))?$field['fields[' . $filename]['edit_modal']:'Default';
+    if( ACF_VERSION >= 4 and ACF_VERSION < 5 ){
+        $filename = $field['_name'];
+        $value = $field['value'];
+        $key = $field['key'];
+        $edit_model = (!empty($field['edit_modal']))?$field['edit_modal']:'Default';
+    } else if( ACF_VERSION >= 5 and ACF_VERSION < 6 ){
+        $filename = $field['_name'];
+        $value = $field['value'];
+        $key = $field['key'];
+        $edit_model = (!empty($field['fields[' . $filename]['edit_modal']))?$field['fields[' . $filename]['edit_modal']:'Default';    
+    }
 ?>
 <div class="acf-photo-gallery-group-<?php echo $key; ?>">
     <input type="hidden" name="acf-photo-gallery-edit-modal" value="<?php echo $edit_model; ?>" />

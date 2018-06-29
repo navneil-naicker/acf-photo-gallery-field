@@ -4,7 +4,6 @@
 $url = $this->settings['url'];
 $version = $this->settings['version'];
 
-
 // register & include JS
 wp_enqueue_script( 'jquery-ui-sortable' );
 wp_register_script( 'acf-input-photo_gallery', "{$url}assets/js/acf-photo-gallery-field.js", array('acf-input'), $version );
