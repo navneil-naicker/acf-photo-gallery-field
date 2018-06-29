@@ -54,14 +54,22 @@ if( !class_exists('acf_plugin_photo_gallery') ) :
 			add_action('acf/include_field_types', 	array($this, 'include_field_types')); // v5
 			add_action('acf/register_fields', 		array($this, 'include_field_types')); // v4
 
-			add_filter( 'acf_photo_gallery_caption_from_attachment', '__return_false' ); 
+			add_filter( 'acf_photo_gallery_caption_from_attachment', '__return_false' );
 		
+			// Enable the option show in rest
+			add_filter( 'acf/rest_api/field_settings/show_in_rest', '__return_true' );
+
+			// Enable the option edit in rest
+			add_filter( 'acf/rest_api/field_settings/edit_in_rest', '__return_true' );
+
+			//Get ACF Photo Gallery images as JSON object
+			add_filter( 'acf/rest_api/page/get_fields', array($this, 'acf_to_rest_api'), 10, 3 );
+
 		}
 		
+		//Add in jquery-ui-sortable script
 		function acf_photo_gallery_sortable($hook) {
-			if ( 'post.php' == $hook ) {
-				wp_enqueue_script( 'jquery-ui-sortable', 'jquery-ui-sortable', 'jquery', '9999', true);
-			}
+			if ( 'post.php' == $hook ) { wp_enqueue_script( 'jquery-ui-sortable', 'jquery-ui-sortable', 'jquery', '9999', true); }
 		}
 
 		/*
@@ -85,6 +93,20 @@ if( !class_exists('acf_plugin_photo_gallery') ) :
 			// include
 			include_once('fields/acf-photo_gallery-v' . $version . '.php');
 			
+		}
+
+		//Callback function that will get ACF Photo Gallery images as JSON object
+		function acf_to_rest_api( $data, $request ) {
+			$attributes = $request->get_params();
+			if( !empty($attributes['type']) and  $attributes['type'] == 'photo_gallery' ){
+				$post_id = $attributes['id'];
+				$field = $attributes['field'];
+				$type = $attributes['type'];
+				$order = (!empty($attributes['order']))?$attributes['order']:null;
+				$orderby = (!empty($attributes['orderby']))?$attributes['orderby']:null;
+				$data = acf_photo_gallery_make_images($data[$field], $field, $post_id, $order, $orderby);
+			}
+			return $data;
 		}
 		
 	}

@@ -1,5 +1,6 @@
 <?php
 
+//Helper function that makes the images into a resuable array
 function acf_photo_gallery_make_images($images, $field, $post_id, $order = 'ASC', $orderby = 'post__in'){
 	global $wpdb;
 	if( !is_array($images) ){ $images = explode(',', $images); }
