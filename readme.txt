@@ -12,7 +12,7 @@ A cool plugin that extends the Advanced Custom Fields (ACF) functionality to add
 == Description ==
 This plugin is alternative of ACF Gallery Pro. 
 
-We are just a lightweight extension of Advanced Custom Field (ACF) that adds ‘Photo Gallery’ field to any post/pages on your WordPress website.
+A lightweight extension of Advanced Custom Field (ACF) that adds ‘Photo Gallery’ field to any post/pages on your WordPress website.
 
 * Visually create your Fields
 * Add multiple photos and you can also modify title, caption and link to anything
@@ -22,11 +22,16 @@ We are just a lightweight extension of Advanced Custom Field (ACF) that adds ‘
 * Uses the native WordPress metadata for ease of use and fast processing
 
 = Usage =
+`acf_photo_gallery` is a helper function that will query the database and compile the images for you. The output of this function will be an array.
+
+`acf_photo_gallery('<ACF_FIELD_NAME>', $post->ID);`
+
+= Example =
 The following example is using Twitter Bootstrap framework to layout. You can use any framework of your choice.
 
 `<?php
 	//Get the images ids from the post_metadata
-	$images = acf_photo_gallery('gallery_images', $post->ID);
+	$images = acf_photo_gallery('<ACF_FIELD_NAME>', $post->ID);
 	//Check if return array has anything in it
 	if( count($images) ):
 		//Cool, we got some data so now let's loop over it
@@ -70,16 +75,16 @@ You can use ACF helper function `get_field`
 
 = Pull caption from attachment caption field =
 By default the caption is being pulled from description field. Add the following filter to your `function.php` to pull the caption from attachment caption field.
+
 `add_filter( 'acf_photo_gallery_caption_from_attachment', '__return_true' );`
 
 = Compatibility =
 This ACF field type is compatible with:
 * ACF 4
-* ACF 5 (Coming Soon)
+* ACF 5
 
 = Issues =
-We have tested this plugins amongst the latest version of WordPress and famous themes and plugins. Just like any other WordPress plugin, this plugin can also cause issues with other themes and plugins. If you are facing issues making this plugin work on your WordPress site, please do ask for help in the support forum. This way we can help you out and prevent this issue from happening to someone else.
-If you want to talk to me directly, you can contact me via my website <https://www.navz.me/>
+Just like any other WordPress plugin, this plugin can also cause issues with other themes and plugins. If you are facing issues making this plugin work on your WordPress site, please do ask for help in the support forum. This way we can help you out and prevent this issue from happening to someone else. If you want to talk to me directly, you can contact me via my website <http://www.navz.me/>
 
 == Installation ==
 
