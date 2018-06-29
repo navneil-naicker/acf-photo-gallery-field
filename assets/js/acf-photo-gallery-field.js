@@ -141,7 +141,6 @@
         button = $(this);
         button.attr('disabled', true).html('Saving...');
         $.post(url, form, function(data) {
-            console.log(form);
             button.attr('disabled', false).html('Save Changes');
             $('#acf-photo-gallery-metabox-edit #acf-photo-gallery-metabox-edit-' + attachment).fadeOut('fast');
         });
@@ -152,9 +151,9 @@
         var $btn = $(this);
         var id = $btn.attr('data-id');
         var field = $btn.attr('data-field');
-        var modal = $btn.closest('.field').find('[name="acf-photo-gallery-edit-modal"]').val();
-        var index = $btn.closest('li').index();
-        var $list = $btn.closest('ul');
+        var modal = $('.acf-photo-gallery-group-' + field + ' input[name="acf-photo-gallery-edit-modal"]').val();
+        var $list = $('.acf-photo-gallery-group-' + field + ' ul.acf-photo-gallery-metabox-list');
+        var index = $('.acf-photo-gallery-group-' + field + ' ul.acf-photo-gallery-metabox-list li').index();
 
         if (modal === 'Native') {
             wp.media.editor.send.attachment = function(_, attachment){
