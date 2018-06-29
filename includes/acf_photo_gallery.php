@@ -1,9 +1,9 @@
 <?php
 
-function acf_photo_gallery($field = null, $post_id, $order = 'ASC', $orderby = 'post__in'){
-	$images = get_post_meta($post_id, $field, true);
-	$images = explode(',', $images);
-	$args = array( 'post_type' => 'attachment', 'posts_per_page' => -1, 'post__in' => $images, 'order' => $order, 'orderby' => $orderby ); 
+function acf_photo_gallery_make_images($images, $field, $post_id, $order = 'ASC', $orderby = 'post__in'){
+	global $wpdb;
+	if( !is_array($images) ){ $images = explode(',', $images); }
+	$args = array( 'post_type' => 'attachment', 'posts_per_page' => -1, 'post__in' => $images, 'order' => $order, 'orderby' => $orderby );
 	$images = get_posts( $args );
 	$images = array_filter($images);
 	$array = array();
@@ -32,4 +32,9 @@ function acf_photo_gallery($field = null, $post_id, $order = 'ASC', $orderby = '
 		endforeach;
 	endif;
 	return $array;
+}
+
+function acf_photo_gallery($field = null, $post_id, $order = 'ASC', $orderby = 'post__in'){
+	$images = get_post_meta($post_id, $field, true);
+	return acf_photo_gallery_make_images($images, $field, $post_id, $order, $orderby);
 }
