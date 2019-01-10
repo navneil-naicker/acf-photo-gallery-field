@@ -3,7 +3,7 @@
 Plugin Name: ACF Photo Gallery Field
 Plugin URI: http://www.navz.me/
 Description: An extension for Advance Custom Fields which lets you add photo gallery functionality on your websites.
-Version: 1.6.3
+Version: 1.6.4
 Author: Navneil Naicker
 Author URI: http://www.navz.me/
 License: GPLv2 or later

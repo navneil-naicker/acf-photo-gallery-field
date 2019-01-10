@@ -3,16 +3,15 @@ Contributors: navzme
 Tags: acf, advanced, custom, fields, photo, gallery, album, fancybox, litebox, lightbox
 Requires at least: 3.8
 Tested up to: 4.9.6
-Stable tag: 1.6.3
+Stable tag: 1.6.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-A cool plugin that extends the Advanced Custom Fields (ACF) functionality to add ‘Photo Gallery’ to any post/pages of your choice.
+A cool plugin that extends the Advanced Custom Fields (ACF) functionality to add "Photo Gallery" to any post/pages of your choice.
 
 == Description ==
-This plugin is alternative of ACF Gallery Pro. 
 
-A lightweight extension of Advanced Custom Field (ACF) that adds ‘Photo Gallery’ field to any post/pages on your WordPress website.
+A lightweight extension of Advanced Custom Field (ACF) that adds **Photo Gallery** field to any post/pages on your WordPress website.
 
 * Visually create your Fields
 * Add multiple photos and you can also modify title, caption and link to anything
@@ -21,17 +20,20 @@ A lightweight extension of Advanced Custom Field (ACF) that adds ‘Photo Galler
 * Uses the native WordPress custom post type for ease of use and fast processing
 * Uses the native WordPress metadata for ease of use and fast processing
 
-= Usage =
-`acf_photo_gallery` is a helper function that will query the database and compile the images for you. The output of this function will be an array.
+= Note =
+This plugin is alternative of ACF Gallery Pro. You need to have knowledge of coding because you’ll be required to edit your WordPress theme source code. If you are looking for shortcodes and prebuilt gallery then this plugin is **NOT** for you. This plugin will give you PHP array of images and you’ll need to make the gallery layout as you wish.
 
-`acf_photo_gallery('<ACF_FIELD_NAME>', $post->ID);`
+= Usage =
+*acf_photo_gallery* is a helper function that takes in **ACF_FIELD_NAME** and **POST_ID** will query the database and compile the images for you. The output of this function will be an array.
+
+`acf_photo_gallery(ACF_FIELD_NAME, POST_ID);`
 
 = Example =
 The following example is using Twitter Bootstrap framework to layout. You can use any framework of your choice.
 
 `<?php
 	//Get the images ids from the post_metadata
-	$images = acf_photo_gallery('<ACF_FIELD_NAME>', $post->ID);
+	$images = acf_photo_gallery('vacation_photos', $post->ID);
 	//Check if return array has anything in it
 	if( count($images) ):
 		//Cool, we got some data so now let's loop over it
@@ -78,6 +80,22 @@ By default the caption is being pulled from description field. Add the following
 
 `add_filter( 'acf_photo_gallery_caption_from_attachment', '__return_true' );`
 
+= REST API =
+To use the RESTful feature, you will need to install [ACF to REST API](https://wordpress.org/plugins/acf-to-rest-api/) plugin.
+
+**How to use?**
+
+`//Send HTTP Request to URL
+http://www.example.com/wp-json/acf/v3/pages/POST_ID/ACF_FIELD_NAME?type=photo_gallery`
+
+Where **POST_ID** refers to your WordPress Post ID and **ACF_FIELD_NAME** refers to ACF Field Name which you are trying to get the value. Below are 2 examples:
+
+`//Get all the images of POST_ID 2 and ACF FIELD NAME vacation_photos
+http://www.example.com/wp-json/acf/v3/pages/2/vacation_photos?type=photo_gallery`
+
+`//Get all the images of POST_ID 2 and ACF FIELD NAM vacation_photos and order the images by ascending order by post_in
+http://www.example.com/wp-json/acf/v3/pages/2/vacation_photos?type=photo_gallery&order=ASC&orderby=post__in`
+
 = Compatibility =
 This ACF field type is compatible with:
 * ACF 4
@@ -94,6 +112,9 @@ Just like any other WordPress plugin, this plugin can also cause issues with oth
 4. Please refer to the description for more info regarding the field type settings
 
 == Changelog ==
+=1.6.4=
+* [Bugfix] JavaScript error in the console when removing images from the WordPress metabox
+
 =1.6.3=
 * [Added] Support for ACF 5
 * [Added] Edit gallery with built-in or WordPress native model. Thanks to Github @makepost

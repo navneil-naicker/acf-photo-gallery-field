@@ -50,7 +50,7 @@
         ?>
         <li class="acf-photo-gallery-mediabox-<?php echo $image; ?>">
             <a class="dashicons dashicons-edit" href="#" title="Edit" data-id="<?php echo $image; ?>" data-field="<?php echo $key; ?>"></a>
-            <a class="dashicons dashicons-dismiss" href="#" data-id="<?php echo $image; ?>" data-field="<?php echo htmlspecialchars(json_encode($field), ENT_QUOTES, 'UTF-8'); ?>" title="Remove this photo from the gallery"></a>
+            <a class="dashicons dashicons-dismiss" href="#" data-id="<?php echo $image; ?>" data-field="<?php echo $key; ?>" title="Remove this photo from the gallery"></a>
             <input type="hidden" name="<?php echo $field['_name']; ?>[]" value="<?php echo $image; ?>"/>
             <img src="<?php echo wp_get_attachment_thumb_url( $image ); ?>"/>
         </li>
