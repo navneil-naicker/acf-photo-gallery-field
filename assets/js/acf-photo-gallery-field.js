@@ -50,7 +50,7 @@
         html = acf_photo_gallery_edit(id, url, title, caption);
         $('.acf-photo-gallery-group-' + JsonField.key + ' .acf-photo-gallery-metabox-edit').append(html);
         var $list = $('.acf-photo-gallery-group-' + JsonField.key + ' .acf-photo-gallery-metabox-list');
-        html = '<li id="acf-photo-gallery-mediabox-' + id + '" data-id="' + id + '"><a class="dashicons dashicons-edit" href="#" title="Edit" data-id="' + id + '"></a><a class="dashicons dashicons-dismiss" href="#" data-id="' + id + '" data-field="' + field + '" title="Remove this photo from the gallery"></a><input type="hidden" name="' + JsonField._name + '[]" value="' + id + '"/><img src="' + url + '"/></li>';
+        html = '<li class="acf-photo-gallery-mediabox-' + id + '" data-id="' + id + '"><a class="dashicons dashicons-dismiss" href="#" data-id="' + id + '" data-field="' + JsonField.key + '" title="Remove this photo from the gallery"></a><input type="hidden" name="' + JsonField._name + '[]" value="' + id + '"/><img src="' + url + '"/></li>';
         if (options.index) {
             var $cursor = $list.children().eq(options.index);
             $cursor.before(html);
