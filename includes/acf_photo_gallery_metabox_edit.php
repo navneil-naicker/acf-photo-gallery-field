@@ -13,7 +13,7 @@
             $value = $item['value']?$item['value']:null;
     ?>
         <?php if( $type == 'text' ){ ?><label><?php echo $label; ?></label><input class="acf-photo-gallery-edit-field" type="<?php echo $type; ?>" name="<?php echo $name; ?>" value="<?php echo $value; ?>"/><?php } ?>
-        <?php if( $type == 'checkbox' ){ ?><label><input class="acf-photo-gallery-edit-field" type="checkbox" name="<?php echo $name; ?>" value="true" <?php echo (!empty($value=='true'))?'checked':''; ?>/><?php echo $label; ?></label><?php } ?>
+        <?php if( $type == 'checkbox' ){ ?><label><input class="acf-photo-gallery-edit-field" type="checkbox" name="<?php echo $name; ?>" value="true" <?php echo ($value=='true')?'checked':''; ?>/><?php echo $label; ?></label><?php } ?>
         <?php if( $type == 'textarea' ){ ?><label><?php echo $label; ?></label><textarea class="acf-photo-gallery-edit-field" name="<?php echo $name; ?>"><?php echo $value; ?></textarea><?php } ?>
     <?php } ?>
     <div class="save-changes-wrap">
