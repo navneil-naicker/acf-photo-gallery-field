@@ -44,9 +44,9 @@
         caption = attachment.caption;
 
         var JsonField = jQuery.parseJSON(field);
+        console.log('Hello: ' + JsonField.key);
 
         if (typeof attachment.sizes.thumbnail != 'undefined') { url = attachment.sizes.thumbnail.url; }
-
         html = acf_photo_gallery_edit(id, url, title, caption);
         $('.acf-photo-gallery-group-' + JsonField.key + ' .acf-photo-gallery-metabox-edit').append(html);
         var $list = $('.acf-photo-gallery-group-' + JsonField.key + ' .acf-photo-gallery-metabox-list');
@@ -106,12 +106,14 @@
     });
 
     $(document).on('click', '#acf-photo-gallery-metabox-edit .acf-edit-photo-gallery button.button-primary', function() {
-        var button, field, data, post, attachment, action, nonce, form = {};
+        var button, field, data, post, attachment, action, nonce, fieldname, form = {};
+        button = $(this);
         url = $(this).attr('data-ajaxurl');
         action = 'acf_photo_gallery_edit_save';
         attachment = $(this).attr('data-id');
+        fieldname = button.attr('data-fieldname');
 
-        $('#acf-photo-gallery-metabox-edit-' + attachment + ' .acf-photo-gallery-edit-field').each(function(i, obj) {
+        $('div.acf-photo-gallery-group-' + fieldname + ' #acf-photo-gallery-metabox-edit-' + attachment + ' .acf-photo-gallery-edit-field').each(function(i, obj) {
             if (obj.name == 'acf-pg-hidden-action') {
                 form['action'] = obj.value;
             } else if( obj.type == 'checkbox'){
@@ -125,7 +127,6 @@
             }
         });
 
-        button = $(this);
         button.attr('disabled', true).html('Saving...');
         $.post(url, form, function(data) {
             button.attr('disabled', false).html('Save Changes');

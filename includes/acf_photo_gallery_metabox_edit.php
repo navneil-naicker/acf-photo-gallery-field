@@ -17,7 +17,7 @@
         <?php if( $type == 'textarea' ){ ?><label><?php echo $label; ?></label><textarea class="acf-photo-gallery-edit-field" name="<?php echo $name; ?>"><?php echo $value; ?></textarea><?php } ?>
     <?php } ?>
     <div class="save-changes-wrap">
-        <button class="button button-primary button-large" type="submit" data-id="<?php echo $attachment; ?>" data-ajaxurl="<?php echo admin_url('admin-ajax.php'); ?>">Save Changes</button>
+        <button class="button button-primary button-large" type="submit" data-fieldname="<?php echo $acf_fieldkey; ?>" data-id="<?php echo $attachment; ?>" data-ajaxurl="<?php echo admin_url('admin-ajax.php'); ?>">Save Changes</button>
         <button class="button button-large button-close" type="button" data-close="<?php echo $attachment; ?>">Close</button>
     </div>
 </div>

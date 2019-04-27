@@ -36,7 +36,7 @@
                     } else {
                         $caption = $attachment->post_content;
                     }
-                    acf_photo_gallery_edit($field['_name'], $nonce, $id, $url, $title, $caption, $target);
+                    acf_photo_gallery_edit($field['_name'], $nonce, $id, $url, $title, $caption, $target, $key);
                 endforeach;
             endif;
         ?>
