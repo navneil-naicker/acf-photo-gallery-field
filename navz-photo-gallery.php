@@ -1,4 +1,5 @@
 <?php
+
 /*
 Plugin Name: ACF Photo Gallery Field
 Plugin URI: http://www.navz.me/
@@ -17,7 +18,7 @@ if( ! defined( 'ABSPATH' ) ) exit;
 // check if class already exists
 if( !class_exists('acf_plugin_photo_gallery') ) :
 
-	class acf_plugin_photo_gallery {
+	class acf_plugin_photo_gallery{
 			
 		// vars
 		var $settings;
@@ -51,19 +52,12 @@ if( !class_exists('acf_plugin_photo_gallery') ) :
 			add_action( 'admin_enqueue_scripts', array($this, 'acf_photo_gallery_sortable') );			
 			
 			// include field
-			add_action('acf/include_field_types', 	array($this, 'include_field_types')); // v5
-			add_action('acf/register_fields', 		array($this, 'include_field_types')); // v4
+			add_action('acf/include_field_types', array($this, 'include_field_types')); // v5
+			add_action('acf/register_fields', array($this, 'include_field_types')); // v4
 
 			add_filter( 'acf_photo_gallery_caption_from_attachment', '__return_false' );
 		
-			// Enable the option show in rest
-			add_filter( 'acf/rest_api/field_settings/show_in_rest', '__return_true' );
-
-			// Enable the option edit in rest
-			add_filter( 'acf/rest_api/field_settings/edit_in_rest', '__return_true' );
-
-			//Get ACF Photo Gallery images as JSON object
-			add_filter( 'acf/rest_api/page/get_fields', array($this, 'acf_to_rest_api'), 10, 3 );
+			add_filter("rest_prepare_page", array($this, 'rest_prepare_post'), 10, 3);
 
 		}
 		
@@ -95,20 +89,30 @@ if( !class_exists('acf_plugin_photo_gallery') ) :
 			
 		}
 
-		//Callback function that will get ACF Photo Gallery images as JSON object
-		function acf_to_rest_api( $data, $request ) {
-			$attributes = $request->get_params();
-			if( !empty($attributes['type']) and  $attributes['type'] == 'photo_gallery' ){
-				$post_id = $attributes['id'];
-				$field = $attributes['field'];
-				$type = $attributes['type'];
-				$order = (!empty($attributes['order']))?$attributes['order']:null;
-				$orderby = (!empty($attributes['orderby']))?$attributes['orderby']:null;
-				$data = acf_photo_gallery_make_images($data[$field], $field, $post_id, $order, $orderby);
+		function rest_prepare_post( $data, $post, $request ){
+			$images = array();
+			$field_groups = acf_get_field_groups(array('post_id' => $post->ID));
+			foreach ( $field_groups as $group ){
+				$fields = get_posts(array(
+					'posts_per_page' => -1,
+					'post_type' => 'acf-field',
+					'orderby' => 'menu_order',
+					'order' => 'ASC',
+					'suppress_filters' => true,
+					'post_parent' => $group['ID'],
+					'post_status' => 'publish',
+					'update_post_meta_cache' => false
+				));
+				foreach ( $fields as $field ) {
+					$object = get_field_object($field->post_name);
+					if( $object['type'] == 'photo_gallery' ){
+						$images[] = acf_photo_gallery($object['name'], $post->ID);
+						$data->data['acf']['photo_gallery'][$object['name']] = $images;
+					}
+				}
 			}
 			return $data;
 		}
-		
 	}
 
 	// initialize

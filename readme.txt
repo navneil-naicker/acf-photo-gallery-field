@@ -114,6 +114,8 @@ Just like any other WordPress plugin, this plugin can also cause issues with oth
 == Changelog ==
 =1.6.5=
 * [Bugfix] Remove not empty condition from checkbox item on edit
+* [Remove] Remove support for ACF to REST API plugin
+* [Add] Native suppot for REST API
 
 =1.6.4=
 * [Bugfix] JavaScript error in the console when removing images from the WordPress metabox
