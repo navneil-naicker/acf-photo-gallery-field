@@ -55,8 +55,10 @@ if( !class_exists('acf_plugin_photo_gallery') ) :
 			add_action('acf/include_field_types', array($this, 'include_field_types')); // v5
 			add_action('acf/register_fields', array($this, 'include_field_types')); // v4
 
+			//Pull the caption from attachment caption field
 			add_filter( 'acf_photo_gallery_caption_from_attachment', '__return_false' );
-		
+			
+			//Add support for REST API
 			add_filter("rest_prepare_page", array($this, 'rest_prepare_post'), 10, 3);
 
 		}
@@ -113,6 +115,7 @@ if( !class_exists('acf_plugin_photo_gallery') ) :
 			}
 			return $data;
 		}
+
 	}
 
 	// initialize
