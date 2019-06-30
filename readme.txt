@@ -2,12 +2,12 @@
 Contributors: navzme
 Tags: acf, advanced, custom, fields, photo, gallery, album, fancybox, litebox, lightbox
 Requires at least: 3.8
-Tested up to: 4.9.6
+Tested up to: 5.2.1
 Stable tag: 1.6.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-A cool plugin that extends the Advanced Custom Fields (ACF) functionality to add "Photo Gallery" to any post/pages of your choice.
+A lightweight extension of Advanced Custom Field (ACF) that adds Photo Gallery field to any post/pages on your WordPress website.
 
 == Description ==
 
@@ -115,7 +115,7 @@ Just like any other WordPress plugin, this plugin can also cause issues with oth
 =1.6.5=
 * [Bugfix] Remove not empty condition from checkbox item on edit
 * [Remove] Remove support for ACF to REST API plugin
-* [Add] Native suppot for REST API
+* [Add] Native support for REST API
 
 =1.6.4=
 * [Bugfix] JavaScript error in the console when removing images from the WordPress metabox
