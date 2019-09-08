@@ -12,11 +12,13 @@
         $value = $field['value'];
         $key = $field['key'];
         $edit_model = (!empty($field['fields[' . $filename]['edit_modal']))?$field['fields[' . $filename]['edit_modal']:'Default';    
+        $images_limit = (!empty($field['fields[' . $filename]['images_limit']))?$field['fields[' . $filename]['images_limit']:null;    
     }
 ?>
 <div class="acf-photo-gallery-group-<?php echo $key; ?>">
     <input type="hidden" name="acf-photo-gallery-edit-modal" value="<?php echo $edit_model; ?>" />
     <input type="hidden" name="acf-photo-gallery-groups[]" value="<?php echo $field['_name']; ?>"/>
+    <input type="hidden" name="acf-photo-gallery-images_limit" value="<?php echo $images_limit; ?>"/>
     <div id="acf-photo-gallery-metabox-edit">
         <?php
             if( $value ):

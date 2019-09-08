@@ -16,6 +16,13 @@
         'label'			=> __('Edit modal','TEXTDOMAIN'),
         'type'          => 'select',
         'name'          => 'fields['.$name.'][edit_modal]',
-        'value'         => $value,
+        'value'         => $value['edit_modal'],
         'choices'       => array('Default' => 'Default', 'Native' => 'Native')
+    ));
+
+    acf_render_field_setting( $field, array(
+        'label'			=> __('Images Limit','TEXTDOMAIN'),
+        'type'          => 'number',
+        'name'          => 'fields['.$name.'][images_limit]',
+        'value'         => $value['images_limit']
     ));

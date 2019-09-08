@@ -3,7 +3,7 @@ Contributors: navzme
 Tags: acf, advanced, custom, fields, photo, gallery, album, fancybox, litebox, lightbox
 Requires at least: 3.8
 Tested up to: 5.2.1
-Stable tag: 1.6.5
+Stable tag: 1.6.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -81,20 +81,15 @@ By default the caption is being pulled from description field. Add the following
 `add_filter( 'acf_photo_gallery_caption_from_attachment', '__return_true' );`
 
 = REST API =
-To use the RESTful feature, you will need to install [ACF to REST API](https://wordpress.org/plugins/acf-to-rest-api/) plugin.
+Send HTTP Request to URL to get JSON response of all posts
 
-**How to use?**
+`http://{domain}/wp-json/wp/v2/{POST_TYPE}/`
 
-`//Send HTTP Request to URL
-http://www.example.com/wp-json/acf/v3/pages/POST_ID/ACF_FIELD_NAME?type=photo_gallery`
+Send HTTP Request to URL to get JSON response of specific post
 
-Where **POST_ID** refers to your WordPress Post ID and **ACF_FIELD_NAME** refers to ACF Field Name which you are trying to get the value. Below are 2 examples:
+`http://{domain}/wp-json/wp/v2/{POST_TYPE}/{POST_ID}/`
 
-`//Get all the images of POST_ID 2 and ACF FIELD NAME vacation_photos
-http://www.example.com/wp-json/acf/v3/pages/2/vacation_photos?type=photo_gallery`
-
-`//Get all the images of POST_ID 2 and ACF FIELD NAM vacation_photos and order the images by ascending order by post_in
-http://www.example.com/wp-json/acf/v3/pages/2/vacation_photos?type=photo_gallery&order=ASC&orderby=post__in`
+When you receive the response, see the ACF item which contains ACF photo gallery name and array of images.
 
 = Compatibility =
 This ACF field type is compatible with:

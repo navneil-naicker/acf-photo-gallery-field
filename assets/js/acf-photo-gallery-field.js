@@ -44,7 +44,6 @@
         caption = attachment.caption;
 
         var JsonField = jQuery.parseJSON(field);
-        console.log('Hello: ' + JsonField.key);
 
         if (typeof attachment.sizes.thumbnail != 'undefined') { url = attachment.sizes.thumbnail.url; }
         html = acf_photo_gallery_edit(id, url, title, caption);
@@ -61,18 +60,37 @@
     }
 
     function acf_photo_gallery_add_media($el) {
+
         var acf_photo_gallery_ids = new Array();
+
         if ($('.acf-photo-gallery-metabox-add-images').length > 0) {
+
             if (typeof wp !== 'undefined' && wp.media && wp.media.editor) {
+
                 $(document).on('click', '.acf-photo-gallery-metabox-add-images', function(e) {
                     e.preventDefault();
                     var button = $(this);
                     var id = button.prev();
                     var field = button.attr('data-field');
                     var JsonField = jQuery.parseJSON(field);
-
+                    
+                    //On click of the add images button, check if the image limit has been reached
                     var pre_selected_list = $('.acf-photo-gallery-group-' + JsonField.key + ' .acf-photo-gallery-metabox-list li');
-                    var pre_selected = pre_selected_list.length;
+                    var images_limit = $('.acf-photo-gallery-group-' + JsonField.key + ' input[name=\'acf-photo-gallery-images_limit\']').val();
+                    if( pre_selected_list.length == images_limit ){
+                        swal('Limit has been reached', 'Your website administrator has set a limited of ' + images_limit + ' images that can be added into this gallery.', 'error')
+                        return false;
+                    }
+
+                    $(document).on('click', '.media-modal-content .attachments-browser .attachments li', function(){
+                        var selection_list = $('.media-modal-content .attachments-browser .attachments li[aria-checked=true]').length;
+                        var check_image_limit = pre_selected_list.length + selection_list;
+                        if( check_image_limit > images_limit ){
+                            $(this).click();
+                            swal('Limit has been reached', 'Your website administrator has set a limited of ' + images_limit + ' images that can be added into this gallery.', 'error')
+                            return false;
+                        }
+                    });
 
                     wp.media.editor.send.attachment = function(props, attachment){
                         acf_photo_gallery_html(attachment, field, { index: 0, splice: 0 });
@@ -85,8 +103,11 @@
 
                     return false;
                 });
+
             }
+
         };
+
     }
 
     $(document).on('click', '.acf-photo-gallery-metabox-list .dashicons-dismiss', function(){
