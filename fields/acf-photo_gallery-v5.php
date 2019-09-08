@@ -35,9 +35,16 @@ if( !class_exists('acf_field_photo_gallery') ) :
 		
 		function __construct( $settings )
 		{
+			add_filter('acf/load_value', array($this, 'load_value'), 10, 3);
 			include( dirname(dirname(__FILE__)) . '/includes/__construct.php' );			
 		}
 
+		function load_value( $value, $post_id, $field ) {
+			if( !is_admin() ){
+				return acf_photo_gallery_make_images($value, $field, $post_id);	
+			}
+			return $value;
+		}
 
 		/*
 		*  render_field_settings()
