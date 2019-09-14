@@ -60,9 +60,7 @@
     }
 
     function acf_photo_gallery_add_media($el) {
-
         var acf_photo_gallery_ids = new Array();
-
         if ($('.acf-photo-gallery-metabox-add-images').length > 0) {
 
             if (typeof wp !== 'undefined' && wp.media && wp.media.editor) {
@@ -103,17 +101,14 @@
 
                     return false;
                 });
-
             }
-
         };
-
     }
 
     $(document).on('click', '.acf-photo-gallery-metabox-list .dashicons-dismiss', function(){
         var id = $(this).attr('data-id');
         var field = $(this).attr('data-field');
-        if (confirm('You are about to remove this photo from the gallery. Are you sure?')){
+        if ( confirm('You are about to remove this photo from the gallery. Are you sure?') ){
             acf_photo_gallery_remove_media(id, field);
         }
         return false;
