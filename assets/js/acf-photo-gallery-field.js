@@ -118,6 +118,8 @@
         var id;
         id = $(this).attr('data-close');
         $('#acf-photo-gallery-metabox-edit #acf-photo-gallery-metabox-edit-' + id).fadeOut('fast');
+        $('.acf-gallery-backdrop').remove();
+        $('body').css('overflow', 'auto');
         return false;
     });
 
@@ -158,6 +160,8 @@
         var modal = $('.acf-photo-gallery-group-' + field + ' input[name="acf-photo-gallery-edit-modal"]').val();
         var $list = $('.acf-photo-gallery-group-' + field + ' ul.acf-photo-gallery-metabox-list');
         var index = $('.acf-photo-gallery-group-' + field + ' ul.acf-photo-gallery-metabox-list li').index();
+        $('body').prepend('<div class=\'acf-gallery-backdrop\'></div>');
+        $('body').css('overflow', 'hidden');
 
         if (modal === 'Native') {
             wp.media.editor.send.attachment = function(_, attachment){
