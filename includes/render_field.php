@@ -13,6 +13,7 @@
         $key = $field['key'];
         $edit_model = (!empty($field['fields[' . $filename]['edit_modal']))?$field['fields[' . $filename]['edit_modal']:'Default';    
         $images_limit = (!empty($field['fields[' . $filename]['images_limit']))?$field['fields[' . $filename]['images_limit']:null;    
+        $replace_textarea_editor = (!empty($field['fields[' . $filename]['replace_caption_tinymce']))?$field['fields[' . $filename]['replace_caption_tinymce']:null;    
     }
 ?>
 <div class="acf-photo-gallery-group-<?php echo $key; ?>">
@@ -38,7 +39,7 @@
                     } else {
                         $caption = $attachment->post_content;
                     }
-                    acf_photo_gallery_edit($field['_name'], $nonce, $id, $url, $title, $caption, $target, $key);
+                    acf_photo_gallery_edit($field['_name'], $nonce, $id, $url, $title, $caption, $target, $key, $replace_textarea_editor);
                 endforeach;
             endif;
         ?>

@@ -114,7 +114,7 @@
         return false;
     });
 
-    $(document).on('click', '#acf-photo-gallery-metabox-edit .acf-edit-photo-gallery button.button-close', function() {
+    $(document).on('click', '#acf-photo-gallery-metabox-edit .acf-edit-photo-gallery button.button-close', function(){
         var id;
         id = $(this).attr('data-close');
         $('#acf-photo-gallery-metabox-edit #acf-photo-gallery-metabox-edit-' + id).fadeOut('fast');
@@ -123,7 +123,7 @@
         return false;
     });
 
-    $(document).on('click', '#acf-photo-gallery-metabox-edit .acf-edit-photo-gallery button.button-primary', function() {
+    $(document).on('click', '#acf-photo-gallery-metabox-edit .acf-edit-photo-gallery button.button-primary', function(){
         var button, field, data, post, attachment, action, nonce, fieldname, form = {};
         button = $(this);
         url = $(this).attr('data-ajaxurl');
@@ -131,7 +131,7 @@
         attachment = $(this).attr('data-id');
         fieldname = button.attr('data-fieldname');
 
-        $('div.acf-photo-gallery-group-' + fieldname + ' #acf-photo-gallery-metabox-edit-' + attachment + ' .acf-photo-gallery-edit-field').each(function(i, obj) {
+        $('div.acf-photo-gallery-group-' + fieldname + ' #acf-photo-gallery-metabox-edit-' + attachment + ' .acf-photo-gallery-edit-field').each(function(i, obj){
             if (obj.name == 'acf-pg-hidden-action') {
                 form['action'] = obj.value;
             } else if( obj.type == 'checkbox'){
@@ -148,12 +148,13 @@
         button.attr('disabled', true).html('Saving...');
         $.post(url, form, function(data) {
             button.attr('disabled', false).html('Save Changes');
+            $('.acf-gallery-backdrop').remove();
             $('#acf-photo-gallery-metabox-edit #acf-photo-gallery-metabox-edit-' + attachment).fadeOut('fast');
         });
         return false;
     });
 
-    $(document).on('click', '.acf-photo-gallery-metabox-list .dashicons-edit', function() {
+    $(document).on('click', '.acf-photo-gallery-metabox-list .dashicons-edit', function(){
         var $btn = $(this);
         var id = $btn.attr('data-id');
         var field = $btn.attr('data-field');
