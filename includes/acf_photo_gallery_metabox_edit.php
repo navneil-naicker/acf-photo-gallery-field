@@ -32,6 +32,14 @@
             <label><?php echo $label; ?></label>
             <textarea class="acf-photo-gallery-edit-field" name="<?php echo $name; ?>"><?php echo $value; ?></textarea>
         <?php } ?>
+        <?php if( $type == 'select' ){ ?>
+            <label><?php echo $label; ?></label>
+            <select class="acf-photo-gallery-edit-field" name="<?php echo $name; ?>">
+                <?php foreach($value[0] as $key => $item){ ?>
+                    <option value="<?php echo $key; ?>" <?php echo $key==$value[1]?'selected':''; ?>><?php echo $item; ?></option>
+                <?php } ?>
+            </select>
+        <?php } ?>
     <?php } ?>
     <div class="save-changes-wrap">
         <button class="button button-primary button-large" type="submit" data-fieldname="<?php echo $acf_fieldkey; ?>" data-id="<?php echo $attachment; ?>" data-ajaxurl="<?php echo admin_url('admin-ajax.php'); ?>">Save Changes</button>
