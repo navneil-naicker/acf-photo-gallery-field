@@ -76,7 +76,7 @@
                     var pre_selected_list = $('.acf-photo-gallery-group-' + JsonField.key + ' .acf-photo-gallery-metabox-list li');
                     var images_limit = $('.acf-photo-gallery-group-' + JsonField.key + ' input[name=\'acf-photo-gallery-images_limit\']').val();
                     if( pre_selected_list.length == images_limit ){
-                        swal('Limit has been reached', 'Your website administrator has set a limited of ' + images_limit + ' images that can be added into this gallery.', 'error')
+                        swal('Limit has been reached', 'Your website administrator has set a limit of ' + images_limit + ' images that can be added to this gallery.', 'error')
                         return false;
                     }
 
@@ -85,7 +85,7 @@
                         var check_image_limit = pre_selected_list.length + selection_list;
                         if( check_image_limit > images_limit ){
                             $(this).click();
-                            swal('Limit has been reached', 'Your website administrator has set a limited of ' + images_limit + ' images that can be added into this gallery.', 'error')
+                            swal('Limit has been reached', 'Your website administrator has set a limit of ' + images_limit + ' images that can be added to this gallery.', 'error')
                             return false;
                         }
                     });
