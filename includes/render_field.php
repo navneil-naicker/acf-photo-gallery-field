@@ -1,4 +1,10 @@
 <?php
+
+    global $pagenow;
+    if( $pagenow == 'edit-tags.php'){
+        echo 'ACF Photo Gallery Field is not supported on taxonomy.';
+    } else {
+
     // create Field HTML
     global $post;    
     $nonce_acf_photo_gallery = wp_create_nonce( 'nonce_acf_photo_gallery' );
@@ -61,3 +67,4 @@
     </ul>
     <button class="button button-primary button-large acf-photo-gallery-metabox-add-images" type="button" data-field="<?php echo htmlspecialchars(json_encode($field), ENT_QUOTES, 'UTF-8'); ?>">Add Images</button>
 </div>
+<?php } ?>
