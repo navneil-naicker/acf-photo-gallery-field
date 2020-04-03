@@ -40,7 +40,7 @@ if( !class_exists('acf_plugin_photo_gallery') ) :
 			
 			// vars
 			$this->settings = array(
-				'version'	=> '1.6.5',
+				'version'	=> '1.6.6',
 				'url'		=> plugin_dir_url( __FILE__ ),
 				'path'		=> plugin_dir_path( __FILE__ )
 			);
