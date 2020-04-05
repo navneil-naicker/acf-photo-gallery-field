@@ -61,7 +61,7 @@ The following example is using Twitter Bootstrap framework to layout. You can us
 = Add Extra Fields =
 To add extra fields add the following to your themes functions.php file.
 
-`//Create extra fields called Altnative Text and Custom Classess
+`//Create extra fields called Altnative Text and Status
 function my_extra_gallery_fields( $args, $attachment_id, $field ){
     $args['alt'] = array(
 		'type' => 'text', 
