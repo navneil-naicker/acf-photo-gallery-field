@@ -35,7 +35,7 @@ if( !class_exists('acf_field_photo_gallery') ) :
 		
 		function __construct( $settings )
 		{
-			add_filter('acf/load_value', array($this, 'load_value'), 10, 3);
+			//add_filter('acf/load_value', array($this, 'load_value'), 10, 3);
 			include( dirname(dirname(__FILE__)) . '/includes/__construct.php' );			
 		}
 
