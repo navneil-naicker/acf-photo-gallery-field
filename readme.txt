@@ -26,14 +26,14 @@ This plugin is alternative of ACF Gallery Pro. You need to have knowledge of cod
 = Usage =
 *acf_photo_gallery* is a helper function that takes in **ACF_FIELD_NAME** and **POST_ID** will query the database and compile the images for you. The output of this function will be an array.
 
-`acf_photo_gallery(ACF_FIELD_NAME, POST_ID);`
+`acf_photo_gallery(ACF_FIELD_NAME, POST_ID);` OR `get_field(ACF_FIELD_NAME, POST_ID)`
 
 = Example =
 The following example is using Twitter Bootstrap framework to layout. You can use any framework of your choice.
 
 `<?php
 	//Get the images ids from the post_metadata
-	$images = acf_photo_gallery('vacation_photos', $post->ID);
+	$images = acf_photo_gallery('vacation_photos', $post->ID); //or get_field('vacation_photos', $post->ID)
 	//Check if return array has anything in it
 	if( count($images) ):
 		//Cool, we got some data so now let's loop over it
@@ -63,11 +63,30 @@ To add extra fields add the following to your themes functions.php file.
 
 `//Create extra fields called Altnative Text and Custom Classess
 function my_extra_gallery_fields( $args, $attachment_id, $field ){
-	$args['alt'] = array('type' => 'text', 'label' => 'Altnative Text', 'name' => 'alt', 'value' => get_field($field . '_alt', $attachment_id) ); // Creates Altnative Text field
-	$args['class'] = array('type' => 'text', 'label' => 'Custom Classess', 'name' => 'class', 'value' => get_field($field . '_class', $attachment_id) ); // Creates Custom Classess field
+    $args['alt'] = array(
+		'type' => 'text', 
+		'label' => 'Altnative Text', 
+		'name' => 'alt', 
+		'value' => get_field($field . '_alt', $attachment_id)
+	);
+    $args['status'] = array(
+		'type' => 'select', 
+		'label' => 'Status', 
+		'name' => 'status', 
+		'value' => array(
+			array(
+				'1' => 'Active',
+				 '2' => 'Inactive'
+			), 
+			get_field($field . '_status', $attachment_id)
+		)
+	);
 	return $args;
 }
 add_filter( 'acf_photo_gallery_image_fields', 'my_extra_gallery_fields', 10, 3 );`
+
+Supported field types:
+* text, date, color, datetime-local, email, number, tel, time, url, week, range, checkbox, radio, textarea, select
 
 = How to get values of extra fields =
 You can use ACF helper function `get_field`
@@ -109,8 +128,8 @@ Just like any other WordPress plugin, this plugin can also cause issues with oth
 == Changelog ==
 =1.6.6=
 * [Add] Added support to ACF get_field() function
-* [Add] Add more fields to extra fields
-* [Add] Added in SweetAlert and Images Limit option
+* [Add] Added more fields types to extra fields
+* [Add] Added in SweetAlert and images limit options
 * [Add] Added message that ACF Photo Gallery isn't supported on taxonomy
 
 =1.6.5=
