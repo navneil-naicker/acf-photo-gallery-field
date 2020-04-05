@@ -57,7 +57,7 @@
                 $acf_photo_gallery_attachments = explode(',', $acf_photo_gallery_attachments);
                 foreach($acf_photo_gallery_attachments as $image):
         ?>
-        <li class="acf-photo-gallery-mediabox-<?php echo $image; ?>">
+        <li class="acf-photo-gallery-mediabox acf-photo-gallery-mediabox-<?php echo $image; ?>">
             <a class="dashicons dashicons-edit" href="#" title="Edit" data-id="<?php echo $image; ?>" data-field="<?php echo $key; ?>"></a>
             <a class="dashicons dashicons-dismiss" href="#" data-id="<?php echo $image; ?>" data-field="<?php echo $key; ?>" title="Remove this photo from the gallery"></a>
             <input type="hidden" name="<?php echo $field['_name']; ?>[]" value="<?php echo $image; ?>"/>
