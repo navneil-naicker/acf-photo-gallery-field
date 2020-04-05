@@ -107,6 +107,12 @@ Just like any other WordPress plugin, this plugin can also cause issues with oth
 4. Please refer to the description for more info regarding the field type settings
 
 == Changelog ==
+=1.6.6=
+* [Add] Added support to ACF get_field() function
+* [Add] Add more fields to extra fields
+* [Add] Added in SweetAlert and Images Limit option
+* [Add] Added message that ACF Photo Gallery isn't supported on taxonomy
+
 =1.6.5=
 * [Bugfix] Remove not empty condition from checkbox item on edit
 * [Remove] Remove support for ACF to REST API plugin
