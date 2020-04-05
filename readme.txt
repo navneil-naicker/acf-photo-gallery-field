@@ -26,14 +26,14 @@ This plugin is alternative of ACF Gallery Pro. You need to have knowledge of cod
 = Usage =
 *acf_photo_gallery* is a helper function that takes in **ACF_FIELD_NAME** and **POST_ID** will query the database and compile the images for you. The output of this function will be an array.
 
-`acf_photo_gallery(ACF_FIELD_NAME, POST_ID); //OR get_field(ACF_FIELD_NAME, POST_ID)`
+`acf_photo_gallery(ACF_FIELD_NAME, POST_ID);`
 
 = Example =
 The following example is using Twitter Bootstrap framework to layout. You can use any framework of your choice.
 
 `<?php
 	//Get the images ids from the post_metadata
-	$images = acf_photo_gallery('vacation_photos', $post->ID); //or get_field('vacation_photos', $post->ID)
+	$images = acf_photo_gallery('vacation_photos', $post->ID);
 	//Check if return array has anything in it
 	if( count($images) ):
 		//Cool, we got some data so now let's loop over it
