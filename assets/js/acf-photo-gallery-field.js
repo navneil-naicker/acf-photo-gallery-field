@@ -75,7 +75,8 @@
                     //On click of the add images button, check if the image limit has been reached
                     var pre_selected_list = $('.acf-photo-gallery-group-' + JsonField.key + ' .acf-photo-gallery-metabox-list li.acf-photo-gallery-mediabox');
                     var images_limit = $('.acf-photo-gallery-group-' + JsonField.key + ' input[name=\'acf-photo-gallery-images_limit\']').val();
-                    if( pre_selected_list.length == images_limit ){
+                    console.log(images_limit);
+                    if( images_limit != "" && pre_selected_list.length == images_limit ){
                         swal('Limit has been reached', 'Your website administrator has set a limit of ' + images_limit + ' images that can be added to this gallery.', 'error')
                         return false;
                     }
@@ -83,7 +84,8 @@
                     $(document).on('click', '.media-modal-content .attachments-browser .attachments li', function(){
                         var selection_list = $('.media-modal-content .attachments-browser .attachments li[aria-checked=true]').length;
                         var check_image_limit = pre_selected_list.length + selection_list;
-                        if( check_image_limit > images_limit ){
+                        console.log(images_limit);
+                        if( images_limit != "" && check_image_limit > images_limit ){
                             $(this).click();
                             swal('Limit has been reached', 'Your website administrator has set a limit of ' + images_limit + ' images that can be added to this gallery.', 'error')
                             return false;
