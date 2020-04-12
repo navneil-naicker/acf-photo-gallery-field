@@ -126,6 +126,9 @@ Just like any other WordPress plugin, this plugin can also cause issues with oth
 4. Please refer to the description for more info regarding the field type settings
 
 == Changelog ==
+=1.6.8=
+* [Bugfix] Make gallery images limit optional
+
 =1.6.7=
 * [Removed] Support to ACF get_field() function due to bug
 
