@@ -10,6 +10,7 @@ function acf_photo_gallery_save( $post_id ){
 	remove_action( 'save_post', 'acf_photo_gallery_save' );
 
 	$field = isset($_POST['acf-photo-gallery-groups'])? $_POST['acf-photo-gallery-groups']: null;
+	$field_key = $_POST['acf-photo-gallery-field'];
 	if( !empty($field) ){
 		foreach($field as $k => $v ){
 			$field_id = isset($_POST['acf-photo-gallery-groups'][$k])? $_POST['acf-photo-gallery-groups'][$k]: null;
@@ -18,8 +19,10 @@ function acf_photo_gallery_save( $post_id ){
                 if (!empty($ids)) {
                     $ids = implode(',', $ids);
                     update_post_meta($post_id, $field_id, $ids);
+                    acf_update_metadata($post_id, $field_id, $field_key, true);
                 } else {
                     delete_post_meta($post_id, $v);
+                    acf_delete_metadata($post_id, $field_id, true);
                 }
             }
 		}
