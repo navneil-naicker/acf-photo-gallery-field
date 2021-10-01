@@ -26,6 +26,7 @@
     <input type="hidden" name="acf-photo-gallery-edit-modal" value="<?php echo $edit_model; ?>" />
     <input type="hidden" name="acf-photo-gallery-groups[]" value="<?php echo $field['_name']; ?>"/>
     <input type="hidden" name="acf-photo-gallery-images_limit" value="<?php echo $images_limit; ?>"/>
+    <input type="hidden" name="acf-photo-gallery-field" value="<?php echo $key; ?>"/>
     <div id="acf-photo-gallery-metabox-edit">
         <?php
             if( $value ):
