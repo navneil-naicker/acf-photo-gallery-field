@@ -9,7 +9,7 @@ function acf_photo_gallery_edit_save(){
 		$post = sanitize_text_field($request['acf-pg-hidden-post']);
 		$attachment = sanitize_text_field($request['acf-pg-hidden-attachment']);
 		$title = sanitize_text_field($request['title']);
-		$caption = sanitize_text_field($request['caption']);
+		$caption = sanitize_textarea_field($request['caption']);
 
 		unset( $request['acf-pg-hidden-field'] );
 		unset( $request['acf-pg-hidden-post'] );
