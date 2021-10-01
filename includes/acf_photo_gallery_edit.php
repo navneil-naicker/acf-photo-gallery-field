@@ -1,6 +1,6 @@
 <?php
 
-function acf_photo_gallery_edit($field, $nonce, $attachment, $url = '', $title, $caption, $target = 0, $acf_fieldkey){
+function acf_photo_gallery_edit($field, $nonce, $attachment, $url = null, $title = null, $caption = null, $target = 0, $acf_fieldkey = null){
 	$args = array();
 	$args['url'] = $url;
 	$args['title'] = $title;
