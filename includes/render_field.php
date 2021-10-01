@@ -5,21 +5,26 @@
         echo 'ACF Photo Gallery Field is not supported on taxonomy.';
     } else {
 
-    // create Field HTML
+    $remove_edit_button = "";
+    $remove_delete_button = "";
+    $images_limit = "";
+    
     global $post;    
     $nonce_acf_photo_gallery = wp_create_nonce( 'nonce_acf_photo_gallery' );
     if( ACF_VERSION >= 4 and ACF_VERSION < 5 ){
-        $filename = $field['_name'];
+        $fieldname = $field['_name'];
         $value = $field['value'];
         $key = $field['key'];
         $edit_model = (!empty($field['edit_modal']))?$field['edit_modal']:'Default';
     } else if( ACF_VERSION >= 5 and ACF_VERSION < 6 ){
-        $filename = $field['_name'];
+        $fieldname = $field['_name'];
         $value = $field['value'];
         $key = $field['key'];
-        $edit_model = (!empty($field['fields[' . $filename]['edit_modal']))?$field['fields[' . $filename]['edit_modal']:'Default';    
-        $images_limit = (!empty($field['fields[' . $filename]['images_limit']))?$field['fields[' . $filename]['images_limit']:null;    
-        $replace_textarea_editor = (!empty($field['fields[' . $filename]['replace_caption_tinymce']))?$field['fields[' . $filename]['replace_caption_tinymce']:null;    
+        $remove_edit_button = (!empty($field['fields[' . $fieldname]['remove_edit_button']))?$field['fields[' . $fieldname]['remove_edit_button']:null;    
+        $remove_delete_button = (!empty($field['fields[' . $fieldname]['remove_delete_button']))?$field['fields[' . $fieldname]['remove_delete_button']:null;    
+        $edit_model = (!empty($field['fields[' . $fieldname]['edit_modal']))?$field['fields[' . $fieldname]['edit_modal']:'Default';    
+        $images_limit = (!empty($field['fields[' . $fieldname]['images_limit']))?$field['fields[' . $fieldname]['images_limit']:null;    
+        $replace_textarea_editor = (!empty($field['fields[' . $fieldname]['replace_caption_tinymce']))?$field['fields[' . $fieldname]['replace_caption_tinymce']:null;    
     }
 ?>
 <div class="acf-photo-gallery-group-<?php echo $key; ?>">
@@ -59,8 +64,12 @@
                 foreach($acf_photo_gallery_attachments as $image):
         ?>
         <li class="acf-photo-gallery-mediabox acf-photo-gallery-mediabox-<?php echo $image; ?>">
-            <a class="dashicons dashicons-edit" href="#" title="Edit" data-id="<?php echo $image; ?>" data-field="<?php echo $key; ?>"></a>
-            <a class="dashicons dashicons-dismiss" href="#" data-id="<?php echo $image; ?>" data-field="<?php echo $key; ?>" title="Remove this photo from the gallery"></a>
+            <?php if($remove_edit_button == "No") { ?>
+                <a class="dashicons dashicons-edit" href="#" title="Edit" data-id="<?php echo $image; ?>" data-field="<?php echo $key; ?>"></a>
+            <?php } ?>
+            <?php if($remove_delete_button == "No") { ?>
+                <a class="dashicons dashicons-dismiss" href="#" data-id="<?php echo $image; ?>" data-field="<?php echo $key; ?>" title="Remove this photo from the gallery"></a>
+            <?php } ?>
             <input type="hidden" name="<?php echo $field['_name']; ?>[]" value="<?php echo $image; ?>"/>
             <img src="<?php echo wp_get_attachment_thumb_url( $image ); ?>"/>
         </li>

@@ -3,7 +3,7 @@ Contributors: navzme
 Tags: acf, advanced, custom, fields, photo, gallery, album, fancybox, litebox, lightbox
 Requires at least: 4.7.0
 Tested up to: 5.4
-Stable tag: 1.6.8
+Stable tag: 1.7.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
