@@ -7,6 +7,7 @@ function acf_photo_gallery_make_images($images, $field, $post_id = null, $order 
 	$args = array( 'post_type' => 'attachment', 'posts_per_page' => -1, 'post__in' => $images, 'order' => $order, 'orderby' => $orderby );
 	$images = get_posts( $args );
 	$images = array_filter($images);
+	$fieldname = $field['name'];
 	$array = array();
 	if( count($images) ):
 		foreach($images as $image):
@@ -17,8 +18,8 @@ function acf_photo_gallery_make_images($images, $field, $post_id = null, $order 
 			$meta_data = wp_get_attachment_metadata($image->ID);
 			$large_srcset = wp_get_attachment_image_srcset( $image->ID,'large', $meta_data);
 			$medium_srcset = wp_get_attachment_image_srcset( $image->ID,'medium', $meta_data);
-			$url = get_post_meta($image->ID, $field . '_url', true);
-			$target = get_post_meta($image->ID, $field . '_target', true);
+			$url = get_post_meta($image->ID, $fieldname . '_url', true);
+			$target = get_post_meta($image->ID, $fieldname . '_target', true);
 			$array[] = array(
 				'id' => $image->ID,
 				'title' => $title,

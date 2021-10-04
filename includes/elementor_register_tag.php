@@ -111,13 +111,14 @@ public function get_value( array $options = [] ) {
 
 	list( $field, $meta_key ) = explode( ':', $key );
 
-	$field = get_field($meta_key, get_the_ID());
-	$value = explode(',', $field);
+	//$field = get_field($meta_key, get_the_ID());
+	//$value = explode(',', $field);
+	$value = get_field($meta_key, get_the_ID());
 
 	if ( is_array( $value ) && !empty( $value ) ) {
 		foreach ( $value as $image ) {
 			$images[] = [
-				'id' => $image,
+				'id' => $image['id'],
 			];
 		}
 	}
