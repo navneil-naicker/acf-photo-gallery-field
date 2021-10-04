@@ -10,8 +10,9 @@ function acf_photo_gallery_save( $post_id ){
 	remove_action( 'save_post', 'acf_photo_gallery_save' );
 
 	$field = isset($_POST['acf-photo-gallery-groups'])? $_POST['acf-photo-gallery-groups']: null;
-	$field_key = $_POST['acf-photo-gallery-field'];
+	
 	if( !empty($field) ){
+		$field_key = $_POST['acf-photo-gallery-field'];
 		foreach($field as $k => $v ){
 			$field_id = isset($_POST['acf-photo-gallery-groups'][$k])? $_POST['acf-photo-gallery-groups'][$k]: null;
             if (!empty($field_id)) {
