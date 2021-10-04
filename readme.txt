@@ -126,6 +126,10 @@ Just like any other WordPress plugin, this plugin can also cause issues with oth
 4. Please refer to the description for more info regarding the field type settings
 
 == Changelog ==
+=1.7.1=
+* [Bugfix] ElementorPro class not found
+* [Bugfix] Warning: Undefined array key "acf-photo-gallery-field"
+
 =1.7.0=
 * [Add] Option for to show/hide edit and remove button
 * [Add] Support for Elementor

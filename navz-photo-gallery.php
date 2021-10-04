@@ -4,7 +4,7 @@
 Plugin Name: ACF Photo Gallery Field
 Plugin URI: http://www.navz.me/
 Description: An extension for Advance Custom Fields which lets you add photo gallery functionality on your websites.
-Version: 1.7.0
+Version: 1.7.1
 Author: Navneil Naicker
 Author URI: http://www.navz.me/
 License: GPLv2 or later
@@ -38,7 +38,7 @@ if( !class_exists('acf_plugin_photo_gallery') ) :
 		
 		function __construct() {
 			$this->settings = array(
-				'version'	=> '1.7.0',
+				'version'	=> '1.7.1',
 				'url'		=> plugin_dir_url( __FILE__ ),
 				'path'		=> plugin_dir_path( __FILE__ )
 			);
@@ -52,11 +52,13 @@ if( !class_exists('acf_plugin_photo_gallery') ) :
 		}
 
 		function register_tags( $dynamic_tags ){
-			\Elementor\Plugin::$instance->dynamic_tags->register_group( 'acf-photo-gallery', [
-				'title' => 'ACF' 
-			]);
-			include(__DIR__ . '/includes/elementor_register_tag.php');
-			$dynamic_tags->register_tag( 'register_tag' );
+			if (class_exists('ElementorPro\Modules\DynamicTags\Tags\Base\Data_Tag')) {
+				\Elementor\Plugin::$instance->dynamic_tags->register_group( 'acf-photo-gallery', [
+					'title' => 'ACF' 
+				]);
+				include(__DIR__ . '/includes/elementor_register_tag.php');
+				$dynamic_tags->register_tag( 'register_tag' );
+			}
 		}
 		
 		//Add in jquery-ui-sortable script
