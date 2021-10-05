@@ -1,13 +1,17 @@
 <?php
 
 //Helper function that makes the images into a resuable array
-function acf_photo_gallery_make_images($images, $field, $post_id = null, $order = 'ASC', $orderby = 'post__in'){
+function acf_photo_gallery_make_images($attachment_ids, $field, $post_id = null, $order = 'ASC', $orderby = 'post__in'){
 	global $wpdb;
-	if( !is_array($images) ){ $images = explode(',', $images); }
-	$args = array( 'post_type' => 'attachment', 'posts_per_page' => -1, 'post__in' => $images, 'order' => $order, 'orderby' => $orderby );
-	$images = get_posts( $args );
-	$images = array_filter($images);
-	$fieldname = $field['name'];
+	$attach_ids = explode(',', $attachment_ids);
+	$args = array( 'post_type' => 'attachment', 'posts_per_page' => -1, 'post__in' => $attach_ids, 'order' => $order, 'orderby' => $orderby );
+	$get_images = get_posts( $args );
+	$images = array_filter($get_images);
+	if( is_array($field) ){
+		$fieldname = $field['name'];
+	} else {
+		$fieldname = $field;
+	}
 	$array = array();
 	if( count($images) ):
 		foreach($images as $image):
