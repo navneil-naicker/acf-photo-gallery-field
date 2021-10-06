@@ -35,7 +35,7 @@
     <div id="acf-photo-gallery-metabox-edit">
         <?php
             if( $value ):
-                $acf_photo_gallery_editbox_caption_from_attachment = apply_filters( 'acf_photo_gallery_editbox_caption_from_attachment', $field);
+                $acf_photo_gallery_editbox_caption_from_attachment = apply_filters('acf_photo_gallery_caption_from_attachment', $field);
                 $acf_photo_gallery_attachments =  $value;
                 $acf_photo_gallery_attachments = explode(',', $acf_photo_gallery_attachments);
                 $args = array( 'post_type' => 'attachment', 'posts_per_page' => -1, 'post__in' => $acf_photo_gallery_attachments );

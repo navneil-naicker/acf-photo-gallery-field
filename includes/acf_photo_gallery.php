@@ -13,10 +13,15 @@ function acf_photo_gallery_make_images($attachment_ids, $field, $post_id = null,
 		$fieldname = $field;
 	}
 	$array = array();
+	$use_attachment_caption = apply_filters('acf_photo_gallery_caption_from_attachment', $field);
 	if( count($images) ):
 		foreach($images as $image):
 			$title = $image->post_title;
-			$content = $image->post_content;
+			if ($use_attachment_caption) {
+				$content = wp_get_attachment_caption($image->ID);
+			} else {
+				$content = $image->post_content;
+			}
 			$full_url = wp_get_attachment_url($image->ID);
 			$thumbnail_url = wp_get_attachment_thumb_url($image->ID);
 			$meta_data = wp_get_attachment_metadata($image->ID);

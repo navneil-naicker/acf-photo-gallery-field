@@ -19,7 +19,7 @@ function acf_photo_gallery_edit_save(){
 		unset( $request['title'] );
 		unset( $request['caption'] );
 
-		$acf_photo_gallery_editbox_caption_from_attachment = apply_filters( 'acf_photo_gallery_editbox_caption_from_attachment', $request);
+		$acf_photo_gallery_editbox_caption_from_attachment = apply_filters('acf_photo_gallery_caption_from_attachment', $request);
 		if( $acf_photo_gallery_editbox_caption_from_attachment == 1 ){
 			$captionColumn = 'post_excerpt';
 		} else {
