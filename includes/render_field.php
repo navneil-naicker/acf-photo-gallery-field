@@ -64,10 +64,10 @@
                 foreach($acf_photo_gallery_attachments as $image):
         ?>
         <li class="acf-photo-gallery-mediabox acf-photo-gallery-mediabox-<?php echo $image; ?>">
-            <?php if($remove_edit_button == "No") { ?>
+            <?php if($remove_edit_button != "Yes") { ?>
                 <a class="dashicons dashicons-edit" href="#" title="Edit" data-id="<?php echo $image; ?>" data-field="<?php echo $key; ?>"></a>
             <?php } ?>
-            <?php if($remove_delete_button == "No") { ?>
+            <?php if($remove_delete_button != "Yes") { ?>
                 <a class="dashicons dashicons-dismiss" href="#" data-id="<?php echo $image; ?>" data-field="<?php echo $key; ?>" title="Remove this photo from the gallery"></a>
             <?php } ?>
             <input type="hidden" name="<?php echo $field['_name']; ?>[]" value="<?php echo $image; ?>"/>
