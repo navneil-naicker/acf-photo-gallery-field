@@ -1,4 +1,4 @@
-<div id="acf-photo-gallery-metabox-edit-<?php echo $attachment; ?>" class="acf-edit-photo-gallery">
+<div id="acf-photo-gallery-metabox-edit-<?php echo esc_attr($attachment); ?>" class="acf-edit-photo-gallery">
     <h3>Edit Image</h3>
     <input class="acf-photo-gallery-edit-field" type="hidden" name="acf-pg-hidden-field" value="<?php echo $field; ?>"/>
     <input class="acf-photo-gallery-edit-field" type="hidden" name="acf-pg-hidden-post" value="<?php echo $_GET['post']; ?>"/>
@@ -7,10 +7,10 @@
     <input class="acf-photo-gallery-edit-field" type="hidden" name="acf-pg-hidden-nonce" value="<?php echo $nonce; ?>"/>
     <?php
         foreach( $fields as $key => $item ){
-            $type = ($item['type'])?$item['type']:null;
-            $label = $item['label']?$item['label']:null;
-            $name = $item['name']?$item['name']:null;
-            $value = $item['value']?$item['value']:null;
+            $type = sanitize_text_field($item['type'])?$item['type']:null;
+            $label = sanitize_text_field($item['label'])?$item['label']:null;
+            $name = sanitize_text_field($item['name'])?$item['name']:null;
+            $value = sanitize_text_field($item['value'])?$item['value']:null;
     ?>
         <?php if( in_array($type, array('text', 'date', 'color', 'datetime-local', 'email', 'number', 'tel', 'time', 'url', 'week', 'range')) ){ ?>
             <label><?php echo $label; ?></label>
@@ -42,7 +42,7 @@
         <?php } ?>
     <?php } ?>
     <div class="save-changes-wrap">
-        <button class="button button-primary button-large" type="submit" data-fieldname="<?php echo $acf_fieldkey; ?>" data-id="<?php echo $attachment; ?>" data-ajaxurl="<?php echo admin_url('admin-ajax.php'); ?>">Save Changes</button>
-        <button class="button button-large button-close" type="button" data-close="<?php echo $attachment; ?>">Close</button>
+        <button class="button button-primary button-large" type="submit" data-fieldname="<?php echo $acf_fieldkey; ?>" data-id="<?php echo esc_attr($attachment); ?>" data-ajaxurl="<?php echo admin_url('admin-ajax.php'); ?>">Save Changes</button>
+        <button class="button button-large button-close" type="button" data-close="<?php echo esc_attr($attachment); ?>">Close</button>
     </div>
 </div>
