@@ -128,6 +128,9 @@ Just like any other WordPress plugin, this plugin can also cause issues with oth
 4. Please refer to the description for more info regarding the field type settings
 
 == Changelog ==
+=1.7.5=
+* [Bugfix] Security issue
+
 =1.7.4=
 * [Bugfix] Security issue
 
