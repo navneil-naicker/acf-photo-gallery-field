@@ -3,11 +3,11 @@
 //Helper function that will remove photo from the gallery
 function acf_photo_gallery_remove_photo(){
 	if( wp_verify_nonce( $_GET['_wpnonce'], 'nonce_acf_photo_gallery') and !empty($_GET['post']) and !empty($_GET['photo']) ){
-		$field = sanitize_text_field($_GET['field']);
-		$post = sanitize_text_field($_GET['post']);
-		$photo = sanitize_text_field($_GET['photo']);
+		$field = esc_attr($_GET['field']);
+		$post = esc_attr($_GET['post']);
+		$photo = esc_attr($_GET['photo']);
 		$photo = preg_replace('/\D/', '', $photo);
-		$id = str_replace('acf-field-', '', sanitize_text_field($_GET['id']));
+		$id = str_replace('acf-field-', '', esc_attr($_GET['id']));
 		$meta = get_post_meta($post, $id, true);
 		$meta_arr = explode(',', $meta);
 		if( in_array($photo, $meta_arr) ){

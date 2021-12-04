@@ -9,8 +9,8 @@ function acf_photo_gallery_save( $post_id ){
 	// unhook this function so it doesn't loop infinitely
 	remove_action( 'save_post', 'acf_photo_gallery_save' );
 
-	$field = isset($_POST['acf-photo-gallery-groups'])? sanitize_text_field($_POST['acf-photo-gallery-groups']): null;
-	
+	$field = !empty($_POST['acf-photo-gallery-groups'])? $_POST['acf-photo-gallery-groups']: null;
+
 	if( !empty($field) ){
 		$field_key = sanitize_text_field($_POST['acf-photo-gallery-field']);
 		foreach($field as $k => $v ){

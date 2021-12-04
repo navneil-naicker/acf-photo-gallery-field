@@ -7,42 +7,42 @@
     <input class="acf-photo-gallery-edit-field" type="hidden" name="acf-pg-hidden-nonce" value="<?php echo $nonce; ?>"/>
     <?php
         foreach( $fields as $key => $item ){
-            $type = sanitize_text_field($item['type'])?$item['type']:null;
-            $label = sanitize_text_field($item['label'])?$item['label']:null;
-            $name = sanitize_text_field($item['name'])?$item['name']:null;
-            $value = sanitize_text_field($item['value'])?$item['value']:null;
+            $type = esc_attr($item['type'])?$item['type']:null;
+            $label = esc_attr($item['label'])?$item['label']:null;
+            $name = esc_attr($item['name'])?$item['name']:null;
+            $value = esc_attr($item['value'])?$item['value']:null;
     ?>
         <?php if( in_array($type, array('text', 'date', 'color', 'datetime-local', 'email', 'number', 'tel', 'time', 'url', 'week', 'range')) ){ ?>
-            <label><?php echo $label; ?></label>
-            <input class="acf-photo-gallery-edit-field" type="<?php echo $type; ?>" name="<?php echo $name; ?>" value="<?php echo $value; ?>"/>
+            <label><?php echo esc_attr($label); ?></label>
+            <input class="acf-photo-gallery-edit-field" type="<?php echo $type; ?>" name="<?php echo esc_attr($name); ?>" value="<?php echo $value; ?>"/>
         <?php } ?>
         <?php if( $type == 'checkbox' ){ ?>
             <label>
-                <input class="acf-photo-gallery-edit-field" type="checkbox" name="<?php echo $name; ?>" value="true" <?php echo ($value=='true')?'checked':''; ?>/>
-                <?php echo $label; ?>
+                <input class="acf-photo-gallery-edit-field" type="checkbox" name="<?php echo esc_attr($name); ?>" value="true" <?php echo ($value=='true')?'checked':''; ?>/>
+                <?php echo esc_attr($label); ?>
             </label>
         <?php } ?>
         <?php if( $type == 'radio' ){ ?>
             <label>
-                <input class="acf-photo-gallery-edit-field" type="radio" name="<?php echo $name; ?>" value="true" <?php echo ($value=='true')?'checked':''; ?>/>
-                <?php echo $label; ?>
+                <input class="acf-photo-gallery-edit-field" type="radio" name="<?php echo esc_attr($name); ?>" value="true" <?php echo esc_attr(($value=='true')?'checked':''); ?>/>
+                <?php echo esc_attr($label); ?>
             </label>
         <?php } ?>
         <?php if( $type == 'textarea' ){ ?>
-            <label><?php echo $label; ?></label>
-            <textarea class="acf-photo-gallery-edit-field" name="<?php echo $name; ?>"><?php echo $value; ?></textarea>
+            <label><?php echo esc_attr($label); ?></label>
+            <textarea class="acf-photo-gallery-edit-field" name="<?php echo esc_attr($name); ?>"><?php echo esc_attr($value); ?></textarea>
         <?php } ?>
         <?php if( $type == 'select' ){ ?>
-            <label><?php echo $label; ?></label>
-            <select class="acf-photo-gallery-edit-field" name="<?php echo $name; ?>">
+            <label><?php echo esc_attr($label); ?></label>
+            <select class="acf-photo-gallery-edit-field" name="<?php echo esc_attr($name); ?>">
                 <?php foreach($value[0] as $key => $item){ ?>
-                    <option value="<?php echo $key; ?>" <?php echo $key==$value[1]?'selected':''; ?>><?php echo $item; ?></option>
+                    <option value="<?php echo esc_attr($key); ?>" <?php echo $key==$value[1]?'selected':''; ?>><?php echo esc_attr($item); ?></option>
                 <?php } ?>
             </select>
         <?php } ?>
     <?php } ?>
     <div class="save-changes-wrap">
-        <button class="button button-primary button-large" type="submit" data-fieldname="<?php echo $acf_fieldkey; ?>" data-id="<?php echo esc_attr($attachment); ?>" data-ajaxurl="<?php echo admin_url('admin-ajax.php'); ?>">Save Changes</button>
+        <button class="button button-primary button-large" type="submit" data-fieldname="<?php echo esc_attr($acf_fieldkey); ?>" data-id="<?php echo esc_attr($attachment); ?>" data-ajaxurl="<?php echo admin_url('admin-ajax.php'); ?>">Save Changes</button>
         <button class="button button-large button-close" type="button" data-close="<?php echo esc_attr($attachment); ?>">Close</button>
     </div>
 </div>
