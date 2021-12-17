@@ -14,7 +14,7 @@
     ?>
         <?php if( in_array($type, array('text', 'date', 'color', 'datetime-local', 'email', 'number', 'tel', 'time', 'url', 'week', 'range')) ){ ?>
             <label><?php echo esc_attr($label); ?></label>
-            <input class="acf-photo-gallery-edit-field" type="<?php echo $type; ?>" name="<?php echo esc_attr($name); ?>" value="<?php echo $value; ?>"/>
+            <input class="acf-photo-gallery-edit-field" type="<?php echo $type; ?>" name="<?php echo esc_attr($name); ?>" value="<?php echo esc_attr($value); ?>"/>
         <?php } ?>
         <?php if( $type == 'checkbox' ){ ?>
             <label>
@@ -30,7 +30,7 @@
         <?php } ?>
         <?php if( $type == 'textarea' ){ ?>
             <label><?php echo esc_attr($label); ?></label>
-            <textarea class="acf-photo-gallery-edit-field" name="<?php echo esc_attr($name); ?>"><?php echo esc_attr($value); ?></textarea>
+            <textarea class="acf-photo-gallery-edit-field" name="<?php echo esc_attr($name); ?>"><?php echo esc_textarea($value); ?></textarea>
         <?php } ?>
         <?php if( $type == 'select' ){ ?>
             <label><?php echo esc_attr($label); ?></label>

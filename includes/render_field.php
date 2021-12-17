@@ -15,23 +15,23 @@
         $fieldname = $field['_name'];
         $value = $field['value'];
         $key = $field['key'];
-        $edit_model = (!empty($field['edit_modal']))?$field['edit_modal']:'Default';
+        $edit_model = (!empty($field['edit_modal']))? esc_attr($field['edit_modal']):'Default';
     } else if( ACF_VERSION >= 5 and ACF_VERSION < 6 ){
         $fieldname = $field['_name'];
         $value = $field['value'];
         $key = $field['key'];
-        $remove_edit_button = (!empty($field['fields[' . $fieldname]['remove_edit_button']))?$field['fields[' . $fieldname]['remove_edit_button']:null;    
-        $remove_delete_button = (!empty($field['fields[' . $fieldname]['remove_delete_button']))?$field['fields[' . $fieldname]['remove_delete_button']:null;    
-        $edit_model = (!empty($field['fields[' . $fieldname]['edit_modal']))?$field['fields[' . $fieldname]['edit_modal']:'Default';    
-        $images_limit = (!empty($field['fields[' . $fieldname]['images_limit']))?$field['fields[' . $fieldname]['images_limit']:null;    
-        $replace_textarea_editor = (!empty($field['fields[' . $fieldname]['replace_caption_tinymce']))?$field['fields[' . $fieldname]['replace_caption_tinymce']:null;    
+        $remove_edit_button = (!empty($field['fields[' . $fieldname]['remove_edit_button']))? esc_attr($field['fields[' . $fieldname]['remove_edit_button']):null;    
+        $remove_delete_button = (!empty($field['fields[' . $fieldname]['remove_delete_button']))? esc_attr($field['fields[' . $fieldname]['remove_delete_button']):null;    
+        $edit_model = (!empty($field['fields[' . $fieldname]['edit_modal']))? esc_attr($field['fields[' . $fieldname]['edit_modal']):'Default';    
+        $images_limit = (!empty($field['fields[' . $fieldname]['images_limit']))? esc_attr($field['fields[' . $fieldname]['images_limit']):null;    
+        $replace_textarea_editor = (!empty($field['fields[' . $fieldname]['replace_caption_tinymce']))? esc_attr($field['fields[' . $fieldname]['replace_caption_tinymce']):null;    
     }
 ?>
-<div class="acf-photo-gallery-group-<?php echo $key; ?>">
-    <input type="hidden" name="acf-photo-gallery-edit-modal" value="<?php echo $edit_model; ?>" />
-    <input type="hidden" name="acf-photo-gallery-groups[]" value="<?php echo $field['_name']; ?>"/>
-    <input type="hidden" name="acf-photo-gallery-images_limit" value="<?php echo $images_limit; ?>"/>
-    <input type="hidden" name="acf-photo-gallery-field" value="<?php echo $key; ?>"/>
+<div class="acf-photo-gallery-group-<?php echo esc_attr($key); ?>">
+    <input type="hidden" name="acf-photo-gallery-edit-modal" value="<?php echo esc_attr($edit_model); ?>" />
+    <input type="hidden" name="acf-photo-gallery-groups[]" value="<?php echo esc_attr($field['_name']); ?>"/>
+    <input type="hidden" name="acf-photo-gallery-images_limit" value="<?php echo esc_attr($images_limit); ?>"/>
+    <input type="hidden" name="acf-photo-gallery-field" value="<?php echo esc_attr($key); ?>"/>
     <div id="acf-photo-gallery-metabox-edit">
         <?php
             if( $value ):
@@ -63,14 +63,14 @@
                 $acf_photo_gallery_attachments = explode(',', $acf_photo_gallery_attachments);
                 foreach($acf_photo_gallery_attachments as $image):
         ?>
-        <li class="acf-photo-gallery-mediabox acf-photo-gallery-mediabox-<?php echo $image; ?>">
+        <li class="acf-photo-gallery-mediabox acf-photo-gallery-mediabox-<?php echo esc_attr($image); ?>">
             <?php if($remove_edit_button != "Yes") { ?>
-                <a class="dashicons dashicons-edit" href="#" title="Edit" data-id="<?php echo $image; ?>" data-field="<?php echo $key; ?>"></a>
+                <a class="dashicons dashicons-edit" href="#" title="Edit" data-id="<?php echo esc_attr($image); ?>" data-field="<?php echo esc_attr($key); ?>"></a>
             <?php } ?>
             <?php if($remove_delete_button != "Yes") { ?>
-                <a class="dashicons dashicons-dismiss" href="#" data-id="<?php echo $image; ?>" data-field="<?php echo $key; ?>" title="Remove this photo from the gallery"></a>
+                <a class="dashicons dashicons-dismiss" href="#" data-id="<?php echo esc_attr($image); ?>" data-field="<?php echo esc_attr($key); ?>" title="Remove this photo from the gallery"></a>
             <?php } ?>
-            <input type="hidden" name="<?php echo $field['_name']; ?>[]" value="<?php echo $image; ?>"/>
+            <input type="hidden" name="<?php echo $field['_name']; ?>[]" value="<?php echo esc_attr($image); ?>"/>
             <img src="<?php echo wp_get_attachment_thumb_url( $image ); ?>"/>
         </li>
         <?php endforeach; else: ?><li class="acf-photo-gallery-media-box-placeholder"><span class="dashicons dashicons-format-image"></span></li><?php endif; ?>
