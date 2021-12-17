@@ -24,7 +24,7 @@
         <?php } ?>
         <?php if( $type == 'radio' ){ ?>
             <label>
-                <input class="acf-photo-gallery-edit-field" type="radio" name="<?php echo esc_attr($name); ?>" value="true" <?php echo esc_attr(($value=='true')?'checked':''); ?>/>
+                <input class="acf-photo-gallery-edit-field" type="radio" name="<?php echo esc_attr($name); ?>" value="true" <?php echo ($value=='true')?'checked':''; ?>/>
                 <?php echo esc_attr($label); ?>
             </label>
         <?php } ?>
