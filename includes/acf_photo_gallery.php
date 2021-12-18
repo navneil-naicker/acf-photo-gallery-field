@@ -1,5 +1,8 @@
 <?php
 
+// exit if accessed directly
+if( ! defined( 'ABSPATH' ) ) exit;
+
 //Helper function that makes the images into a resuable array
 function acf_photo_gallery_make_images($attachment_ids, $field, $post_id = null, $order = 'ASC', $orderby = 'post__in'){
 	global $wpdb;

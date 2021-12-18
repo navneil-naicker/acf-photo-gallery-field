@@ -1,3 +1,7 @@
+<?php
+    // exit if accessed directly
+    if( ! defined( 'ABSPATH' ) ) exit;
+?>
 <div id="acf-photo-gallery-metabox-edit-<?php echo esc_attr($attachment); ?>" class="acf-edit-photo-gallery">
     <h3>Edit Image</h3>
     <input class="acf-photo-gallery-edit-field" type="hidden" name="acf-pg-hidden-field" value="<?php echo esc_attr($field); ?>"/>
@@ -14,7 +18,7 @@
     ?>
         <?php if( in_array($type, array('text', 'date', 'color', 'datetime-local', 'email', 'number', 'tel', 'time', 'url', 'week', 'range')) ){ ?>
             <label><?php echo esc_attr($label); ?></label>
-            <input class="acf-photo-gallery-edit-field" type="<?php echo $type; ?>" name="<?php echo esc_attr($name); ?>" value="<?php echo esc_attr($value); ?>"/>
+            <input class="acf-photo-gallery-edit-field" type="<?php echo esc_attr($type); ?>" name="<?php echo esc_attr($name); ?>" value="<?php echo esc_attr($value); ?>"/>
         <?php } ?>
         <?php if( $type == 'checkbox' ){ ?>
             <label>
@@ -36,7 +40,7 @@
             <label><?php echo esc_attr($label); ?></label>
             <select class="acf-photo-gallery-edit-field" name="<?php echo esc_attr($name); ?>">
                 <?php foreach($value[0] as $key => $item){ ?>
-                    <option value="<?php echo esc_attr($key); ?>" <?php echo $key==$value[1]?'selected':''; ?>><?php echo esc_attr($item); ?></option>
+                    <option value="<?php echo esc_attr($key); ?>" <?php echo esc_attr($key==$value[1]?'selected':''); ?>><?php echo esc_attr($item); ?></option>
                 <?php } ?>
             </select>
         <?php } ?>

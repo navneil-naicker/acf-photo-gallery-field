@@ -1,5 +1,8 @@
 <?php
 
+// exit if accessed directly
+if( ! defined( 'ABSPATH' ) ) exit;
+
 //Helper function that will remove photo from the gallery
 function acf_photo_gallery_remove_photo(){
 	if( wp_verify_nonce( $_GET['_wpnonce'], 'nonce_acf_photo_gallery') and !empty($_GET['post']) and !empty($_GET['photo']) ){

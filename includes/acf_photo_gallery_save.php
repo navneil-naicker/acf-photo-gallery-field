@@ -1,5 +1,8 @@
 <?php
 
+// exit if accessed directly
+if( ! defined( 'ABSPATH' ) ) exit;
+
 //Fires off when the WordPress update button is clicked
 function acf_photo_gallery_save( $post_id ){
 	
@@ -9,15 +12,16 @@ function acf_photo_gallery_save( $post_id ){
 	// unhook this function so it doesn't loop infinitely
 	remove_action( 'save_post', 'acf_photo_gallery_save' );
 
-	$field = !empty($_POST['acf-photo-gallery-groups'])? $_POST['acf-photo-gallery-groups']: null;
+	$field = !empty($_POST['acf-photo-gallery-groups'])? $_POST['acf-photo-gallery-groups']: array();
+	$field = array_map('sanitize_text_field', $field );
 
 	if( !empty($field) ){
 		$field_key = sanitize_text_field($_POST['acf-photo-gallery-field']);
 		foreach($field as $k => $v ){
 			$field_id = isset($_POST['acf-photo-gallery-groups'][$k])? sanitize_text_field($_POST['acf-photo-gallery-groups'][$k]): null;
             if (!empty($field_id)) {
-                $ids = !empty($field) && isset($_POST[$field_id])? $_POST[$field_id]: null;
-                if (!empty($ids)) {
+                $ids = !empty($_POST[$field_id])? array_map('sanitize_text_field', $_POST[$field_id]): null;
+				if (!empty($ids)) {
                     $ids = implode(',', $ids);
                     update_post_meta($post_id, $field_id, $ids);
                     acf_update_metadata($post_id, $field_id, $field_key, true);

@@ -1,5 +1,8 @@
 <?php
 
+// exit if accessed directly
+if( ! defined( 'ABSPATH' ) ) exit;
+
     // vars
     $this->name = 'photo_gallery';
     $this->label = __('Photo Gallery');

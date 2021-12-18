@@ -1,4 +1,8 @@
 <?php
+
+// exit if accessed directly
+if( ! defined( 'ABSPATH' ) ) exit;
+
     /*
     *  acf_render_field_setting
     *

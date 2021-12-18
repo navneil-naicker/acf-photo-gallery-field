@@ -1,8 +1,12 @@
 <?php
+
+    // exit if accessed directly
+    if( ! defined( 'ABSPATH' ) ) exit;
+
     $field = array_merge($this->defaults, $field);
-    $key = $field['name'];
+    $key = esc_attr($field['name']);
 ?>
-<tr class="field_option field_option_<?php echo $this->name; ?>">
+<tr class="field_option field_option_<?php echo esc_attr($this->name); ?>">
     <td class="label">
         <label><?php _e("Edit modal",'acf'); ?></label>
         <p class="description"><?php _e("Native lets you delete permanently or select another, but is heavier",'acf'); ?></p>

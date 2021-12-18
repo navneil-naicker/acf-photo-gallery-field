@@ -1,5 +1,8 @@
 <?php
 
+// exit if accessed directly
+if( ! defined( 'ABSPATH' ) ) exit;
+
 //Helper function that resizes the images from the specified args
 function acf_photo_gallery_resize_image( $img_url, $width = 150, $height = 150){
 	if( !function_exists('aq_resize') ){

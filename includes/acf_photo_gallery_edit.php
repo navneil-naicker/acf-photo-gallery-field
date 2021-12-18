@@ -1,5 +1,8 @@
 <?php
 
+// exit if accessed directly
+if( ! defined( 'ABSPATH' ) ) exit;
+
 function acf_photo_gallery_edit($field, $nonce, $attachment, $url = null, $title = null, $caption = null, $target = 0, $acf_fieldkey = null){
 	$args = array();
 	$args['url'] = $url;

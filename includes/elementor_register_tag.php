@@ -1,5 +1,8 @@
 <?php
 
+// exit if accessed directly
+if( ! defined( 'ABSPATH' ) ) exit;
+
 use ElementorPro\Modules\DynamicTags\Tags\Base\Data_Tag;
 
 class register_tag extends Data_Tag {

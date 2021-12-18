@@ -1,5 +1,9 @@
 <?php
 
+    // exit if accessed directly
+    if( ! defined( 'ABSPATH' ) ) exit;
+
+
     global $pagenow;
     if( $pagenow == 'edit-tags.php'){
         echo 'ACF Photo Gallery Field is not supported on taxonomy.';
@@ -70,7 +74,7 @@
             <?php if($remove_delete_button != "Yes") { ?>
                 <a class="dashicons dashicons-dismiss" href="#" data-id="<?php echo esc_attr($image); ?>" data-field="<?php echo esc_attr($key); ?>" title="Remove this photo from the gallery"></a>
             <?php } ?>
-            <input type="hidden" name="<?php echo $field['_name']; ?>[]" value="<?php echo esc_attr($image); ?>"/>
+            <input type="hidden" name="<?php echo esc_attr($field['_name']); ?>[]" value="<?php echo esc_attr($image); ?>"/>
             <img src="<?php echo wp_get_attachment_thumb_url( $image ); ?>"/>
         </li>
         <?php endforeach; else: ?><li class="acf-photo-gallery-media-box-placeholder"><span class="dashicons dashicons-format-image"></span></li><?php endif; ?>

@@ -3,7 +3,7 @@ Contributors: navzme
 Tags: acf, advanced, custom, fields, photo, gallery, album, fancybox, litebox, lightbox
 Requires at least: 4.7.0
 Tested up to: 5.8.1
-Stable tag: 1.7.6
+Stable tag: 1.7.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -128,6 +128,9 @@ Just like any other WordPress plugin, this plugin can also cause issues with oth
 4. Please refer to the description for more info regarding the field type settings
 
 == Changelog ==
+=1.7.7=
+* [Bugfix] Sanitizing and escaping inputs
+
 =1.7.6=
 * [Bugfix] Sanitizing and escaping inputs
 
