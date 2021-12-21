@@ -103,7 +103,7 @@ public function render() {
 		} else {
 			$field = get_field_object( $field_key, get_queried_object() );
 		}
-		echo $field;
+		echo esc_attr( $field );
 	}
 	return;
 }
