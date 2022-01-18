@@ -37,3 +37,15 @@ function acf_photo_gallery_save( $post_id ){
 	add_action( 'save_post', 'acf_photo_gallery_save' );
 }
 add_action( 'save_post', 'acf_photo_gallery_save' );
+
+add_action( 'profile_update', 'my_profile_update', 10, 2 );
+function my_profile_update( $user_id, $old_user_data ){
+	$field = $_POST['acf-photo-gallery-field'];
+	$group = $_POST['acf-photo-gallery-groups'];
+	if( is_array($group) && count($group) > 0 ){
+		foreach($group as $item){
+			$d = $_POST[$item];
+			update_user_meta($user_id, $item, implode(',', $d));
+		}
+	}
+}
