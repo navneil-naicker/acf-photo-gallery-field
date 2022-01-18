@@ -7,6 +7,8 @@ if( ! defined( 'ABSPATH' ) ) exit;
 $url = $this->settings['url'];
 $version = $this->settings['version'];
 
+wp_enqueue_media();
+
 // register & include JS
 wp_enqueue_script( 'jquery-ui-sortable' );
 
@@ -15,7 +17,6 @@ wp_enqueue_script( 'acf-input-photo_gallery');
 
 wp_register_script( 'acf-input-photo_gallery_swal', "{$url}assets/js/sweetalert2.min.js", array('acf-input'), $version );
 wp_enqueue_script( 'acf-input-photo_gallery_swal');
-
 
 // register & include CSS
 wp_register_style( 'acf-input-photo_gallery', "{$url}assets/css/acf-photo-gallery-field.css", array('acf-input'), $version );

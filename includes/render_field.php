@@ -30,6 +30,14 @@
         $images_limit = (!empty($field['fields[' . $fieldname]['images_limit']))? esc_attr($field['fields[' . $fieldname]['images_limit']):null;    
         $replace_textarea_editor = (!empty($field['fields[' . $fieldname]['replace_caption_tinymce']))? esc_attr($field['fields[' . $fieldname]['replace_caption_tinymce']):null;    
     }
+    if($pagenow == 'profile.php'){
+        $value = get_user_meta(get_current_user_id(), $fieldname);
+        if(is_array($value) && !empty($value[0])){
+            $value = $value[0];
+        } else {
+            $value = null;
+        }
+    }
 ?>
 <div class="acf-photo-gallery-group-<?php echo esc_attr($key); ?>">
     <input type="hidden" name="acf-photo-gallery-edit-modal" value="<?php echo esc_attr($edit_model); ?>" />

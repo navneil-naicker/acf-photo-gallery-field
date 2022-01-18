@@ -62,7 +62,7 @@
     function acf_photo_gallery_add_media($el) {
         var acf_photo_gallery_ids = new Array();
         if ($('.acf-photo-gallery-metabox-add-images').length > 0) {
-
+            
             if (typeof wp !== 'undefined' && wp.media && wp.media.editor) {
 
                 $(document).on('click', '.acf-photo-gallery-metabox-add-images', function(e) {

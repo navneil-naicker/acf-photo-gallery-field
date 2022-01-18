@@ -129,7 +129,7 @@ Just like any other WordPress plugin, this plugin can also cause issues with oth
 
 == Changelog ==
 =1.7.8=
-* [Bugfix] escaping inputs
+* [Bugfix] Sanitizing and escaping inputs
 
 =1.7.7=
 * [Bugfix] Sanitizing and escaping inputs
