@@ -3,7 +3,7 @@ Contributors: navzme
 Tags: acf, advanced, custom, fields, photo, gallery, album, fancybox, litebox, lightbox
 Requires at least: 4.7.0
 Tested up to: 5.8.1
-Stable tag: 1.7.8
+Stable tag: 1.7.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -129,6 +129,7 @@ Just like any other WordPress plugin, this plugin can also cause issues with oth
 
 == Changelog ==
 =1.7.9=
+* [Bugfix] Elementor Pro gallery images preview
 * [Added] Support for user profile
 
 =1.7.8=
