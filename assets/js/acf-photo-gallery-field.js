@@ -37,7 +37,7 @@
      * @param {{ index: number, splice: number }} options
      */
     function acf_photo_gallery_html(attachment, field, options) {
-        var html, id, url, title, caption;
+        var edit_box_html, presentation_html, id, url, title, caption;
         id = attachment.id;
         url = attachment.url;
         title = attachment.title;
@@ -46,16 +46,16 @@
         var JsonField = jQuery.parseJSON(field);
 
         if (typeof attachment.sizes.thumbnail != 'undefined') { url = attachment.sizes.thumbnail.url; }
-        html = acf_photo_gallery_edit(id, url, title, caption);
-        $('.acf-photo-gallery-group-' + JsonField.key + ' .acf-photo-gallery-metabox-edit').append(html);
+        edit_box_html = acf_photo_gallery_edit(id, url, title, caption);
+        $('.acf-photo-gallery-group-' + JsonField.key + ' .acf-photo-gallery-metabox-edit').append(edit_box_html);
         var $list = $('.acf-photo-gallery-group-' + JsonField.key + ' .acf-photo-gallery-metabox-list');
-        html = '<li class="acf-photo-gallery-mediabox acf-photo-gallery-mediabox-' + id + '" data-id="' + id + '"><a class="dashicons dashicons-dismiss" href="#" data-id="' + id + '" data-field="' + JsonField.key + '" title="Remove this photo from the gallery"></a><input type="hidden" name="' + JsonField._name + '[]" value="' + id + '"/><img src="' + url + '"/></li>';
+        presentation_html = '<li class="acf-photo-gallery-mediabox acf-photo-gallery-mediabox-' + id + '" data-id="' + id + '"><a class="dashicons dashicons-dismiss" href="#" data-id="' + id + '" data-field="' + JsonField.key + '" title="Remove this photo from the gallery"></a><input type="hidden" name="' + JsonField._name + '[]" value="' + id + '"/><img src="' + url + '"/></li>';
         if (options.index) {
             var $cursor = $list.children().eq(options.index);
-            $cursor.before(html);
+            $cursor.before(presentation_html);
             if (options.splice) { $cursor.remove(); }
         } else {
-            $list.prepend(html);
+            $list.prepend(presentation_html);
         }
     }
 
@@ -75,7 +75,7 @@
                     //On click of the add images button, check if the image limit has been reached
                     var pre_selected_list = $('.acf-photo-gallery-group-' + JsonField.key + ' .acf-photo-gallery-metabox-list li.acf-photo-gallery-mediabox');
                     var images_limit = $('.acf-photo-gallery-group-' + JsonField.key + ' input[name=\'acf-photo-gallery-images_limit\']').val();
-                    console.log(images_limit);
+
                     if (images_limit != "" && pre_selected_list.length == images_limit) {
                         swal('Limit has been reached', 'Your website administrator has set a limit of ' + images_limit + ' images that can be added to this gallery.', 'error')
                         return false;
