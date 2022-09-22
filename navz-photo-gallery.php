@@ -80,7 +80,6 @@ if( !class_exists('acf_plugin_photo_gallery') ) :
 		*/
 		
 		function include_field_types( $version = false ) {
-			
 			// support empty $version
 			if( !$version ) $version = 4;
 			

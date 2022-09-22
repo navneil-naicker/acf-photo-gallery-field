@@ -20,7 +20,7 @@
         $value = $field['value'];
         $key = $field['key'];
         $edit_model = (!empty($field['edit_modal']))? esc_attr($field['edit_modal']):'Default';
-    } else if( ACF_VERSION >= 5 and ACF_VERSION < 6 ){
+    } else if( ACF_VERSION >= 5){
         $fieldname = $field['_name'];
         $value = $field['value'];
         $key = $field['key'];
