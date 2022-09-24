@@ -2,8 +2,9 @@
 Contributors: navzme
 Tags: acf, advanced, custom, fields, photo, gallery, album, fancybox, litebox, lightbox
 Requires at least: 4.7.0
-Tested up to: 5.8.1
-Stable tag: 1.7.9
+Tested up to: 6.0.2
+Requires PHP: 5.6
+Stable tag: 1.8.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -116,6 +117,7 @@ When you receive the response, see the ACF item which contains ACF photo gallery
 This ACF field type is compatible with:
 * ACF 4
 * ACF 5
+* ACF 6
 
 = Issues =
 Just like any other WordPress plugin, this plugin can also cause issues with other themes and plugins. If you are facing issues making this plugin work on your WordPress site, please do ask for help in the support forum. This way we can help you out and prevent this issue from happening to someone else. If you want to talk to me directly, you can contact me via my website <http://www.navz.me/>
@@ -128,6 +130,9 @@ Just like any other WordPress plugin, this plugin can also cause issues with oth
 4. Please refer to the description for more info regarding the field type settings
 
 == Changelog ==
+=1.8.0=
+* [Added] Support for ACF 6
+
 =1.7.9=
 * [Bugfix] Elementor Pro gallery images preview
 * [Added] Support for user profile
