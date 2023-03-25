@@ -2,7 +2,7 @@
 Contributors: navzme
 Tags: acf, advanced, custom, fields, photo, gallery, album, fancybox, litebox, lightbox
 Requires at least: 4.7.0
-Tested up to: 6.0.2
+Tested up to: 6.2
 Requires PHP: 5.6
 Stable tag: 1.8.1
 License: GPLv2 or later
