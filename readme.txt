@@ -132,6 +132,7 @@ Just like any other WordPress plugin, this plugin can also cause issues with oth
 == Changelog ==
 =1.8.1=
 * [Updated] Renamed function from 'my_profile_update' to 'apg_profile_update'
+* [Bugfix] Backdrop not going away when the "Native" model is closed
 
 =1.8.0=
 * [Added] Support for ACF 6
