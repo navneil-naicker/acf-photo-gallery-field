@@ -2,9 +2,9 @@
 Contributors: navzme
 Tags: acf, advanced, custom, fields, photo, gallery, album, fancybox, litebox, lightbox
 Requires at least: 4.7.0
-Tested up to: 6.0.2
+Tested up to: 6.2
 Requires PHP: 5.6
-Stable tag: 1.8.0
+Stable tag: 1.8.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -130,6 +130,11 @@ Just like any other WordPress plugin, this plugin can also cause issues with oth
 4. Please refer to the description for more info regarding the field type settings
 
 == Changelog ==
+=1.8.1=
+* [Updated] Renamed function from 'my_profile_update' to 'apg_profile_update'
+* [Bugfix] Backdrop not going away when the "Native" model is closed
+* [Removed] SweetAlert and added native browser alert
+
 =1.8.0=
 * [Added] Support for ACF 6
 

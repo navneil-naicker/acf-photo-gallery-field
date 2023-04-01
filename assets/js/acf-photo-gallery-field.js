@@ -75,19 +75,18 @@
                     //On click of the add images button, check if the image limit has been reached
                     var pre_selected_list = $('.acf-photo-gallery-group-' + JsonField.key + ' .acf-photo-gallery-metabox-list li.acf-photo-gallery-mediabox');
                     var images_limit = $('.acf-photo-gallery-group-' + JsonField.key + ' input[name=\'acf-photo-gallery-images_limit\']').val();
-
+                    var gallery_limit_message = 'Your website administrator has set a limit of ' + images_limit + ' images that can be added to this gallery.';
                     if (images_limit != "" && pre_selected_list.length == images_limit) {
-                        swal('Limit has been reached', 'Your website administrator has set a limit of ' + images_limit + ' images that can be added to this gallery.', 'error')
+                        alert(gallery_limit_message)
                         return false;
                     }
 
                     $(document).on('click', '.media-modal-content .attachments-browser .attachments li', function() {
                         var selection_list = $('.media-modal-content .attachments-browser .attachments li[aria-checked=true]').length;
                         var check_image_limit = pre_selected_list.length + selection_list;
-                        console.log(images_limit);
                         if (images_limit != "" && check_image_limit > images_limit) {
                             $(this).click();
-                            swal('Limit has been reached', 'Your website administrator has set a limit of ' + images_limit + ' images that can be added to this gallery.', 'error')
+                            alert(gallery_limit_message)
                             return false;
                         }
                     });
@@ -164,8 +163,6 @@
         var modal = $('.acf-photo-gallery-group-' + field + ' input[name="acf-photo-gallery-edit-modal"]').val();
         var $list = $('.acf-photo-gallery-group-' + field + ' ul.acf-photo-gallery-metabox-list');
         var index = $('.acf-photo-gallery-group-' + field + ' ul.acf-photo-gallery-metabox-list li').index();
-        $('body').prepend('<div class=\'acf-gallery-backdrop\'></div>');
-        $('body').css('overflow', 'hidden');
 
         if (modal === 'Native') {
             wp.media.editor.send.attachment = function(_, attachment) {
@@ -188,7 +185,6 @@
             var handleDestroy = function(deleted) {
                 $list.children().each(function() {
                     var $elem = $(this);
-
                     if ($elem.data('id') === deleted.id) {
                         remove($elem.find('.dashicons-dismiss'));
                     }
@@ -197,13 +193,13 @@
 
             var library = editor.get('library');
             library.on('destroy', handleDestroy);
-
             editor.on('close', function() {
                 library.off('destroy', handleDestroy);
             });
-
             $('.acf-photo-gallery-group-' + field + ' .acf-photo-gallery-metabox-list li.acf-photo-gallery-media-box-placeholder').remove();
         } else {
+            $('body').prepend('<div class=\'acf-gallery-backdrop\'></div>');
+            $('body').css('overflow', 'hidden');
             $('.acf-photo-gallery-group-' + field + ' #acf-photo-gallery-metabox-edit-' + id).fadeToggle('fast');
         }
 
