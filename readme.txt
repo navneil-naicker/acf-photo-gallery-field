@@ -11,10 +11,6 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 A lightweight extension of Advanced Custom Field (ACF) that adds Photo Gallery field to any post/pages on your WordPress website.
 
-== Donation ==
-Navneil Naicker is the sole developer working on the development of this free WordPress Plugin in his leisure time. Navneil would also like to add support for premium plugins such as Elementor Pro and Advanced Custom Fields Pro. Please donate generously to this cause to assist Navneil in continuing further development of this plugin.
-Click on “<https://www.buymeacoffee.com/navzme>” link to donate.
-
 == Description ==
 A lightweight extension of Advanced Custom Field (ACF) that adds **Photo Gallery** field to any post/pages on your WordPress website.
 
@@ -29,6 +25,9 @@ A lightweight extension of Advanced Custom Field (ACF) that adds **Photo Gallery
 
 = Note =
 This plugin is alternative of ACF Gallery Pro. You need to have knowledge of coding because you’ll be required to edit your WordPress theme source code. If you are looking for shortcodes and prebuilt gallery then this plugin is **NOT** for you. This plugin will give you PHP array of images and you’ll need to make the gallery layout as you wish.
+
+= Donation =
+Navneil Naicker is the sole developer working on this free WordPress Plugin in his leisure time. He would like to integrate it with premium plugins like Elementor Pro and Advanced Custom Fields Pro. Please donate to support Navneil in continuing further development of this plugin. Click on the link “<https://www.buymeacoffee.com/navzme>” to donate.
 
 = Usage =
 *acf_photo_gallery* is a helper function that takes in **ACF_FIELD_NAME** and **POST_ID** will query the database and compile the images for you. The output of this function will be an array.
@@ -134,6 +133,10 @@ Just like any other WordPress plugin, this plugin can also cause issues with oth
 4. Please refer to the description for more info regarding the field type settings
 
 == Changelog ==
+=1.9=
+* [Added] Donation link because I'm poor
+* [Removed] errors and deprecating warnings
+
 =1.8.1=
 * [Updated] Renamed function from 'my_profile_update' to 'apg_profile_update'
 * [Bugfix] Backdrop not going away when the "Native" model is closed
