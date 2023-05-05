@@ -14,13 +14,13 @@ if( ! defined( 'ABSPATH' ) ) exit;
     */
 
     $name = $field['name'];
-    $value = $field['fields['.$name];
+    $value = !empty($field['fields['.$name]) ? $field['fields['.$name] : [];
 
     acf_render_field_setting( $field, array(
         'label'			=> __('Edit modal','TEXTDOMAIN'),
         'type'          => 'select',
         'name'          => 'fields['.$name.'][edit_modal]',
-        'value'         => $value['edit_modal'],
+        'value'         => !empty($value['edit_modal']) ? $value['edit_modal'] : '',
         'choices'       => array('Default' => 'Default', 'Native' => 'Native')
     ));
 
@@ -28,14 +28,14 @@ if( ! defined( 'ABSPATH' ) ) exit;
         'label'			=> __('Images Limit','TEXTDOMAIN'),
         'type'          => 'number',
         'name'          => 'fields['.$name.'][images_limit]',
-        'value'         => $value['images_limit']
+        'value'         => !empty($value['images_limit']) ? $value['images_limit'] : ''
     ));
 
     acf_render_field_setting( $field, array(
         'label'			=> __('Remove edit button','TEXTDOMAIN'),
         'type'          => 'select',
         'name'          => 'fields['.$name.'][remove_edit_button]',
-        'value'         => $value['remove_edit_button'],
+        'value'         => !empty($value['remove_edit_button']) ? $value['remove_edit_button'] : '',
         'choices'       => array('No' => 'No', 'Yes' => 'Yes')
     ));
 
@@ -43,6 +43,6 @@ if( ! defined( 'ABSPATH' ) ) exit;
         'label'			=> __('Remove delete button','TEXTDOMAIN'),
         'type'          => 'select',
         'name'          => 'fields['.$name.'][remove_delete_button]',
-        'value'         => $value['remove_delete_button'],
+        'value'         => !empty($value['remove_delete_button']) ? $value['remove_delete_button'] : '',
         'choices'       => array('No' => 'No', 'Yes' => 'Yes')
     ));

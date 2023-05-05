@@ -34,7 +34,7 @@
         <?php } ?>
         <?php if( $type == 'textarea' ){ ?>
             <label><?php echo esc_attr($label); ?></label>
-            <textarea class="acf-photo-gallery-edit-field" name="<?php echo esc_attr($name); ?>"><?php echo esc_textarea($value); ?></textarea>
+            <textarea class="acf-photo-gallery-edit-field" name="<?php echo esc_attr($name); ?>"><?php echo @esc_textarea($value); ?></textarea>
         <?php } ?>
         <?php if( $type == 'select' ){ ?>
             <label><?php echo esc_attr($label); ?></label>
