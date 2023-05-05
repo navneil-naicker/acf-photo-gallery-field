@@ -1,5 +1,6 @@
 ﻿=== ACF Photo Gallery Field ===
 Contributors: navzme
+Donate link: https://www.buymeacoffee.com/navzme
 Tags: acf, advanced, custom, fields, photo, gallery, album, fancybox, litebox, lightbox
 Requires at least: 4.7.0
 Tested up to: 6.2
@@ -10,8 +11,11 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 A lightweight extension of Advanced Custom Field (ACF) that adds Photo Gallery field to any post/pages on your WordPress website.
 
-== Description ==
+== Donation ==
+Navneil Naicker is the sole developer working on the development of this free WordPress Plugin in his leisure time. Navneil would also like to add support for premium plugins such as Elementor Pro and Advanced Custom Fields Pro. Please donate generously to this cause to assist Navneil in continuing further development of this plugin.
+Click on “<https://www.buymeacoffee.com/navzme>” link to donate.
 
+== Description ==
 A lightweight extension of Advanced Custom Field (ACF) that adds **Photo Gallery** field to any post/pages on your WordPress website.
 
 * Visually create your Fields

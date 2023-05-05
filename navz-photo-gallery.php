@@ -49,6 +49,15 @@ if( !class_exists('acf_plugin_photo_gallery') ) :
 			add_filter( 'acf_photo_gallery_caption_from_attachment', '__return_false' );
 			add_filter("rest_prepare_page", array($this, 'rest_prepare_post'), 10, 3);
 	        add_action('elementor/dynamic_tags/register_tags', array($this, 'register_tags'));
+			add_filter('plugin_row_meta', array($this, 'acf_pgf_donation_link'), 10, 4 );
+		}
+
+		function acf_pgf_donation_link( $links_array, $plugin_file_name, $plugin_data, $status ) {
+			if ( strpos( $plugin_file_name, basename(__FILE__) ) ) {
+				$links_array[] = '<a href="https://www.buymeacoffee.com/navzme" target="_blank"><span class="dashicons dashicons-heart" style="color:red;"></span> Donate</a>';
+			}
+		
+			return $links_array;
 		}
 
 		function register_tags( $dynamic_tags ){
