@@ -7,37 +7,30 @@
     global $pagenow;
     if( $pagenow == 'edit-tags.php'){
         echo 'ACF Photo Gallery Field is not supported on taxonomy.';
+    } else if($pagenow == 'profile.php'){
+        echo 'ACF Photo Gallery Field is not supported on profile.';
     } else {
-
-    $remove_edit_button = "";
-    $remove_delete_button = "";
-    $images_limit = "";
-    
-    global $post;    
-    $nonce_acf_photo_gallery = wp_create_nonce( 'nonce_acf_photo_gallery' );
-    if( ACF_VERSION >= 4 and ACF_VERSION < 5 ){
-        $fieldname = $field['_name'];
-        $value = $field['value'];
-        $key = $field['key'];
-        $edit_model = (!empty($field['edit_modal']))? esc_attr($field['edit_modal']):'Default';
-    } else if( ACF_VERSION >= 5){
-        $fieldname = $field['_name'];
-        $value = $field['value'];
-        $key = $field['key'];
-        $remove_edit_button = (!empty($field['fields[' . $fieldname]['remove_edit_button']))? esc_attr($field['fields[' . $fieldname]['remove_edit_button']):null;    
-        $remove_delete_button = (!empty($field['fields[' . $fieldname]['remove_delete_button']))? esc_attr($field['fields[' . $fieldname]['remove_delete_button']):null;    
-        $edit_model = (!empty($field['fields[' . $fieldname]['edit_modal']))? esc_attr($field['fields[' . $fieldname]['edit_modal']):'Default';    
-        $images_limit = (!empty($field['fields[' . $fieldname]['images_limit']))? esc_attr($field['fields[' . $fieldname]['images_limit']):null;    
-        $replace_textarea_editor = (!empty($field['fields[' . $fieldname]['replace_caption_tinymce']))? esc_attr($field['fields[' . $fieldname]['replace_caption_tinymce']):null;    
-    }
-    if($pagenow == 'profile.php'){
-        $value = get_user_meta(get_current_user_id(), $fieldname);
-        if(is_array($value) && !empty($value[0])){
-            $value = $value[0];
-        } else {
-            $value = null;
+        $remove_edit_button = "";
+        $remove_delete_button = "";
+        $images_limit = "";
+        
+        global $post;    
+        $nonce_acf_photo_gallery = wp_create_nonce( 'nonce_acf_photo_gallery' );
+        if( ACF_VERSION >= 4 and ACF_VERSION < 5 ){
+            $fieldname = $field['_name'];
+            $value = $field['value'];
+            $key = $field['key'];
+            $edit_model = (!empty($field['edit_modal']))? esc_attr($field['edit_modal']):'Default';
+        } else if( ACF_VERSION >= 5){
+            $fieldname = $field['_name'];
+            $value = $field['value'];
+            $key = $field['key'];
+            $remove_edit_button = (!empty($field['fields[' . $fieldname]['remove_edit_button']))? esc_attr($field['fields[' . $fieldname]['remove_edit_button']):null;    
+            $remove_delete_button = (!empty($field['fields[' . $fieldname]['remove_delete_button']))? esc_attr($field['fields[' . $fieldname]['remove_delete_button']):null;    
+            $edit_model = (!empty($field['fields[' . $fieldname]['edit_modal']))? esc_attr($field['fields[' . $fieldname]['edit_modal']):'Default';    
+            $images_limit = (!empty($field['fields[' . $fieldname]['images_limit']))? esc_attr($field['fields[' . $fieldname]['images_limit']):null;    
+            $replace_textarea_editor = (!empty($field['fields[' . $fieldname]['replace_caption_tinymce']))? esc_attr($field['fields[' . $fieldname]['replace_caption_tinymce']):null;    
         }
-    }
 ?>
 <div class="acf-photo-gallery-group-<?php echo esc_attr($key); ?>">
     <input type="hidden" name="acf-photo-gallery-edit-modal" value="<?php echo esc_attr($edit_model); ?>" />
