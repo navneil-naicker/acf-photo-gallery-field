@@ -6,7 +6,7 @@ if( ! defined( 'ABSPATH' ) ) exit;
 //Helper function that makes the images into a resuable array
 function acf_photo_gallery_make_images($attachment_ids, $field, $post_id = null, $order = 'ASC', $orderby = 'post__in'){
 	global $wpdb;
-	$attach_ids = explode(',', $attachment_ids);
+	$attach_ids = explode(',', $attachment_ids ?? '');
 	$args = array( 'post_type' => 'attachment', 'posts_per_page' => -1, 'post__in' => $attach_ids, 'order' => $order, 'orderby' => $orderby );
 	$get_images = get_posts( $args );
 	$images = array_filter($get_images);
