@@ -126,10 +126,7 @@ https://www.youtube.com/watch?v=5iTV0JVFFOE
 https://www.youtube.com/watch?v=XlSx_weZXoU
 
 = Compatibility =
-This ACF field type is compatible with:
-* ACF 4
-* ACF 5
-* ACF 6
+This ACF field type is compatible with: ACF 4, 5 and 6
 
 = Issues =
 Just like any other WordPress plugin, this plugin can also cause issues with other themes and plugins. If you are facing issues making this plugin work on your WordPress site, please do ask for help in the support forum. This way we can help you out and prevent this issue from happening to someone else. If you want to talk to me directly, you can contact me via my website <http://www.navz.me/>
@@ -144,6 +141,10 @@ From your WordPress dashboard
 4. **Watch** the tutorial to [get started](https://www.youtube.com/watch?v=c7u9FwVLe9Q)
 
 == Changelog ==
+=2.1=
+* [Fixed] explode(): Passing null to parameter error
+* [Fixed] /wp-json/ not showing gallery images on custom post type. Thanks to GitHub @nykula for the fix.
+
 =2.0=
 * [Removed] Removed functionality from profile
 * [Removed] errors and deprecating warnings
