@@ -3,7 +3,7 @@ Contributors: navzme
 Donate link: https://www.buymeacoffee.com/navzme
 Tags: acf, advanced, custom, fields, photo, gallery, album, fancybox, litebox, lightbox
 Requires at least: 4.7.0
-Tested up to: 6.2
+Tested up to: 6.3
 Requires PHP: 5.6
 Stable tag: 2.0
 License: GPLv2 or later
@@ -118,6 +118,9 @@ When you receive the response, see the ACF item which contains ACF photo gallery
 
 = Installation and basic usage tutorial =
 https://www.youtube.com/watch?v=c7u9FwVLe9Q
+
+= ACF Photo Gallery Field on WordPress Custom Post Type tutorial =
+https://www.youtube.com/watch?v=5iTV0JVFFOE
 
 = How to use Elementor dynamic tags with ACF Photo Gallery Field plugin tutorial =
 https://www.youtube.com/watch?v=XlSx_weZXoU
