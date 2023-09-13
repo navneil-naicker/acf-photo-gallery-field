@@ -5,7 +5,7 @@ Tags: acf, advanced, custom, fields, photo, gallery, album, fancybox, litebox, l
 Requires at least: 4.7.0
 Tested up to: 6.3
 Requires PHP: 5.6
-Stable tag: 2.2
+Stable tag: 2.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -141,6 +141,9 @@ From your WordPress dashboard
 4. **Watch** the tutorial to [get started](https://www.youtube.com/watch?v=c7u9FwVLe9Q)
 
 == Changelog ==
+=2.3=
+* [Fixed] renamed a function to avoid conflict.
+
 =2.2=
 * [Fixed] Elementor Pro dynamic tag fix. Thanks to GitHub @rloes for the fix.
 * [Added] Donation request popup. People gonna hate me for this. Sorry.
