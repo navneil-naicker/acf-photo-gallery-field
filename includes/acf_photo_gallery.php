@@ -47,3 +47,32 @@ function acf_photo_gallery($field = null, $post_id = null, $order = 'ASC', $orde
 	$images = get_post_meta($post_id, $field, true);
 	return acf_photo_gallery_make_images($images, $field, $post_id, $order, $orderby);
 }
+
+function apgf_update_donation(){
+	$option = sanitize_text_field($_GET['option']);
+	if(in_array($option, ['yes', 'no', 'already', 'later'])){
+		global $wpdb;
+		update_option("apgf_donation", serialize(
+			array(
+				"option" => $option,
+				"timestamp" => date('Ymd', strtotime("+30 days"))
+			)
+		));
+	} else {
+		$option = unserialize(get_option("apgf_donation"));
+		if(is_array($option)){
+			$currTime = date('Ymd');
+			$time = $option['timestamp'];
+			$result = [
+				"show" => ($option["option"] === "later" && current_user_can('administrator') && $currTime > $time) ? true: false
+			];
+			die(json_encode($result));
+		} else {
+			die(json_encode([
+				"show" => true
+			]));
+		}
+	}
+	die();
+}
+add_action('wp_ajax_apgf_update_donation', 'apgf_update_donation' );

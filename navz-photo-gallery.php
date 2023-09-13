@@ -42,14 +42,15 @@ if( !class_exists('acf_plugin_photo_gallery') ) :
 				'url'		=> plugin_dir_url( __FILE__ ),
 				'path'		=> plugin_dir_path( __FILE__ )
 			);
-			load_plugin_textdomain( 'acf-photo_gallery', false, plugin_basename( dirname( __FILE__ ) ) . '/lang' ); 
-			add_action( 'admin_enqueue_scripts', array($this, 'acf_photo_gallery_sortable') );			
+			load_plugin_textdomain('acf-photo_gallery', false, plugin_basename( dirname( __FILE__ ) ) . '/lang'); 
+			add_action('admin_enqueue_scripts', array($this, 'acf_photo_gallery_sortable'));			
 			add_action('acf/include_field_types', array($this, 'include_field_types')); // v5
 			add_action('acf/register_fields', array($this, 'include_field_types')); // v4
 			add_action('rest_api_init', array($this, 'rest_api_init'));
-			add_filter( 'acf_photo_gallery_caption_from_attachment', '__return_false' );
+			add_filter('acf_photo_gallery_caption_from_attachment', '__return_false');
 	        add_action('elementor/dynamic_tags/register_tags', array($this, 'register_tags'));
-			add_filter('plugin_row_meta', array($this, 'acf_pgf_donation_link'), 10, 4 );
+			add_filter('plugin_row_meta', array($this, 'acf_pgf_donation_link'), 10, 4);
+			add_action('admin_head', array($this, 'apgf_admin_head'));
 		}
 
 		function acf_pgf_donation_link( $links_array, $plugin_file_name, $plugin_data, $status ) {
@@ -128,6 +129,22 @@ if( !class_exists('acf_plugin_photo_gallery') ) :
 			}
 		}
 
+		function apgf_admin_head()
+		{
+			if(current_user_can('administrator')){
+?>
+		<script>
+			let apgf_show_donation = true;
+			jQuery.get("<?php echo admin_url('admin-ajax.php'); ?>?action=apgf_update_donation", function( data ) {
+				data = JSON.parse(data);
+				if(data){
+					apgf_show_donation = data.show;
+				}
+			});
+		</script>
+<?php
+			}
+		}
 	}
 
 	// initialize

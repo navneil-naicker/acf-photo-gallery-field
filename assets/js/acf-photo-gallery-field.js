@@ -62,7 +62,6 @@
     function acf_photo_gallery_add_media($el) {
         var acf_photo_gallery_ids = new Array();
         if ($('.acf-photo-gallery-metabox-add-images').length > 0) {
-            
             if (typeof wp !== 'undefined' && wp.media && wp.media.editor) {
 
                 $(document).on('click', '.acf-photo-gallery-metabox-add-images', function(e) {
@@ -72,34 +71,66 @@
                     var field = button.attr('data-field');
                     var JsonField = jQuery.parseJSON(field);
 
-                    //On click of the add images button, check if the image limit has been reached
-                    var pre_selected_list = $('.acf-photo-gallery-group-' + JsonField.key + ' .acf-photo-gallery-metabox-list li.acf-photo-gallery-mediabox');
-                    var images_limit = $('.acf-photo-gallery-group-' + JsonField.key + ' input[name=\'acf-photo-gallery-images_limit\']').val();
-                    var gallery_limit_message = 'Your website administrator has set a limit of ' + images_limit + ' images that can be added to this gallery.';
-                    if (images_limit != "" && pre_selected_list.length == images_limit) {
-                        alert(gallery_limit_message)
-                        return false;
-                    }
-
-                    $(document).on('click', '.media-modal-content .attachments-browser .attachments li', function() {
-                        var selection_list = $('.media-modal-content .attachments-browser .attachments li[aria-checked=true]').length;
-                        var check_image_limit = pre_selected_list.length + selection_list;
-                        if (images_limit != "" && check_image_limit > images_limit) {
-                            $(this).click();
+                    function xxx(){
+                        //On click of the add images button, check if the image limit has been reached
+                        var pre_selected_list = $('.acf-photo-gallery-group-' + JsonField.key + ' .acf-photo-gallery-metabox-list li.acf-photo-gallery-mediabox');
+                        var images_limit = $('.acf-photo-gallery-group-' + JsonField.key + ' input[name=\'acf-photo-gallery-images_limit\']').val();
+                        var gallery_limit_message = 'Your website administrator has set a limit of ' + images_limit + ' images that can be added to this gallery.';
+                        if (images_limit != "" && pre_selected_list.length == images_limit) {
                             alert(gallery_limit_message)
                             return false;
                         }
-                    });
-
-                    wp.media.editor.send.attachment = function(props, attachment) {
-                        acf_photo_gallery_html(attachment, field, { index: 0, splice: 0 });
-                    };
-
-                    wp.media.editor.open(button, function() {});
-                    if ($('.acf-photo-gallery-group-' + JsonField.key + ' .acf-photo-gallery-metabox-list li.acf-photo-gallery-media-box-placeholder').length > 0) {
-                        $('.acf-photo-gallery-group-' + JsonField.key + ' .acf-photo-gallery-metabox-list li.acf-photo-gallery-media-box-placeholder').remove();
+                        $(document).on('click', '.media-modal-content .attachments-browser .attachments li', function() {
+                            var selection_list = $('.media-modal-content .attachments-browser .attachments li[aria-checked=true]').length;
+                            var check_image_limit = pre_selected_list.length + selection_list;
+                            if (images_limit != "" && check_image_limit > images_limit) {
+                                $(this).click();
+                                alert(gallery_limit_message)
+                                return false;
+                            }
+                        });
+                        wp.media.editor.send.attachment = function(props, attachment) {
+                            acf_photo_gallery_html(attachment, field, { index: 0, splice: 0 });
+                        };
+                        wp.media.editor.open(button, function() {});
+                        if ($('.acf-photo-gallery-group-' + JsonField.key + ' .acf-photo-gallery-metabox-list li.acf-photo-gallery-media-box-placeholder').length > 0) {
+                            $('.acf-photo-gallery-group-' + JsonField.key + ' .acf-photo-gallery-metabox-list li.acf-photo-gallery-media-box-placeholder').remove();
+                        }
                     }
-
+                    if(typeof apgf_show_donation !== 'undefined' && apgf_show_donation){
+                        swal({
+                            title: 'Donation!',
+                            html: 'I apologize for the inconvenience, but the ACF Photo Gallery Field plugin is requesting donations to enhance the future development of this plugin.<br/><br/>Would you like to donate?',
+                            type: 'question',
+                            confirmButtonText: 'Submit',
+                            showCancelButton: true,
+                            showCloseButton: true,
+                            input: 'select',
+                            inputOptions: {
+                                "yes": "Yes, I want to donate",
+                                "already": "I have already donated",
+                                "later": "Maybe later",
+                                "no": "No"
+                            }
+                          }).then((result) => {
+                            if (result.value === 'yes') {
+                                window.open("https://www.buymeacoffee.com/navzme", "_blank");
+                                xxx();
+                            } else {
+                                $.ajax({
+                                    method: "GET",
+                                    url: acf.get('ajaxurl'),
+                                    data: {
+                                        action: "apgf_update_donation",
+                                        option: result.value
+                                    }
+                                  });
+                                xxx();
+                            }
+                        });
+                    } else {
+                        xxx();
+                    }
                     return false;
                 });
             }
