@@ -143,7 +143,7 @@ From your WordPress dashboard
 == Changelog ==
 =2.2=
 * [Fixed] Elementor Pro dynamic tag fix. Thanks to GitHub @rloes for the fix.
-* [Added] Donation requested popup.
+* [Added] Donation request popup. People gonna hate me for this. Sorry.
 
 =2.1=
 * [Fixed] explode(): Passing null to parameter error
