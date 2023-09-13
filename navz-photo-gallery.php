@@ -48,7 +48,7 @@ if( !class_exists('acf_plugin_photo_gallery') ) :
 			add_action('acf/register_fields', array($this, 'include_field_types')); // v4
 			add_action('rest_api_init', array($this, 'rest_api_init'));
 			add_filter('acf_photo_gallery_caption_from_attachment', '__return_false');
-	        add_action('elementor/dynamic_tags/register_tags', array($this, 'register_tags'));
+	        add_action('elementor/dynamic_tags/register', array($this, 'register_tags'));
 			add_filter('plugin_row_meta', array($this, 'acf_pgf_donation_link'), 10, 4);
 			add_action('admin_head', array($this, 'apgf_admin_head'));
 		}
@@ -67,7 +67,7 @@ if( !class_exists('acf_plugin_photo_gallery') ) :
 					'title' => 'ACF' 
 				]);
 				include(__DIR__ . '/includes/elementor_register_tag.php');
-				$dynamic_tags->register_tag( 'register_tag' );
+				$dynamic_tags->register( new register_tag() );
 			}
 		}
 		
