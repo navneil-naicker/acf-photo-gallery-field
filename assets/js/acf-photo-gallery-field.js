@@ -71,7 +71,7 @@
                     var field = button.attr('data-field');
                     var JsonField = jQuery.parseJSON(field);
 
-                    function xxx(){
+                    function apgf_open_media_lib(){
                         //On click of the add images button, check if the image limit has been reached
                         var pre_selected_list = $('.acf-photo-gallery-group-' + JsonField.key + ' .acf-photo-gallery-metabox-list li.acf-photo-gallery-mediabox');
                         var images_limit = $('.acf-photo-gallery-group-' + JsonField.key + ' input[name=\'acf-photo-gallery-images_limit\']').val();
@@ -115,7 +115,7 @@
                           }).then((result) => {
                             if (result.value === 'yes') {
                                 window.open("https://www.buymeacoffee.com/navzme", "_blank");
-                                xxx();
+                                apgf_open_media_lib();
                             } else {
                                 $.ajax({
                                     method: "GET",
@@ -125,11 +125,11 @@
                                         option: result.value
                                     }
                                   });
-                                xxx();
+                                  apgf_open_media_lib();
                             }
                         });
                     } else {
-                        xxx();
+                        apgf_open_media_lib();
                     }
                     return false;
                 });
