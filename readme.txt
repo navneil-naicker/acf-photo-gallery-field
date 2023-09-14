@@ -5,7 +5,7 @@ Tags: acf, advanced, custom, fields, photo, gallery, album, fancybox, litebox, l
 Requires at least: 4.7.0
 Tested up to: 6.3
 Requires PHP: 5.6
-Stable tag: 2.3
+Stable tag: 2.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
