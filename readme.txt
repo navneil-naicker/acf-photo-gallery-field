@@ -141,6 +141,9 @@ From your WordPress dashboard
 4. **Watch** the tutorial to [get started](https://www.youtube.com/watch?v=c7u9FwVLe9Q)
 
 == Changelog ==
+=2.4=
+* [Fixed] Undefined array key "option" error
+
 =2.3=
 * [Fixed] renamed a function to avoid conflict.
 
