@@ -90,12 +90,15 @@
                             }
                         });
                         wp.media.editor.send.attachment = function(props, attachment) {
-                            acf_photo_gallery_html(attachment, field, { index: 0, splice: 0 });
+                            if(attachment){
+                                const placeholder = '.acf-photo-gallery-group-' + JsonField.key + ' .acf-photo-gallery-metabox-list li.acf-photo-gallery-media-box-placeholder';
+                                if ($(placeholder).length > 0) {
+                                    $(placeholder).remove();
+                                }
+                                acf_photo_gallery_html(attachment, field, { index: 0, splice: 0 });
+                            }
                         };
                         wp.media.editor.open(button, function() {});
-                        if ($('.acf-photo-gallery-group-' + JsonField.key + ' .acf-photo-gallery-metabox-list li.acf-photo-gallery-media-box-placeholder').length > 0) {
-                            $('.acf-photo-gallery-group-' + JsonField.key + ' .acf-photo-gallery-metabox-list li.acf-photo-gallery-media-box-placeholder').remove();
-                        }
                     }
                     if(typeof apgf_show_donation !== 'undefined' && apgf_show_donation){
                         swal({

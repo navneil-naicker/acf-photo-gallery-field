@@ -110,23 +110,21 @@ public function render() {
 
 public function get_value( array $options = [] ) {
 	$images = [];
-
 	$key = $this->get_settings( 'Key' );
-
-	list( $field, $meta_key ) = explode( ':', $key );
-
-	$value = get_field($meta_key, get_the_ID());
-
-	if( is_admin() ){
-		$img_ids = array_filter(explode(',', $value));
-		foreach ( $img_ids as $image ) {
-			$images[] = [
-				'id' => $image
-			];
-		}
-		return $images;
-	} else {
-		return $value;
+	if(!empty($key)){
+		list( $field, $meta_key ) = explode( ':', $key );
+		$value = get_field($meta_key, get_the_ID());
+		if( is_admin() ){
+			$img_ids = array_filter(explode(',', $value));
+			foreach ( $img_ids as $image ) {
+				$images[] = [
+					'id' => $image
+				];
+			}
+			return $images;
+		} else {
+			return $value;
+		}	
 	}
 }
 

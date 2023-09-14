@@ -4,7 +4,7 @@
 Plugin Name: ACF Photo Gallery Field
 Plugin URI: http://www.navz.me/
 Description: An extension for Advance Custom Fields which lets you add photo gallery functionality on your websites.
-Version: 2.4
+Version: 2.5
 Author: Navneil Naicker
 Author URI: http://www.navz.me/
 License: GPLv2 or later
@@ -23,6 +23,8 @@ if( !class_exists('acf_plugin_photo_gallery') ) :
 		// vars
 		var $settings;
 
+		//defined('current_elementor-pro_version', null);
+
 		/*
 		*  __construct
 		*
@@ -38,9 +40,10 @@ if( !class_exists('acf_plugin_photo_gallery') ) :
 		
 		function __construct() {
 			$this->settings = array(
-				'version'	=> '2.4',
-				'url'		=> plugin_dir_url( __FILE__ ),
-				'path'		=> plugin_dir_path( __FILE__ )
+				'version' => '2.5',
+				'url' => plugin_dir_url( __FILE__ ),
+				'path' => plugin_dir_path( __FILE__ ),
+				'elementor_pro_vesion' => $this->get_elementor_pro_version()
 			);
 			load_plugin_textdomain('acf-photo_gallery', false, plugin_basename( dirname( __FILE__ ) ) . '/lang'); 
 			add_action('admin_enqueue_scripts', array($this, 'acf_photo_gallery_sortable'));			
@@ -48,7 +51,11 @@ if( !class_exists('acf_plugin_photo_gallery') ) :
 			add_action('acf/register_fields', array($this, 'include_field_types')); // v4
 			add_action('rest_api_init', array($this, 'rest_api_init'));
 			add_filter('acf_photo_gallery_caption_from_attachment', '__return_false');
-	        add_action('elementor/dynamic_tags/register', array($this, 'register_tags'));
+			if($this->settings['elementor_pro_vesion'] > 3.15){
+				add_action('elementor/dynamic_tags/register', array($this, 'register_tags'));
+			} else if($this->settings['elementor_pro_vesion'] > 0){
+				add_action('elementor/dynamic_tags/register_tags', array($this, 'register_tags'));
+			}
 			add_filter('plugin_row_meta', array($this, 'acf_pgf_donation_link'), 10, 4);
 			add_action('admin_head', array($this, 'apgf_admin_head'));
 		}
@@ -67,7 +74,11 @@ if( !class_exists('acf_plugin_photo_gallery') ) :
 					'title' => 'ACF' 
 				]);
 				include(__DIR__ . '/includes/elementor_register_tag.php');
-				$dynamic_tags->register( new register_tag() );
+				if($this->settings['elementor_pro_vesion'] > 3.15){
+					$dynamic_tags->register(new register_tag());
+				} else {
+					$dynamic_tags->register_tag('register_tag');
+				}
 			}
 		}
 		
@@ -127,6 +138,18 @@ if( !class_exists('acf_plugin_photo_gallery') ) :
 			foreach (get_post_types() as $name) {
 				add_filter("rest_prepare_$name", array($this, 'rest_prepare_post'), 10, 3);
 			}
+		}
+
+		function get_elementor_pro_version(){
+			$elementor_pro_vesion = 0;
+			$file = dirname(dirname(__FILE__)) . '/elementor-pro/elementor-pro.php';
+			if(file_exists($file)){
+				$plugin_data = get_file_data($file, array('Version' => 'Version'), false);
+				if(!empty($plugin_data['Version'])){
+					$elementor_pro_vesion = floatval($plugin_data['Version']);
+				}
+			}
+			return $elementor_pro_vesion;
 		}
 
 		function apgf_admin_head()

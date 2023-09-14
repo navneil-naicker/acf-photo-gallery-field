@@ -141,6 +141,10 @@ From your WordPress dashboard
 4. **Watch** the tutorial to [get started](https://www.youtube.com/watch?v=c7u9FwVLe9Q)
 
 == Changelog ==
+=2.5=
+* [Fixed] Elementor dynamic tag offset index
+* [Added] fallback for Elementor dynamic tag for versions prior to 3.16
+
 =2.4=
 * [Fixed] Undefined array key "option" error
 
