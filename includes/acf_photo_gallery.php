@@ -49,15 +49,17 @@ function acf_photo_gallery($field = null, $post_id = null, $order = 'ASC', $orde
 }
 
 function apgf_update_donation(){
-	$option = sanitize_text_field($_GET['option']);
-	if(in_array($option, ['yes', 'no', 'already', 'later'])){
-		global $wpdb;
-		update_option("apgf_donation", serialize(
-			array(
-				"option" => $option,
-				"timestamp" => date('Ymd', strtotime("+30 days"))
-			)
-		));
+	if(!empty($_GET['option'])){
+		$option = sanitize_text_field($_GET['option']);
+		if(in_array($option, ['yes', 'no', 'already', 'later'])){
+			global $wpdb;
+			update_option("apgf_donation", serialize(
+				array(
+					"option" => $option,
+					"timestamp" => date('Ymd', strtotime("+30 days"))
+				)
+			));
+		}
 	} else {
 		$option = unserialize(get_option("apgf_donation"));
 		if(is_array($option)){
