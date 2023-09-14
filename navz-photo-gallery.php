@@ -53,7 +53,7 @@ if( !class_exists('acf_plugin_photo_gallery') ) :
 			add_filter('acf_photo_gallery_caption_from_attachment', '__return_false');
 			if($this->settings['elementor_pro_vesion'] > 3.15){
 				add_action('elementor/dynamic_tags/register', array($this, 'register_tags'));
-			} else if($this->settings['elementor_pro_vesion'] > 0){
+			} else {
 				add_action('elementor/dynamic_tags/register_tags', array($this, 'register_tags'));
 			}
 			add_filter('plugin_row_meta', array($this, 'acf_pgf_donation_link'), 10, 4);
