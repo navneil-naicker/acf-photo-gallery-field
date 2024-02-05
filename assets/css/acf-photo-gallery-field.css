@@ -97,3 +97,69 @@
     left: 0%;
     right: 0%;
 }
+
+#acf_pgf_donation_model {
+    display: none;
+    position: fixed;
+    z-index: 99999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.8);
+    -webkit-animation-name: fadeIn;
+    -webkit-animation-duration: 0.4s;
+            animation-name: fadeIn;
+            animation-duration: 0.4s;
+}
+  
+#acf_pgf_donation_model .modal-content {
+    position: absolute;
+    background-color: #fefefe;
+    -webkit-animation-name: slideIn;
+    -webkit-animation-duration: 0.4s;
+            animation-name: slideIn;
+            animation-duration: 0.4s;
+    width: 30rem;
+    left: 30%;
+    right: 30%;
+    top: 15%;
+}
+
+#acf_pgf_donation_model .modal-header h2 {
+    padding: 12px 15px !important;
+    margin: 0px !important;
+    border-bottom: 1px solid #ccc;
+    color: #1d2327;
+    font-weight: bold !important;
+    font-size: 1.3em !important;
+    background: #f1f1f1;
+}
+  
+#acf_pgf_donation_model .modal-body {
+    padding: 12px;
+}
+
+#acf_pgf_donation_model .modal-body label{
+    width: 100%;
+    display: inline-block;
+}
+
+#acf_pgf_donation_model .modal-body select{
+    width: 100%;
+}
+
+#acf_pgf_donation_model .modal-body p {
+    margin-top: 0 !important
+}
+  
+#acf_pgf_donation_model .modal-footer {
+    text-align: right;
+    padding: 12px;
+}
+
+#acf_pgf_donation_model .modal-footer button {
+    margin-left: 5px !important;
+}
