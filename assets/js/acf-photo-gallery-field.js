@@ -1,5 +1,4 @@
 (function($) {
-
     function initialize_field($el) {
         //$el.doStuff();
     }
@@ -45,7 +44,9 @@
 
         var JsonField = jQuery.parseJSON(field);
 
-        if (typeof attachment.sizes.thumbnail != 'undefined') { url = attachment.sizes.thumbnail.url; }
+        if (typeof attachment.sizes.thumbnail != 'undefined') {
+            url = attachment.sizes.thumbnail.url;
+        }
         edit_box_html = acf_photo_gallery_edit(id, url, title, caption);
         $('.acf-photo-gallery-group-' + JsonField.key + ' .acf-photo-gallery-metabox-edit').append(edit_box_html);
         var $list = $('.acf-photo-gallery-group-' + JsonField.key + ' .acf-photo-gallery-metabox-list');
@@ -60,10 +61,8 @@
     }
 
     function acf_photo_gallery_add_media($el) {
-        var acf_photo_gallery_ids = new Array();
         if ($('.acf-photo-gallery-metabox-add-images').length > 0) {
             if (typeof wp !== 'undefined' && wp.media && wp.media.editor) {
-
                 $(document).on('click', '.acf-photo-gallery-metabox-add-images', function(e) {
                     e.preventDefault();
                     var button = $(this);
@@ -100,40 +99,37 @@
                         };
                         wp.media.editor.open(button, function() {});
                     }
+
                     if(typeof apgf_show_donation !== 'undefined' && apgf_show_donation){
-                        swal({
-                            title: 'Donation!',
-                            html: 'I apologize for the inconvenience, but the ACF Photo Gallery Field plugin is requesting donations to enhance the future development of this plugin.<br/><br/>Would you like to donate?',
-                            type: 'question',
-                            confirmButtonText: 'Submit',
-                            showCancelButton: true,
-                            showCloseButton: true,
-                            input: 'select',
-                            inputOptions: {
-                                "yes": "Yes, I want to donate",
-                                "already": "I have already donated",
-                                "later": "Maybe later",
-                                "no": "No"
-                            }
-                          }).then((result) => {
-                            if (result.value === 'yes') {
+                        if($("#acf_pgf_donation_model").length === 0){
+                            $("body").append("<div id=\"acf_pgf_donation_model\" class=\"modal\"><div class=\"modal-content\"><div class=\"modal-header\"><h2>Donation</h2></div><div class=\"modal-body\"><p>The ACF Photo Gallery Field plugin is requesting donations to support its future development.</p><p><label>Would you like to donate?</label><select><option value=\"yes\">Yes, I want to donate</option><option value=\"already\">I have already donated</option><option value=\"later\">Maybe later</option><option value=\"no\">No</option></select></p></div><div class=\"modal-footer\"><button type=\"button\" class=\"button button-default cancel\">Cancel</button><button type=\"button\" class=\"button button-primary submit\">Submit</button></div></div></div>");
+                        }
+                        $("#acf_pgf_donation_model").css("display", "block");
+                        $("#acf_pgf_donation_model .modal-footer button.submit").unbind().on("click", function(){
+                            const val = $("#acf_pgf_donation_model select").val().trim();
+                            if(val === "yes"){
                                 window.open("https://www.buymeacoffee.com/navzme", "_blank");
-                                apgf_open_media_lib();
                             } else {
+                                $("#acf_pgf_donation_model").remove();
                                 $.ajax({
                                     method: "GET",
                                     url: acf.get('ajaxurl'),
                                     data: {
                                         action: "apgf_update_donation",
-                                        option: result.value
+                                        option: val
                                     }
                                   });
                                   apgf_open_media_lib();
                             }
                         });
+                        $("#acf_pgf_donation_model button.cancel").on("click", function(){
+                            $("#acf_pgf_donation_model").remove();
+                            apgf_open_media_lib();
+                        });
                     } else {
                         apgf_open_media_lib();
                     }
+
                     return false;
                 });
             }
@@ -280,8 +276,6 @@
             $(postbox).find('.field[data-field_type="photo_gallery"]').each(function() {
                 initialize_field($(this));
                 acf_photo_gallery_add_media($(this));
-                //acf_photo_gallery_edit_popover( $(this) );
-                //acf_photo_gallery_limit_images( $(this) );
             });
         });
     }

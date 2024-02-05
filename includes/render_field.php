@@ -3,7 +3,6 @@
     // exit if accessed directly
     if( ! defined( 'ABSPATH' ) ) exit;
 
-
     global $pagenow;
     if( $pagenow == 'edit-tags.php'){
         echo 'ACF Photo Gallery Field is not supported on taxonomy.';
@@ -32,6 +31,7 @@
             $replace_textarea_editor = (!empty($field['fields[' . $fieldname]['replace_caption_tinymce']))? esc_attr($field['fields[' . $fieldname]['replace_caption_tinymce']):null;    
         }
 ?>
+
 <div class="acf-photo-gallery-group-<?php echo esc_attr($key); ?>">
     <input type="hidden" name="acf-photo-gallery-edit-modal" value="<?php echo esc_attr($edit_model); ?>" />
     <input type="hidden" name="acf-photo-gallery-groups[]" value="<?php echo esc_attr($field['_name']); ?>"/>
@@ -82,4 +82,5 @@
     </ul>
     <button class="button button-primary button-large acf-photo-gallery-metabox-add-images" type="button" data-field="<?php echo htmlspecialchars(json_encode($field), ENT_QUOTES, 'UTF-8'); ?>">Add Images</button>
 </div>
+
 <?php } ?>
