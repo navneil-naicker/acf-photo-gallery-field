@@ -49,7 +49,7 @@ function acf_photo_gallery($field = null, $post_id = null, $order = 'ASC', $orde
 }
 
 function apgf_update_donation(){
-	if(!empty($_GET['option'])){
+	if(wp_verify_nonce($_GET['nonce'], 'apgf-update-donation') and !empty($_GET['option'])){
 		$option = sanitize_text_field($_GET['option']);
 		if(in_array($option, ['yes', 'no', 'already', 'later'])){
 			global $wpdb;
@@ -77,4 +77,4 @@ function apgf_update_donation(){
 	}
 	die();
 }
-add_action('wp_ajax_apgf_update_donation', 'apgf_update_donation' );
+add_action('wp_ajax_apgf_update_donation', 'apgf_update_donation');

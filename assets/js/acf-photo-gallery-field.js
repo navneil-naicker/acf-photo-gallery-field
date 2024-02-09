@@ -116,7 +116,8 @@
                                     url: acf.get('ajaxurl'),
                                     data: {
                                         action: "apgf_update_donation",
-                                        option: val
+                                        option: val,
+                                        nonce: apgf_nonce
                                     }
                                   });
                                   apgf_open_media_lib();
