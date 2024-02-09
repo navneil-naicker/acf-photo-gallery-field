@@ -5,7 +5,7 @@ Tags: acf, advanced, custom, fields, photo, gallery, album, fancybox, litebox, l
 Requires at least: 5.8
 Tested up to: 6.3
 Requires PHP: 7.0
-Stable tag: 2.6
+Stable tag: 2.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -141,6 +141,9 @@ From your WordPress dashboard
 4. **Watch** the tutorial to [get started](https://www.youtube.com/watch?v=c7u9FwVLe9Q)
 
 == Changelog ==
+=2.7=
+* [Fixed] Tidy up few things.
+
 =2.6=
 * [Fixed] When click on "Add Images", WordPress media library not opening.
 
