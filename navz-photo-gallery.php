@@ -167,6 +167,11 @@ if( !class_exists('acf_plugin_photo_gallery') ) :
 		</script>
 <?php
 			}
+?>
+		<script>
+			const apgf_nonce = "<?php echo wp_create_nonce('apgf-update-donation') ?>";
+		</script>
+<?php
 		}
 	}
 
