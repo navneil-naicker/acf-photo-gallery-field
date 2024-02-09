@@ -3,7 +3,7 @@ Contributors: navzme
 Donate link: https://www.buymeacoffee.com/navzme
 Tags: acf, advanced, custom, fields, photo, gallery, album, fancybox, litebox, lightbox
 Requires at least: 5.8
-Tested up to: 6.3
+Tested up to: 6.4
 Requires PHP: 7.0
 Stable tag: 2.7
 License: GPLv2 or later
