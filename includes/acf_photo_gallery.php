@@ -23,6 +23,10 @@ function acf_photo_gallery_make_images($attachment_ids, $field, $post_id = null,
 			$full_url = wp_get_attachment_url($image->ID);
 			$thumbnail_url = wp_get_attachment_thumb_url($image->ID);
 			$meta_data = wp_get_attachment_metadata($image->ID);
+			foreach (array_keys($meta_data['sizes']) as $size) {
+				$meta_data['sizes'][$size]['source_url'] = wp_get_attachment_image_url($image->ID, $size);
+			}
+			$alt_text = get_post_meta($image->ID, '_wp_attachment_image_alt', true);
 			$large_srcset = wp_get_attachment_image_srcset( $image->ID,'large', $meta_data);
 			$medium_srcset = wp_get_attachment_image_srcset( $image->ID,'medium', $meta_data);
 			$url = get_post_meta($image->ID, $fieldname . '_url', true);
@@ -35,6 +39,12 @@ function acf_photo_gallery_make_images($attachment_ids, $field, $post_id = null,
 				'thumbnail_image_url' => $thumbnail_url,
 				'large_srcset' => $large_srcset,
 				'medium_srcset' => $medium_srcset,
+				'media_details' => [
+					'width' => $meta_data['width'],
+					'height' => $meta_data['height'],
+					'sizes' => $meta_data['sizes']
+				],
+				'alt_text' => $alt_text,
 				'url' => $url,
 				'target' => $target
 			);
