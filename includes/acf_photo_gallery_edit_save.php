@@ -13,7 +13,7 @@ function acf_photo_gallery_edit_save(){
 		$title = sanitize_text_field($_POST['title']);
 		$caption = sanitize_textarea_field($_POST['caption']);
 
-		$caption_from_attachment = apply_filters('acf_photo_gallery_editbox_caption_from_attachment', $request);
+		$caption_from_attachment = apply_filters('acf_photo_gallery_editbox_caption_from_attachment', $_POST);
 		if( $caption_from_attachment == 1 ){
 			$captionColumn = 'post_excerpt';
 		} else {
