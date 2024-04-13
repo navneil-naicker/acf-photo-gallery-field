@@ -180,8 +180,6 @@
             $('.acf_pgf_modal').fadeOut().remove();
         }).fail(function(err) {
             console.log(err);
-        }).always(function(data) {
-            console.log(data);
         });
         return false;
     });
@@ -228,6 +226,9 @@
             });
             $('.acf-photo-gallery-group-' + field + ' .acf-photo-gallery-metabox-list li.acf-photo-gallery-media-box-placeholder').remove();
         } else {
+            $('.acf_pgf_modal').remove();
+            $("body").append("<div class=\"acf_pgf_modal\" id=\"acf-photo-gallery-metabox-edit-" + attachment_id  + "\"><div class=\"acf_pgf_modal-content\"><div class=\"acf-edit-photo-gallery\"><div class=\"acf_pgf_modal-header\"><h2>Edit Image</h2></div><div class=\"acf_pgf_modal-body\"><div class=\"acf_pgf_modal-injectable\">Loading...</div></div></div></div></div>");
+            $(".acf_pgf_modal").css("display", "block");
             $.ajax({
                 method: "GET",
                 url: acf.get('ajaxurl'),
@@ -240,14 +241,12 @@
                     nonce: apgf_nonce
                 }
             }).done(function(data) {
-                $('.acf_pgf_modal').remove();
-                $("body").append(data);
-                $(".acf_pgf_modal").css("display", "block");
+                $(".acf_pgf_modal .acf_pgf_modal-injectable").html(data);
             }).fail(function() {
-                alert( "error" );
+                $(".acf_pgf_modal .acf-edit-photo-gallery").append("<div class=\"acf_pgf_modal-footer\"><button class=\"button button-large cancel\" type=\"button\">Close</button></div>");
+                $(".acf_pgf_modal .acf_pgf_modal-injectable").html("There was an error. Please try again later.");
             });
         }
-
         return false;
     });
 

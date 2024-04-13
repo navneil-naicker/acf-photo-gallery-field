@@ -34,59 +34,50 @@ function apgf_edit_model(){
 
 		$fields = apply_filters('acf_photo_gallery_image_fields', $args, $attachment_id, $acf_field_key);
 ?>
-<div class="acf_pgf_modal" id="acf-photo-gallery-metabox-edit-<?php echo $attachment_id; ?>">
-	<div class="acf_pgf_modal-content">
-		<div class="acf-edit-photo-gallery">
-			<div class="acf_pgf_modal-header"><h2>Edit Image</h2></div>
-			<div class="acf_pgf_modal-body">
-				<form method="post">
-					<input type="hidden" name="attachment_id" value="<?php echo $attachment_id; ?>"/>
-					<input type="hidden" name="acf_field_key" value="<?php echo $acf_field_key; ?>"/>
-					<?php
-						foreach( $fields as $key => $item ){
-							$type = esc_attr($item['type']) ? $item['type'] : null;
-							$label = esc_attr($item['label']) ? $item['label'] : null;
-							$name = esc_attr($item['name']) ? $item['name'] : null;
-							$value = esc_attr($item['value']) ? $item['value'] : null;
-					?>
-						<?php if( in_array($type, array('text', 'date', 'color', 'datetime-local', 'email', 'number', 'tel', 'time', 'url', 'week', 'range')) ){ ?>
-							<label><?php echo esc_attr($label); ?></label>
-							<input class="acf-photo-gallery-edit-field" type="<?php echo esc_attr($type); ?>" name="<?php echo esc_attr($name); ?>" value="<?php echo esc_attr($value); ?>"/>
-						<?php } ?>
-						<?php if( $type == 'checkbox' ){ ?>
-							<label>
-								<input class="acf-photo-gallery-edit-field" type="checkbox" name="<?php echo esc_attr($name); ?>" value="true" <?php echo ($value=='true')?'checked':''; ?>/>
-								<?php echo esc_attr($label); ?>
-							</label>
-						<?php } ?>
-						<?php if( $type == 'radio' ){ ?>
-							<label>
-								<input class="acf-photo-gallery-edit-field" type="radio" name="<?php echo esc_attr($name); ?>" value="true" <?php echo ($value=='true')?'checked':''; ?>/>
-								<?php echo esc_attr($label); ?>
-							</label>
-						<?php } ?>
-						<?php if( $type == 'textarea' ){ ?>
-							<label><?php echo esc_attr($label); ?></label>
-							<textarea class="acf-photo-gallery-edit-field" name="<?php echo esc_attr($name); ?>" rows="3"><?php echo @esc_textarea($value); ?></textarea>
-						<?php } ?>
-						<?php if( $type == 'select' ){ ?>
-							<label><?php echo esc_attr($label); ?></label>
-							<select class="acf-photo-gallery-edit-field" name="<?php echo esc_attr($name); ?>">
-								<?php foreach($value[0] as $key => $item){ ?>
-									<option value="<?php echo esc_attr($key); ?>" <?php echo esc_attr($key==$value[1]?'selected':''); ?>><?php echo esc_attr($item); ?></option>
-								<?php } ?>
-							</select>
-						<?php } ?>
-					<?php } ?>
-					<div class="acf_pgf_modal-footer">
-						<button class="button button-primary button-large" type="submit">Save</button>
-						<button class="button button-large cancel" type="button">Close</button>
-					</div>
-				</form>
-			</div>
-		</div>
+<form method="post">
+	<input type="hidden" name="attachment_id" value="<?php echo $attachment_id; ?>"/>
+	<input type="hidden" name="acf_field_key" value="<?php echo $acf_field_key; ?>"/>
+	<?php
+		foreach( $fields as $key => $item ){
+			$type = esc_attr($item['type']) ? $item['type'] : null;
+			$label = esc_attr($item['label']) ? $item['label'] : null;
+			$name = esc_attr($item['name']) ? $item['name'] : null;
+			$value = esc_attr($item['value']) ? $item['value'] : null;
+	?>
+		<?php if( in_array($type, array('text', 'date', 'color', 'datetime-local', 'email', 'number', 'tel', 'time', 'url', 'week', 'range')) ){ ?>
+			<label><?php echo esc_attr($label); ?></label>
+			<input class="acf-photo-gallery-edit-field" type="<?php echo esc_attr($type); ?>" name="<?php echo esc_attr($name); ?>" value="<?php echo esc_attr($value); ?>"/>
+		<?php } ?>
+		<?php if( $type == 'checkbox' ){ ?>
+			<label>
+				<input class="acf-photo-gallery-edit-field" type="checkbox" name="<?php echo esc_attr($name); ?>" value="true" <?php echo ($value=='true')?'checked':''; ?>/>
+				<?php echo esc_attr($label); ?>
+			</label>
+		<?php } ?>
+		<?php if( $type == 'radio' ){ ?>
+			<label>
+				<input class="acf-photo-gallery-edit-field" type="radio" name="<?php echo esc_attr($name); ?>" value="true" <?php echo ($value=='true')?'checked':''; ?>/>
+				<?php echo esc_attr($label); ?>
+			</label>
+		<?php } ?>
+		<?php if( $type == 'textarea' ){ ?>
+			<label><?php echo esc_attr($label); ?></label>
+			<textarea class="acf-photo-gallery-edit-field" name="<?php echo esc_attr($name); ?>" rows="3"><?php echo @esc_textarea($value); ?></textarea>
+		<?php } ?>
+		<?php if( $type == 'select' ){ ?>
+			<label><?php echo esc_attr($label); ?></label>
+			<select class="acf-photo-gallery-edit-field" name="<?php echo esc_attr($name); ?>">
+				<?php foreach($value[0] as $key => $item){ ?>
+					<option value="<?php echo esc_attr($key); ?>" <?php echo esc_attr($key==$value[1]?'selected':''); ?>><?php echo esc_attr($item); ?></option>
+				<?php } ?>
+			</select>
+		<?php } ?>
+	<?php } ?>
+	<div class="acf_pgf_modal-footer">
+		<button class="button button-primary button-large" type="submit">Save</button>
+		<button class="button button-large cancel" type="button">Close</button>
 	</div>
-</div>
+</form>
 <?php
 	}
 	die();
