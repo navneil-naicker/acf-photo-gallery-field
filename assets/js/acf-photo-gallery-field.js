@@ -16,6 +16,9 @@
             placeholder: "acf-photo-gallery-sortable-placeholder",
             tolerance: 'pointer'
         }).disableSelection();
+        $(document).on("click", ".acf_pgf_modal button.cancel", function(){
+            $(".acf_pgf_modal").remove();
+        });
     });
 
     function acf_photo_gallery_edit(id, url, title, caption) {
@@ -101,16 +104,15 @@
                     }
 
                     if(typeof apgf_show_donation !== 'undefined' && apgf_show_donation){
-                        if($("#acf_pgf_donation_model").length === 0){
-                            $("body").append("<div id=\"acf_pgf_donation_model\" class=\"modal\"><div class=\"modal-content\"><div class=\"modal-header\"><h2>Donation</h2></div><div class=\"modal-body\"><p>The ACF Photo Gallery Field plugin is requesting donations to support its future development.</p><p><label>Would you like to donate?</label><select><option value=\"yes\">Yes, I want to donate</option><option value=\"already\">I have already donated</option><option value=\"later\">Maybe later</option><option value=\"no\">No</option></select></p></div><div class=\"modal-footer\"><button type=\"button\" class=\"button button-default cancel\">Cancel</button><button type=\"button\" class=\"button button-primary submit\">Submit</button></div></div></div>");
-                        }
-                        $("#acf_pgf_donation_model").css("display", "block");
-                        $("#acf_pgf_donation_model .modal-footer button.submit").unbind().on("click", function(){
-                            const val = $("#acf_pgf_donation_model select").val().trim();
+                        $('.acf_pgf_modal').remove();
+                        $("body").append("<div class=\"acf_pgf_modal\"><div class=\"acf_pgf_modal-content\"><div class=\"acf_pgf_modal-header\"><h2>Donation</h2></div><div class=\"acf_pgf_modal-body\"><p>The ACF Photo Gallery Field plugin is requesting donations to support its future development.</p><p><label>Would you like to donate?</label><select><option value=\"yes\">Yes, I want to donate</option><option value=\"already\">I have already donated</option><option value=\"later\">Maybe later</option><option value=\"no\">No</option></select></p></div><div class=\"acf_pgf_modal-footer\"><button type=\"button\" class=\"button button-default cancel\">Cancel</button><button type=\"button\" class=\"button button-primary submit\">Submit</button></div></div></div>");
+                        $(".acf_pgf_modal").css("display", "block");
+                        $(".acf_pgf_modal .modal-footer button.submit").unbind().on("click", function(){
+                            const val = $(".acf_pgf_modal select").val().trim();
                             if(val === "yes"){
                                 window.open("https://www.buymeacoffee.com/navzme", "_blank");
                             } else {
-                                $("#acf_pgf_donation_model").remove();
+                                $(".acf_pgf_modal").remove();
                                 $.ajax({
                                     method: "GET",
                                     url: acf.get('ajaxurl'),
@@ -123,8 +125,8 @@
                                   apgf_open_media_lib();
                             }
                         });
-                        $("#acf_pgf_donation_model button.cancel").on("click", function(){
-                            $("#acf_pgf_donation_model").remove();
+                        $(".acf_pgf_modal button.cancel").on("click", function(){
+                            $(".acf_pgf_modal").remove();
                             apgf_open_media_lib();
                         });
                     } else {
@@ -155,49 +157,38 @@
         return false;
     });
 
-    $(document).on('click', '#acf-photo-gallery-metabox-edit .acf-edit-photo-gallery button.button-primary', function() {
-        var button, field, data, post, attachment, action, nonce, fieldname, form = {};
-        button = $(this);
-        url = $(this).attr('data-ajaxurl');
-        action = 'acf_photo_gallery_edit_save';
-        attachment = $(this).attr('data-id');
-        fieldname = button.attr('data-fieldname');
-
-        $('div.acf-photo-gallery-group-' + fieldname + ' #acf-photo-gallery-metabox-edit-' + attachment + ' .acf-photo-gallery-edit-field').each(function(i, obj) {
-            if (obj.name == 'acf-pg-hidden-action') {
-                form['action'] = obj.value;
-            } else if (obj.type == 'checkbox') {
-                if ($(this).prop("checked")) {
-                    form[obj.name] = obj.value;
-                } else {
-                    form[obj.name] = null;
-                }
-            } else {
-                form[obj.name] = obj.value;
-            }
-        });
-
-        button.attr('disabled', true).html('Saving...');
-        $.post(url, form, function(data) {
-            button.attr('disabled', false).html('Save Changes');
-            $('#acf-photo-gallery-metabox-edit #acf-photo-gallery-metabox-edit-' + attachment).fadeOut('fast');
-            $('.acf-gallery-backdrop').remove();
-            $('body').css('overflow', 'auto');
+    $(document).on('submit', '.acf-edit-photo-gallery form', function() {
+        var form = $(this).serializeArray();
+        var post_id = acf.get('post_id');
+        form.push({name: "action", value: "acf_photo_gallery_edit_save"});
+        form.push({name: "post_id", value: post_id});
+        form.push({name: "nonce", value: apgf_nonce});
+        $("button[type=submit]", this).attr('disabled', true).html('Saving...');
+        $.ajax({
+            method: "POST",
+            url: acf.get('ajaxurl'),
+            data: form
+        }).done(function() {
+            $('.acf_pgf_modal').fadeOut().remove();
+        }).fail(function(err) {
+            console.log(err);
+        }).always(function(data) {
+            console.log(data);
         });
         return false;
     });
 
     $(document).on('click', '.acf-photo-gallery-metabox-list .dashicons-edit', function() {
         var $btn = $(this);
-        var id = $btn.attr('data-id');
-        var field = $btn.attr('data-field');
-        var modal = $('.acf-photo-gallery-group-' + field + ' input[name="acf-photo-gallery-edit-modal"]').val();
-        var $list = $('.acf-photo-gallery-group-' + field + ' ul.acf-photo-gallery-metabox-list');
-        var index = $('.acf-photo-gallery-group-' + field + ' ul.acf-photo-gallery-metabox-list li').index();
+        var attachment_id = $btn.attr('data-id');
+        var acf_field_key = $btn.attr('data-acf_field_key');
+        var modal = $('.acf-photo-gallery-group-' + acf_field_key + ' input[name="acf-photo-gallery-edit-modal"]').val();
+        var $list = $('.acf-photo-gallery-group-' + acf_field_key + ' ul.acf-photo-gallery-metabox-list');
+        var index = $('.acf-photo-gallery-group-' + acf_field_key + ' ul.acf-photo-gallery-metabox-list li').index();
 
         if (modal === 'Native') {
             wp.media.editor.send.attachment = function(_, attachment) {
-                acf_photo_gallery_html(attachment, field, {
+                acf_photo_gallery_html(attachment, acf_field_key, {
                     index: index,
                     splice: 1
                 });
@@ -208,7 +199,7 @@
 
             var selection = editor.get('selection');
             selection.multiple = false;
-            selection.reset([wp.media.attachment(id)]);
+            selection.reset([wp.media.attachment(attachment_id)]);
 
             /**
              * @param {{ id: number }} deleted
@@ -229,9 +220,31 @@
             });
             $('.acf-photo-gallery-group-' + field + ' .acf-photo-gallery-metabox-list li.acf-photo-gallery-media-box-placeholder').remove();
         } else {
-            $('body').prepend('<div class=\'acf-gallery-backdrop\'></div>');
-            $('body').css('overflow', 'hidden');
-            $('.acf-photo-gallery-group-' + field + ' #acf-photo-gallery-metabox-edit-' + id).fadeToggle('fast');
+            // $('body').prepend('<div class=\'acf-gallery-backdrop\'></div>');
+            // $('body').css('overflow', 'hidden');
+            // $('.acf-photo-gallery-group-' + field + ' #acf-photo-gallery-metabox-edit-' + id).fadeToggle('fast');
+            $.ajax({
+                method: "GET",
+                url: acf.get('ajaxurl'),
+                data: {
+                    action: "apgf_edit_model",
+                    post_id: acf.get('post_id'),
+                    attachment_id: attachment_id,
+                    acf_field_name: acf.getField(acf_field_key).data.name,
+                    acf_field_key: acf_field_key,
+                    nonce: apgf_nonce
+                }
+            }).done(function(data) {
+                $('.acf_pgf_modal').remove();
+                $("body").append(data);
+                $(".acf_pgf_modal").css("display", "block");
+            }).fail(function() {
+                alert( "error" );
+            }).always(function() {
+                //alert( "complete" );
+            });
+            // $("body").append("");
+            // $("#acf_pgf_donation_model").css("display", "block");
         }
 
         return false;

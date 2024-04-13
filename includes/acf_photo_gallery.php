@@ -49,7 +49,7 @@ function acf_photo_gallery($field = null, $post_id = null, $order = 'ASC', $orde
 }
 
 function apgf_update_donation(){
-	if(!empty($_GET['nonce']) and wp_verify_nonce($_GET['nonce'], 'apgf-update-donation') and !empty($_GET['option'])){
+	if(!empty($_GET['nonce']) and wp_verify_nonce($_GET['nonce'], 'acf-photo-gallery-field\navz-photo-gallery-nonce') and !empty($_GET['option'])){
 		$option = sanitize_text_field($_GET['option']);
 		if(in_array($option, ['yes', 'no', 'already', 'later'])){
 			global $wpdb;

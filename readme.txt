@@ -68,7 +68,7 @@ The following example is using Twitter Bootstrap framework to layout. You can us
 To add extra fields add the following to your themes functions.php file.
 
 `//Create extra fields called Altnative Text and Status
-function my_extra_gallery_fields( $args, $attachment_id, $field ){
+function my_extra_gallery_fields( $args, $attachment_id, $acf_key ){
     $args['alt'] = array(
 		'type' => 'text', 
 		'label' => 'Altnative Text', 
@@ -141,6 +141,9 @@ From your WordPress dashboard
 4. **Watch** the tutorial to [get started](https://www.youtube.com/watch?v=c7u9FwVLe9Q)
 
 == Changelog ==
+=2.9=
+* [Fixed] On image edit, popup modal not accessible on Gutenberg editor.
+
 =2.8=
 * [Fixed] Undefined array key "nonce".
 
