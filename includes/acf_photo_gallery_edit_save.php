@@ -6,9 +6,10 @@ if( ! defined( 'ABSPATH' ) ) exit;
 //Fires off when ediitn the details of the photo
 function acf_photo_gallery_edit_save(){
 	if( wp_verify_nonce( $_POST['nonce'], 'acf-photo-gallery-field\navz-photo-gallery-nonce') and !empty($_POST['attachment_id']) ){
-		$field = sanitize_text_field($_POST['acf-pg-hidden-field']);
-		$post_id = preg_replace('/\D/', '', $_GET['post_id']);
-		$attachment_id = preg_replace('/\D/', '', $_GET['attachment_id']);
+		$acf_field_key = sanitize_text_field($_POST['acf_field_key']);
+		$acf_field_name = sanitize_text_field($_POST['acf_field_name']);
+		$post_id = preg_replace('/\D/', '', $_POST['post_id']);
+		$attachment_id = preg_replace('/\D/', '', $_POST['attachment_id']);
 		$title = sanitize_text_field($_POST['title']);
 		$caption = sanitize_textarea_field($_POST['caption']);
 
@@ -19,10 +20,15 @@ function acf_photo_gallery_edit_save(){
 			$captionColumn = 'post_content';
 		}
 
-		$post = array('ID' => $attachment, 'post_title' => $title, $captionColumn => $caption);
-		wp_update_post( $post );
+		wp_update_post(
+			array(
+				'ID' => $attachment_id,
+				'post_title' => $title,
+				$captionColumn => $caption
+			)
+		);
 
-		$unset_fields = ['acf-pg-hidden-field', 'post_id', 'attachment_id', 'action', 'nonce', 'title', 'caption'];
+		$unset_fields = ['acf_field_key', 'acf_field_name', 'post_id', 'attachment_id', 'action', 'nonce', 'title', 'caption'];
 		
 		foreach($unset_fields as $field){
 			unset( $_POST[$field] );
@@ -32,9 +38,9 @@ function acf_photo_gallery_edit_save(){
 			$name = sanitize_text_field( $name );
 			$value = sanitize_text_field( $value );
 			if( !empty($value) ){
-				update_post_meta($attachment, $field . '_' . $name, $value);
+				update_post_meta( $attachment_id, $acf_field_name . '_' . $name, $value);
 			} else {
-				delete_post_meta($attachment, $field . '_' . $name);
+				delete_post_meta( $attachment_id, $acf_field_name . '_' . $name);
 			}
 		}
 	}

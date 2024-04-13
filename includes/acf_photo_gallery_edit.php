@@ -8,25 +8,40 @@ function apgf_edit_model(){
 	if(!empty($_GET['post_id']) and !empty($_GET['attachment_id']) and $_GET['nonce'] and !empty($apgf->settings['nonce_name']) and wp_verify_nonce( $_GET['nonce'], $apgf->settings['nonce_name'])){
 		$post_id = preg_replace('/\D/', '', $_GET['post_id']);
 		$attachment_id = preg_replace('/\D/', '', $_GET['attachment_id']);
-		$acf_key = sanitize_text_field($_GET['acf_key']);
+		$acf_field_key = sanitize_text_field($_GET['acf_field_key']);
+		$acf_field_name = sanitize_text_field($_GET["acf_field_name"]);
+
 		$post = get_post($attachment_id);
 		if($post->post_type != "attachment"){
 			die(status_header(400, "The post type is not an attachment."));
 		}
+
 		$args = array();
-		$args['url'] = $post->guid;
 		$args['title'] = $post->post_title;
-		$args['caption'] = $post->post_excerpt;
-		$args['target'] = 'true';
-		$fields = apply_filters('acf_photo_gallery_image_fields', $args, $attachment_id, $acf_key);
+		$args['caption'] = $post->post_content;
+
+		$meta = get_post_meta($attachment_id);
+		$builtin_meta_fields = ['url', 'target'];
+		foreach($builtin_meta_fields as $key){
+			$args[$key] = (!empty($meta[$acf_field_name . "_" . $key]) and !empty($meta[$acf_field_name . "_" . $key][0])) ? $meta[$acf_field_name . "_" . $key][0] : "";
+		}
+
+		$caption_from_attachment = apply_filters('acf_photo_gallery_editbox_caption_from_attachment', $_POST);
+		
+		if( $caption_from_attachment == 1 ){
+			$args['caption'] = wp_get_attachment_caption( $attachment_id );
+		}
+
+		$fields = apply_filters('acf_photo_gallery_image_fields', $args, $attachment_id, $acf_field_key);
 ?>
-<div class="acf_pgf_modal">
+<div class="acf_pgf_modal" id="acf-photo-gallery-metabox-edit-<?php echo $attachment_id; ?>">
 	<div class="acf_pgf_modal-content">
 		<div class="acf-edit-photo-gallery">
 			<div class="acf_pgf_modal-header"><h2>Edit Image</h2></div>
 			<div class="acf_pgf_modal-body">
 				<form method="post">
 					<input type="hidden" name="attachment_id" value="<?php echo $attachment_id; ?>"/>
+					<input type="hidden" name="acf_field_key" value="<?php echo $acf_field_key; ?>"/>
 					<?php
 						foreach( $fields as $key => $item ){
 							$type = esc_attr($item['type']) ? $item['type'] : null;

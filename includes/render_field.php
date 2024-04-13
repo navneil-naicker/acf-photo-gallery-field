@@ -37,30 +37,6 @@
     <input type="hidden" name="acf-photo-gallery-groups[]" value="<?php echo esc_attr($field['_name']); ?>"/>
     <input type="hidden" name="acf-photo-gallery-images_limit" value="<?php echo esc_attr($images_limit); ?>"/>
     <input type="hidden" name="acf-photo-gallery-field" value="<?php echo esc_attr($key); ?>"/>
-    <div id="acf-photo-gallery-metabox-edit">
-        <?php
-            /*if( $value ):
-                $acf_photo_gallery_editbox_caption_from_attachment = apply_filters( 'acf_photo_gallery_editbox_caption_from_attachment', $field);
-                $acf_photo_gallery_attachments =  $value;
-                $acf_photo_gallery_attachments = explode(',', $acf_photo_gallery_attachments);
-                $args = array( 'post_type' => 'attachment', 'posts_per_page' => -1, 'post__in' => $acf_photo_gallery_attachments );
-                $acf_photo_gallery_attachments = get_posts( $args );
-                $nonce = wp_create_nonce('acf_photo_gallery_edit_save');
-                foreach($acf_photo_gallery_attachments as $attachment):
-                    $id = $attachment->ID;
-                    $url = get_post_meta($id, $field['_name'] . '_url', true);
-                    $target = get_post_meta($id, $field['_name'] . '_target', true);
-                    $title = $attachment->post_title;
-                    if( $acf_photo_gallery_editbox_caption_from_attachment == 1 ){
-                        $caption = wp_get_attachment_caption( $id );
-                    } else {
-                        $caption = $attachment->post_content;
-                    }
-                    acf_photo_gallery_edit($field['_name'], $nonce, $id, $url, $title, $caption, $target, $key, $replace_textarea_editor);
-                endforeach;
-            endif;*/
-        ?>
-    </div>
     <ul class="acf-photo-gallery-metabox-list">
         <?php
             if( $value ):

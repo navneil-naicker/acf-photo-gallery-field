@@ -159,23 +159,29 @@
 
     $(document).on('submit', '.acf-edit-photo-gallery form', function() {
         var form = $(this).serializeArray();
+        var form_data = {};
         var post_id = acf.get('post_id');
         var attachment_id = form.find(x => x.name === "attachment_id")?.value;
-        form.push({name: "action", value: "acf_photo_gallery_edit_save"});
-        form.push({name: "post_id", value: post_id});
-        form.push({name: "nonce", value: apgf_nonce});
-        form.push({name: "acf_field_name", value: acf.getField(form.acf_field_key).data.name});
         $("button[type=submit]", this).attr('disabled', true).html('Saving...');
         $('#acf-photo-gallery-metabox-edit-' + attachment_id + ' .acf-photo-gallery-edit-field').each(function(i, obj) {
-            var find = form.find(x => x.name === obj.name);
-            if(!find){
-                form.push({name: obj.name, value: null});
+            if (obj.type == 'checkbox') {
+                if ($(this).prop("checked")) {
+                    form_data[obj.name] = obj.value;
+                } else {
+                    form_data[obj.name] = null;
+                }
+            } else {
+                form_data[obj.name] = obj.value;
             }
         });
+        form_data["action"] = "acf_photo_gallery_edit_save";
+        form_data["post_id"] = post_id;
+        form_data["nonce"] = apgf_nonce;
+        form_data["acf_field_name"] = acf.getField(form.acf_field_key).data.name;
         $.ajax({
             method: "POST",
             url: acf.get('ajaxurl'),
-            data: form
+            data: form_data
         }).done(function() {
             $('.acf_pgf_modal').fadeOut().remove();
         }).fail(function(err) {
@@ -245,6 +251,8 @@
                 $(".acf_pgf_modal").css("display", "block");
             }).fail(function() {
                 alert( "error" );
+            }).always(function() {
+                //alert( "complete" );
             });
         }
 
