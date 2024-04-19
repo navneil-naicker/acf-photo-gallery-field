@@ -1,11 +1,11 @@
 ﻿=== ACF Photo Gallery Field ===
 Contributors: navzme
 Donate link: https://www.buymeacoffee.com/navzme
-Tags: acf, advanced, custom, fields, photo, gallery, album, fancybox, litebox, lightbox
+Tags: acf, custom, fields, photo, gallery
 Requires at least: 5.8
 Tested up to: 6.4
 Requires PHP: 7.0
-Stable tag: 2.8
+Stable tag: 2.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
