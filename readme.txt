@@ -20,11 +20,12 @@ A lightweight extension of Advanced Custom Field (ACF) that adds **Photo Gallery
 * Easily load data through a simple and friendly API
 * Uses the native WordPress custom post type for ease of use and fast processing
 * Uses the native WordPress metadata for ease of use and fast processing
-* Supports Elementor
+* Supports WordPress classic and Gutenberg editor
+* Supports Elementor (support for bricks builder coming soon)
 * RESTFul API
 
 = Note =
-This plugin is alternative of ACF Gallery Pro. You need to have knowledge of coding because you’ll be required to edit your WordPress theme source code. If you are looking for shortcodes and prebuilt gallery then this plugin is **NOT** for you. This plugin will give you PHP array of images and you’ll need to make the gallery layout as you wish.
+This plugin is a better alternative to ACF Gallery Pro. You need to have knowledge of coding because editing your WordPress theme source code is required. If you're looking for prebuilt galleries and shortcodes, then this plugin is NOT for you. This plugin will give you a PHP array of images, and you'll need to create the gallery layout yourself.
 
 = Donation =
 Navneil Naicker is the sole developer working on this free WordPress Plugin in his leisure time. He would like to integrate it with premium plugins like Elementor Pro and Advanced Custom Fields Pro. Please donate to support Navneil in continuing further development of this plugin. Click on the link “<https://www.buymeacoffee.com/navzme>” to donate.
