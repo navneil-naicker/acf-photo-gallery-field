@@ -107,7 +107,7 @@
                         $('.acf_pgf_modal').remove();
                         $("body").append("<div class=\"acf_pgf_modal\"><div class=\"acf_pgf_modal-content\"><div class=\"acf_pgf_modal-header\"><h2>Donation</h2></div><div class=\"acf_pgf_modal-body\"><p>The ACF Photo Gallery Field plugin is requesting donations to support its future development.</p><p><label>Would you like to donate?</label><select><option value=\"yes\">Yes, I want to donate</option><option value=\"already\">I have already donated</option><option value=\"later\">Maybe later</option><option value=\"no\">No</option></select></p></div><div class=\"acf_pgf_modal-footer\"><button type=\"button\" class=\"button button-default cancel\">Cancel</button><button type=\"button\" class=\"button button-primary submit\">Submit</button></div></div></div>");
                         $(".acf_pgf_modal").css("display", "block");
-                        $(".acf_pgf_modal .modal-footer button.submit").unbind().on("click", function(){
+                        $(".acf_pgf_modal .acf_pgf_modal-footer button.submit").unbind().on("click", function(){
                             const val = $(".acf_pgf_modal select").val().trim();
                             if(val === "yes"){
                                 window.open("https://www.buymeacoffee.com/navzme", "_blank");
@@ -125,7 +125,7 @@
                                   apgf_open_media_lib();
                             }
                         });
-                        $(".acf_pgf_modal button.cancel").on("click", function(){
+                        $(".acf_pgf_modal .acf_pgf_modal-footer button.cancel").on("click", function(){
                             $(".acf_pgf_modal").remove();
                             apgf_open_media_lib();
                         });
