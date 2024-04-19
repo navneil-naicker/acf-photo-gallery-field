@@ -42,39 +42,26 @@
     border-radius: 50%;
 }
 
-#acf-photo-gallery-metabox-edit .acf-edit-photo-gallery {
-    display: none;
-    background: #F3F3F3;
-    border: 2px solid #ccc;
-    width: 380px;
-    position: fixed;
-    top: 10%;
-    right: 0;
-    z-index: 9999;
-    padding: 15px;
-    left: 43%;
-}
-
-#acf-photo-gallery-metabox-edit .acf-edit-photo-gallery h3{
+.acf-edit-photo-gallery h3{
     background: #f1f1f1;
     padding: 12px 15px;
-    margin-top: -17px;
-    margin-left: -17px;
-    width: 101%;
     border-bottom: 1px solid #ccc;
 }
 
-#acf-photo-gallery-metabox-edit .acf-edit-photo-gallery .save-changes-wrap {
+.acf-edit-photo-gallery .save-changes-wrap {
     margin-top: 15px;
 }
 
-#acf-photo-gallery-metabox-edit .acf-edit-photo-gallery label {
+.acf-edit-photo-gallery label {
     margin-top: 10px;
     display: block;
 }
 
-#acf-photo-gallery-metabox-edit .acf-edit-photo-gallery textarea {
-    min-height: 100px;
+.acf-edit-photo-gallery input:not([type='checkbox']):not([type='radio']) {
+    width: 100%;
+}
+
+.acf-edit-photo-gallery textarea {
     width: 100%;
 }
 
@@ -98,7 +85,7 @@
     right: 0%;
 }
 
-#acf_pgf_donation_model {
+.acf_pgf_modal {
     display: none;
     position: fixed;
     z-index: 99999;
@@ -115,7 +102,7 @@
             animation-duration: 0.4s;
 }
   
-#acf_pgf_donation_model .modal-content {
+.acf_pgf_modal .acf_pgf_modal-content {
     position: absolute;
     background-color: #fefefe;
     -webkit-animation-name: slideIn;
@@ -123,12 +110,12 @@
             animation-name: slideIn;
             animation-duration: 0.4s;
     width: 30rem;
-    left: 30%;
-    right: 30%;
+    left: 50%;
     top: 15%;
+    transform: translate(-50%, 0%);
 }
 
-#acf_pgf_donation_model .modal-header h2 {
+.acf_pgf_modal .acf_pgf_modal-header h2 {
     padding: 12px 15px !important;
     margin: 0px !important;
     border-bottom: 1px solid #ccc;
@@ -138,28 +125,28 @@
     background: #f1f1f1;
 }
   
-#acf_pgf_donation_model .modal-body {
+.acf_pgf_modal .acf_pgf_modal-body {
     padding: 12px;
 }
 
-#acf_pgf_donation_model .modal-body label{
+.acf_pgf_modal .acf_pgf_modal-body label{
     width: 100%;
     display: inline-block;
 }
 
-#acf_pgf_donation_model .modal-body select{
+.acf_pgf_modal .acf_pgf_modal-body select{
     width: 100%;
 }
 
-#acf_pgf_donation_model .modal-body p {
+.acf_pgf_modal.acf_pgf_modal-body p {
     margin-top: 0 !important
 }
   
-#acf_pgf_donation_model .modal-footer {
+.acf_pgf_modal .acf_pgf_modal-footer {
     text-align: right;
     padding: 12px;
 }
 
-#acf_pgf_donation_model .modal-footer button {
+.acf_pgf_modal .acf_pgf_modal-footer button {
     margin-left: 5px !important;
 }

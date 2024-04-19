@@ -4,7 +4,7 @@
 Plugin Name: ACF Photo Gallery Field
 Plugin URI: http://www.navz.me/
 Description: An extension for Advance Custom Fields which lets you add photo gallery functionality on your websites.
-Version: 2.8
+Version: 2.9
 Author: Navneil Naicker
 Author URI: http://www.navz.me/
 License: GPLv2 or later
@@ -40,10 +40,11 @@ if( !class_exists('acf_plugin_photo_gallery') ) :
 		
 		function __construct() {
 			$this->settings = array(
-				'version' => '2.8',
+				'version' => '2.9',
 				'url' => plugin_dir_url( __FILE__ ),
 				'path' => plugin_dir_path( __FILE__ ),
-				'elementor_pro_vesion' => $this->get_elementor_pro_version()
+				'elementor_pro_vesion' => $this->get_elementor_pro_version(),
+				'nonce_name' => 'acf-photo-gallery-field\navz-photo-gallery-nonce'
 			);
 			load_plugin_textdomain('acf-photo_gallery', false, plugin_basename( dirname( __FILE__ ) ) . '/lang'); 
 			add_action('admin_enqueue_scripts', array($this, 'acf_photo_gallery_sortable'));			
@@ -169,7 +170,7 @@ if( !class_exists('acf_plugin_photo_gallery') ) :
 			}
 ?>
 		<script>
-			const apgf_nonce = "<?php echo wp_create_nonce('apgf-update-donation') ?>";
+			const apgf_nonce = "<?php echo wp_create_nonce($this->settings['nonce_name']) ?>";
 		</script>
 <?php
 		}

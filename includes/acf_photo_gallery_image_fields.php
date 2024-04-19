@@ -3,7 +3,7 @@
 // exit if accessed directly
 if( ! defined( 'ABSPATH' ) ) exit;
 
-function acf_photo_gallery_image_fields( $args, $attachment_id, $field){
+function acf_photo_gallery_image_fields($args, $attachment_id, $acf_key){
 	return array(
 		'url' => array(
 			'type' => 'text', 
