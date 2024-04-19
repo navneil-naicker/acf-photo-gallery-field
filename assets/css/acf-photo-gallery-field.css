@@ -110,9 +110,9 @@
             animation-name: slideIn;
             animation-duration: 0.4s;
     width: 30rem;
-    left: 30%;
-    right: 30%;
+    left: 50%;
     top: 15%;
+    transform: translate(-50%, 0%);
 }
 
 .acf_pgf_modal .acf_pgf_modal-header h2 {
