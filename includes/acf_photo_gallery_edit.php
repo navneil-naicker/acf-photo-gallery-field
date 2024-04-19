@@ -74,8 +74,8 @@ function apgf_edit_model(){
 		<?php } ?>
 	<?php } ?>
 	<div class="acf_pgf_modal-footer">
-		<button class="button button-primary button-large" type="submit">Save</button>
 		<button class="button button-large cancel" type="button">Close</button>
+		<button class="button button-primary button-large" type="submit">Save</button>
 	</div>
 </form>
 <?php
