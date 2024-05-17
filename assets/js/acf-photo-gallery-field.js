@@ -161,10 +161,11 @@
         var form = $(this).serializeArray();
         var post_id = acf.get('post_id');
         var attachment_id = form.find(x => x.name === "attachment_id")?.value;
+        var acf_field_name = acf.getField(form.find(x => x.name === "acf_field_key")?.value).data.name;
         form.push({name: "action", value: "acf_photo_gallery_edit_save"});
         form.push({name: "post_id", value: post_id});
         form.push({name: "nonce", value: apgf_nonce});
-        form.push({name: "acf_field_name", value: acf.getField(form.acf_field_key).data.name});
+        form.push({name: "acf_field_name", value: acf_field_name});
         $("button[type=submit]", this).attr('disabled', true).html('Saving...');
         $('#acf-photo-gallery-metabox-edit-' + attachment_id + ' .acf-photo-gallery-edit-field').each(function(i, obj) {
             var find = form.find(x => x.name === obj.name);
