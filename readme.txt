@@ -3,7 +3,7 @@ Contributors: navzme
 Donate link: https://www.buymeacoffee.com/navzme
 Tags: acf, custom, fields, photo, gallery
 Requires at least: 5.8
-Tested up to: 6.4
+Tested up to: 6.5
 Requires PHP: 7.0
 Stable tag: 3.0
 License: GPLv2 or later
