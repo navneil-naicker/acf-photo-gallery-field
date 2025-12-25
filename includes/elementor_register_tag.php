@@ -32,7 +32,7 @@ public function get_name() {
 * @return string
 */
 public function get_title() {
-	return __( 'ACF Photo Gallery', 'elementor-pro' );
+	return __( 'ACF Photo Gallery', 'navz-photo-gallery' );
 }
 
 /**
@@ -77,7 +77,7 @@ protected function register_controls() {
 	$this->add_control(
 		'Key',
 		[
-			'label' => __( 'Key', 'elementor-pro' ),
+			'label' => __( 'Key', 'navz-photo-gallery' ),
 			'type' => \Elementor\Controls_Manager::SELECT,
 			'groups' => self::get_control_options(),
 		]
@@ -184,7 +184,7 @@ public static function get_control_options() {
 			// Use group ID for unique keys
 			if ( $has_option_page_location ) {
 				$key = 'options:' . $field['name'];
-				$options[ $key ] = __( 'Options', 'elementor-pro' ) . ':' . $field['label'];
+				$options[ $key ] = __( 'Options', 'navz-photo-gallery' ) . ':' . $field['label'];
 				if ( $is_only_options_page ) {
 					continue;
 				}
