@@ -16,7 +16,7 @@ function acf_photo_gallery_save( $post_id ) {
 
     remove_action( 'save_post', 'acf_photo_gallery_save' );
 
-	$raw_groups = wp_unslash( $_POST['acf-photo-gallery-groups'] ?? array() );
+	$raw_groups = wp_unslash( $_POST['acf-photo-gallery-groups'] ?? [] );
     $groups_unslashed = is_array( $raw_groups ) ? array_map( 'wp_unslash', $raw_groups ) : array();
     $groups = array_map( 'sanitize_text_field', $groups_unslashed );
 
