@@ -153,7 +153,7 @@ if( !class_exists('acf_plugin_photo_gallery') ) :
 
 		function apgf_admin_head()
 		{
-			if(current_user_can('administrator')){
+			if( current_user_can('administrator') ){
 ?>
 		<script>
 			let apgf_show_donation = true;
@@ -162,10 +162,10 @@ if( !class_exists('acf_plugin_photo_gallery') ) :
 			});
 		</script>
 <?php } ?>
-<?php if ( ! current_user_can( 'edit_post' ) ) { ?>
-		<script>
-			const apgf_nonce = "<?php echo esc_js( wp_create_nonce($this->settings['nonce_name']) ); ?>";
-		</script>
+<?php $screen = get_current_screen(); if ( $screen->base === 'post' ) { ?>
+	<script>
+		const apgf_nonce = "<?php echo esc_js( wp_create_nonce($this->settings['nonce_name']) ); ?>";
+	</script>
 <?php } ?>
 <?php
 		}
