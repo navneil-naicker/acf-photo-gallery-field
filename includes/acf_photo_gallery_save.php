@@ -8,20 +8,21 @@ function acf_photo_gallery_save( $post_id ) {
         $post_id = $parent_id;
     }
 
-    $nonce = sanitize_text_field( wp_unslash( $_POST['acf_photo_gallery_nonce'] ?? '' ) );
+    $nonce = sanitize_text_field( wp_unslash( $_POST['apg_nonce'] ?? '' ) );
 
-    if ( ! $nonce || ! wp_verify_nonce( $nonce, 'acf-photo-gallery-field\navz-photo-gallery-nonce' ) ) {
+    if ( ! $nonce || ! wp_verify_nonce( $nonce, 'nonce_acf_photo_gallery' ) ) {
         return;
     }
 
     remove_action( 'save_post', 'acf_photo_gallery_save' );
 
-	$raw_groups = sanitize_text_field( wp_unslash( $_POST['acf-photo-gallery-groups'] ?? array() ) );
+	$raw_groups = wp_unslash( $_POST['acf-photo-gallery-groups'] ?? array() );
     $groups_unslashed = is_array( $raw_groups ) ? array_map( 'wp_unslash', $raw_groups ) : array();
     $groups = array_map( 'sanitize_text_field', $groups_unslashed );
 
+    $raw_field_key = wp_unslash( $_POST['acf-photo-gallery-field'] ?? '' );
     $field_key = sanitize_text_field( wp_unslash( $raw_field_key ) );
-
+    
     if ( ! empty( $groups ) ) {
         foreach ( $groups as $k => $group_value ) {
 
@@ -30,7 +31,7 @@ function acf_photo_gallery_save( $post_id ) {
                 continue;
             }
 
-            $raw_ids = sanitize_text_field( wp_unslash($_POST[ $field_id ] ?? array()) );
+            $raw_ids = wp_unslash($_POST[ $field_id ] ?? array());
             $ids_unslashed = is_array( $raw_ids ) ? array_map( 'wp_unslash', $raw_ids ) : array();
             $ids = array_map( 'sanitize_text_field', $ids_unslashed );
 

@@ -14,7 +14,7 @@
         $images_limit = "";
         
         global $post;    
-        $nonce_acf_photo_gallery = wp_create_nonce( 'nonce_acf_photo_gallery' );
+        $nonce = wp_create_nonce( 'nonce_acf_photo_gallery' );
         if( ACF_VERSION >= 4 and ACF_VERSION < 5 ){
             $fieldname = $field['_name'];
             $value = $field['value'];
@@ -33,6 +33,7 @@
 ?>
 
 <div class="acf-photo-gallery-group-<?php echo esc_attr($key); ?>">
+    <input type="hidden" name="apg_nonce" value="<?php echo esc_attr( $nonce ); ?>" />
     <input type="hidden" name="acf-photo-gallery-edit-modal" value="<?php echo esc_attr($edit_model); ?>" />
     <input type="hidden" name="acf-photo-gallery-groups[]" value="<?php echo esc_attr($field['_name']); ?>"/>
     <input type="hidden" name="acf-photo-gallery-images_limit" value="<?php echo esc_attr($images_limit); ?>"/>

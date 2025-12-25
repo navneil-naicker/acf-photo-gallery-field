@@ -158,10 +158,7 @@ if( !class_exists('acf_plugin_photo_gallery') ) :
 		<script>
 			let apgf_show_donation = true;
 			jQuery.get("<?php echo esc_url(admin_url('admin-ajax.php')); ?>?action=apgf_update_donation", function( data ) {
-				data = JSON.parse(data);
-				if(data){
-					apgf_show_donation = data.show;
-				}
+				apgf_show_donation = data.show;
 			});
 		</script>
 <?php } ?>
