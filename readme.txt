@@ -3,15 +3,23 @@ Contributors: navzme
 Donate link: https://www.buymeacoffee.com/navzme
 Tags: acf, custom, fields, photo, gallery
 Requires at least: 5.8
-Tested up to: 6.5
+Tested up to: 6.9
 Requires PHP: 7.0
-Stable tag: 3.0
+Stable tag: 3.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 A lightweight extension of Advanced Custom Field (ACF) that adds Photo Gallery field to any post/pages on your WordPress website.
 
 == Description ==
+**Important Notice for New Users of ACF Photo Gallery Field**
+
+If you are installing the ACF Photo Gallery Field for the first time on your WordPress website, we’d like to inform you that this plugin will no longer be maintained as of October 2024. As an alternative, we have launched a new and improved plugin called [ACF Galerie 4](https://wordpress.org/plugins/acf-galerie-4/).
+
+We encourage you to check out [ACF Galerie 4](https://wordpress.org/plugins/acf-galerie-4/) for enhanced features and ongoing support. ACF Galerie 4 includes a built-in migration tool that seamlessly transfers data from ACF Photo Gallery Field or ACF Gallery Pro to ACF Galerie 4. [Learn more](https://wordpress.org/support/topic/migrate-from-acf-photo-gallery-field-to-acf-galerie-4/).
+
+Thanks
+
 A lightweight extension of Advanced Custom Field (ACF) that adds **Photo Gallery** field to any post/pages on your WordPress website.
 
 * Visually create your Fields
@@ -21,11 +29,7 @@ A lightweight extension of Advanced Custom Field (ACF) that adds **Photo Gallery
 * Uses the native WordPress custom post type for ease of use and fast processing
 * Uses the native WordPress metadata for ease of use and fast processing
 * Supports WordPress classic and Gutenberg editor
-* Supports Elementor (support for bricks builder coming soon)
 * RESTFul API
-
-= Note =
-This plugin is a better alternative to ACF Gallery Pro. You need to have knowledge of coding because editing your WordPress theme source code is required. If you're looking for prebuilt galleries and shortcodes, then this plugin is NOT for you. This plugin will give you a PHP array of images, and you'll need to create the gallery layout yourself.
 
 = Donation =
 Navneil Naicker is the sole developer working on this free WordPress Plugin in his leisure time. He would like to integrate it with premium plugins like Elementor Pro and Advanced Custom Fields Pro. Please donate to support Navneil in continuing further development of this plugin. Click on the link “<https://www.buymeacoffee.com/navzme>” to donate.
@@ -133,6 +137,14 @@ This ACF field type is compatible with: ACF 4, 5 and 6
 Just like any other WordPress plugin, this plugin can also cause issues with other themes and plugins. If you are facing issues making this plugin work on your WordPress site, please do ask for help in the support forum. This way we can help you out and prevent this issue from happening to someone else. If you want to talk to me directly, you can contact me via my website <http://www.navz.me/>
 
 == Installation ==
+
+**Important Notice for New Users of ACF Photo Gallery Field**
+
+If you are installing the ACF Photo Gallery Field for the first time on your WordPress website, we’d like to inform you that this plugin will no longer be maintained as of October 2024. As an alternative, we have launched a new and improved plugin called [ACF Galerie 4](https://wordpress.org/plugins/acf-galerie-4/).
+
+We encourage you to check out [ACF Galerie 4](https://wordpress.org/plugins/acf-galerie-4/) for enhanced features and ongoing support.
+
+Thanks
 
 From your WordPress dashboard
 

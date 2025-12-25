@@ -5,38 +5,43 @@ if( ! defined( 'ABSPATH' ) ) exit;
 
 function apgf_edit_model(){
 	$apgf = new acf_plugin_photo_gallery();
-	if(!empty($_GET['post_id']) and !empty($_GET['attachment_id']) and $_GET['nonce'] and !empty($apgf->settings['nonce_name']) and wp_verify_nonce( $_GET['nonce'], $apgf->settings['nonce_name'])){
-		$post_id = preg_replace('/\D/', '', $_GET['post_id']);
-		$attachment_id = preg_replace('/\D/', '', $_GET['attachment_id']);
-		$acf_field_key = sanitize_text_field($_GET['acf_field_key']);
-		$acf_field_name = sanitize_text_field($_GET["acf_field_name"]);
 
-		$post = get_post($attachment_id);
-		if($post->post_type != "attachment"){
-			die(status_header(400, "The post type is not an attachment."));
-		}
+	$post_id = isset($_GET['post_id']) ? absint(wp_unslash($_GET['post_id'])) : 0;
+	$attachment_id = isset($_GET['attachment_id']) ? absint(wp_unslash($_GET['attachment_id'])) : 0;
+	$acf_field_key = isset($_GET['acf_field_key']) ? sanitize_text_field(wp_unslash($_GET['acf_field_key'])) : '';
+	$acf_field_name = isset($_GET['acf_field_name']) ? sanitize_text_field(wp_unslash($_GET['acf_field_name'])) : '';
+	$nonce = isset($_GET['nonce']) ? sanitize_text_field(wp_unslash($_GET['nonce'])) : '';
 
-		$args = array();
-		$args['title'] = $post->post_title;
-		$args['caption'] = $post->post_content;
+	if ( $post_id && $attachment_id && $nonce && !empty($apgf->settings['nonce_name']) && wp_verify_nonce( $nonce, $apgf->settings['nonce_name'] ) ) {
 
-		$meta = get_post_meta($attachment_id);
-		$builtin_meta_fields = ['url', 'target'];
-		foreach($builtin_meta_fields as $key){
-			$args[$key] = (!empty($meta[$acf_field_name . "_" . $key]) and !empty($meta[$acf_field_name . "_" . $key][0])) ? $meta[$acf_field_name . "_" . $key][0] : "";
-		}
+        $post = get_post($attachment_id);
+        if ( ! $post || $post->post_type != "attachment" ) {
+            status_header(400);
+            wp_die( esc_html__("The post type is not an attachment.", "navz-photo-gallery") );
+        }
 
-		$caption_from_attachment = apply_filters('acf_photo_gallery_editbox_caption_from_attachment', $_POST);
-		
-		if( $caption_from_attachment == 1 ){
-			$args['caption'] = wp_get_attachment_caption( $attachment_id );
-		}
+        $args = array(
+            'title'   => $post->post_title,
+            'caption' => $post->post_content,
+        );
 
-		$fields = apply_filters('acf_photo_gallery_image_fields', $args, $attachment_id, $acf_field_key);
+        $meta = get_post_meta($attachment_id);
+        $builtin_meta_fields = ['url', 'target'];
+        foreach($builtin_meta_fields as $key){
+            $args[$key] = !empty($meta[$acf_field_name . "_" . $key][0]) ? $meta[$acf_field_name . "_" . $key][0] : "";
+        }
+
+        $caption_from_attachment = apply_filters('acf_photo_gallery_editbox_caption_from_attachment', $_POST);
+
+        if( $caption_from_attachment == 1 ){
+            $args['caption'] = wp_get_attachment_caption( $attachment_id );
+        }
+
+        $fields = apply_filters('acf_photo_gallery_image_fields', $args, $attachment_id, $acf_field_key);
 ?>
 <form method="post">
-	<input type="hidden" name="attachment_id" value="<?php echo $attachment_id; ?>"/>
-	<input type="hidden" name="acf_field_key" value="<?php echo $acf_field_key; ?>"/>
+	<input type="hidden" name="attachment_id" value="<?php echo esc_attr( $attachment_id ); ?>"/>
+	<input type="hidden" name="acf_field_key" value="<?php echo esc_attr( $acf_field_key ); ?>"/>
 	<?php
 		foreach( $fields as $key => $item ){
 			$type = esc_attr($item['type']) ? $item['type'] : null;
@@ -62,7 +67,7 @@ function apgf_edit_model(){
 		<?php } ?>
 		<?php if( $type == 'textarea' ){ ?>
 			<label><?php echo esc_attr($label); ?></label>
-			<textarea class="acf-photo-gallery-edit-field" name="<?php echo esc_attr($name); ?>" rows="3"><?php echo @esc_textarea($value); ?></textarea>
+			<textarea class="acf-photo-gallery-edit-field" name="<?php echo esc_attr($name); ?>" rows="3"><?php echo esc_textarea( $value ); ?></textarea>
 		<?php } ?>
 		<?php if( $type == 'select' ){ ?>
 			<label><?php echo esc_attr($label); ?></label>

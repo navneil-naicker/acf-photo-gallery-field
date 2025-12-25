@@ -17,7 +17,7 @@ if( ! defined( 'ABSPATH' ) ) exit;
     $value = !empty($field['fields['.$name]) ? $field['fields['.$name] : [];
 
     acf_render_field_setting( $field, array(
-        'label'			=> __('Edit modal','TEXTDOMAIN'),
+        'label'			=> __('Edit modal','navz-photo-gallery'),
         'type'          => 'select',
         'name'          => 'fields['.$name.'][edit_modal]',
         'value'         => !empty($value['edit_modal']) ? $value['edit_modal'] : '',
@@ -25,14 +25,14 @@ if( ! defined( 'ABSPATH' ) ) exit;
     ));
 
     acf_render_field_setting( $field, array(
-        'label'			=> __('Images Limit','TEXTDOMAIN'),
+        'label'			=> __('Images Limit','navz-photo-gallery'),
         'type'          => 'number',
         'name'          => 'fields['.$name.'][images_limit]',
         'value'         => !empty($value['images_limit']) ? $value['images_limit'] : ''
     ));
 
     acf_render_field_setting( $field, array(
-        'label'			=> __('Remove edit button','TEXTDOMAIN'),
+        'label'			=> __('Remove edit button','navz-photo-gallery'),
         'type'          => 'select',
         'name'          => 'fields['.$name.'][remove_edit_button]',
         'value'         => !empty($value['remove_edit_button']) ? $value['remove_edit_button'] : '',
@@ -40,7 +40,7 @@ if( ! defined( 'ABSPATH' ) ) exit;
     ));
 
     acf_render_field_setting( $field, array(
-        'label'			=> __('Remove delete button','TEXTDOMAIN'),
+        'label'			=> __('Remove delete button','navz-photo-gallery'),
         'type'          => 'select',
         'name'          => 'fields['.$name.'][remove_delete_button]',
         'value'         => !empty($value['remove_delete_button']) ? $value['remove_delete_button'] : '',
