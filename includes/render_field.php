@@ -14,7 +14,7 @@
         $images_limit = "";
         
         global $post;    
-        $nonce_acf_photo_gallery = wp_create_nonce( 'nonce_acf_photo_gallery' );
+        $nonce = wp_create_nonce( 'nonce_acf_photo_gallery' );
         if( ACF_VERSION >= 4 and ACF_VERSION < 5 ){
             $fieldname = $field['_name'];
             $value = $field['value'];
@@ -33,6 +33,7 @@
 ?>
 
 <div class="acf-photo-gallery-group-<?php echo esc_attr($key); ?>">
+    <input type="hidden" name="apg_nonce" value="<?php echo esc_attr( $nonce ); ?>" />
     <input type="hidden" name="acf-photo-gallery-edit-modal" value="<?php echo esc_attr($edit_model); ?>" />
     <input type="hidden" name="acf-photo-gallery-groups[]" value="<?php echo esc_attr($field['_name']); ?>"/>
     <input type="hidden" name="acf-photo-gallery-images_limit" value="<?php echo esc_attr($images_limit); ?>"/>
@@ -52,11 +53,12 @@
                 <a class="dashicons dashicons-dismiss" href="#" data-id="<?php echo esc_attr($image); ?>" data-field="<?php echo esc_attr($key); ?>" title="Remove this photo from the gallery"></a>
             <?php } ?>
             <input type="hidden" name="<?php echo esc_attr($field['_name']); ?>[]" value="<?php echo esc_attr($image); ?>"/>
-            <img src="<?php echo wp_get_attachment_thumb_url( $image ); ?>"/>
+            <img src="<?php echo esc_url( wp_get_attachment_thumb_url( $image ) ); ?>"/>
         </li>
         <?php endforeach; else: ?><li class="acf-photo-gallery-media-box-placeholder"><span class="dashicons dashicons-format-image"></span></li><?php endif; ?>
     </ul>
-    <button class="button button-primary button-large acf-photo-gallery-metabox-add-images" type="button" data-field="<?php echo htmlspecialchars(json_encode($field), ENT_QUOTES, 'UTF-8'); ?>">Add Images</button>
+    <button class="button button-primary button-large acf-photo-gallery-metabox-add-images" type="button" data-field="<?php echo esc_attr( wp_json_encode($field) ); ?>">Add Images</button>
+
 </div>
 
 <?php } ?>

@@ -59,30 +59,28 @@ function acf_photo_gallery($field = null, $post_id = null, $order = 'ASC', $orde
 }
 
 function apgf_update_donation(){
-	if(!empty($_GET['nonce']) and wp_verify_nonce($_GET['nonce'], 'acf-photo-gallery-field\navz-photo-gallery-nonce') and !empty($_GET['option'])){
-		$option = sanitize_text_field($_GET['option']);
-		if(in_array($option, ['yes', 'no', 'already', 'later'])){
-			global $wpdb;
-			update_option("apgf_donation", serialize(
-				array(
-					"option" => $option,
-					"timestamp" => date('Ymd', strtotime("+30 days"))
-				)
-			));
-		}
+	$nonce = !empty($_GET['nonce']) ? sanitize_text_field(wp_unslash($_GET['nonce'])) : '';
+	$option = !empty($_GET['option']) ? sanitize_text_field(wp_unslash($_GET['option'])) : '';
+
+	if ( $nonce && wp_verify_nonce( $nonce, 'acf-photo-gallery-field\navz-photo-gallery-nonce' ) && in_array($option, ['yes','no','already','later'], true) ) {
+		global $wpdb;
+		update_option("apgf_donation", serialize(
+			array(
+				"option" => $option,
+				"timestamp" => gmdate('Ymd', strtotime("+30 days"))
+			)
+		));
 	} else {
 		$option = unserialize(get_option("apgf_donation"));
 		if(is_array($option)){
-			$currTime = date('Ymd');
+			$currTime = gmdate('Ymd');
 			$time = $option['timestamp'];
 			$result = [
 				"show" => ($option["option"] === "later" && current_user_can('administrator') && $currTime > $time) ? true: false
 			];
-			die(json_encode($result));
+			wp_send_json( $result );
 		} else {
-			die(json_encode([
-				"show" => true
-			]));
+			wp_send_json(["show" => true]);
 		}
 	}
 	die();

@@ -1,39 +1,51 @@
 <?php
 
-// exit if accessed directly
-if( ! defined( 'ABSPATH' ) ) exit;
+if ( ! defined( 'ABSPATH' ) ) exit;
 
-//Fires off when the WordPress update button is clicked
-function acf_photo_gallery_save( $post_id ){
-	
-	// If this is a revision, get real post ID
-	if ( $parent_id = wp_is_post_revision( $post_id ) )
-	$post_id = $parent_id;
-	// unhook this function so it doesn't loop infinitely
-	remove_action( 'save_post', 'acf_photo_gallery_save' );
+function acf_photo_gallery_save( $post_id ) {
 
-	$field = !empty($_POST['acf-photo-gallery-groups'])? $_POST['acf-photo-gallery-groups']: array();
-	$field = array_map('sanitize_text_field', $field );
+    if ( $parent_id = wp_is_post_revision( $post_id ) ) {
+        $post_id = $parent_id;
+    }
 
-	if( !empty($field) ){
-		$field_key = sanitize_text_field($_POST['acf-photo-gallery-field']);
-		foreach($field as $k => $v ){
-			$field_id = isset($_POST['acf-photo-gallery-groups'][$k])? sanitize_text_field($_POST['acf-photo-gallery-groups'][$k]): null;
-            if (!empty($field_id)) {
-                $ids = !empty($_POST[$field_id])? array_map('sanitize_text_field', $_POST[$field_id]): null;
-				if (!empty($ids)) {
-                    $ids = implode(',', $ids);
-                    update_post_meta($post_id, $field_id, $ids);
-                    acf_update_metadata($post_id, $field_id, $field_key, true);
-                } else {
-                    delete_post_meta($post_id, $v);
-                    acf_delete_metadata($post_id, $field_id, true);
-                }
+    $nonce = sanitize_text_field( wp_unslash( $_POST['apg_nonce'] ?? '' ) );
+
+    if ( ! $nonce || ! wp_verify_nonce( $nonce, 'nonce_acf_photo_gallery' ) ) {
+        return;
+    }
+
+    remove_action( 'save_post', 'acf_photo_gallery_save' );
+
+	$raw_groups = wp_unslash( $_POST['acf-photo-gallery-groups'] ?? [] );
+    $groups_unslashed = is_array( $raw_groups ) ? array_map( 'wp_unslash', $raw_groups ) : array();
+    $groups = array_map( 'sanitize_text_field', $groups_unslashed );
+
+    $raw_field_key = wp_unslash( $_POST['acf-photo-gallery-field'] ?? '' );
+    $field_key = sanitize_text_field( wp_unslash( $raw_field_key ) );
+    
+    if ( ! empty( $groups ) ) {
+        foreach ( $groups as $k => $group_value ) {
+
+            $field_id = sanitize_text_field( $group_value );
+            if ( ! $field_id ) {
+                continue;
             }
-		}
-	}
 
-	// re-hook this function
-	add_action( 'save_post', 'acf_photo_gallery_save' );
+            $raw_ids = wp_unslash($_POST[ $field_id ] ?? array());
+            $ids_unslashed = is_array( $raw_ids ) ? array_map( 'wp_unslash', $raw_ids ) : array();
+            $ids = array_map( 'sanitize_text_field', $ids_unslashed );
+
+            if ( ! empty( $ids ) ) {
+                $ids_string = implode( ',', $ids );
+                update_post_meta( $post_id, $field_id, $ids_string );
+                acf_update_metadata( $post_id, $field_id, $field_key, true );
+            } else {
+                delete_post_meta( $post_id, $group_value );
+                acf_delete_metadata( $post_id, $field_id, true );
+            }
+        }
+    }
+
+    add_action( 'save_post', 'acf_photo_gallery_save' );
 }
 add_action( 'save_post', 'acf_photo_gallery_save' );

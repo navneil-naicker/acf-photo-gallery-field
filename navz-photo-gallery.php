@@ -4,7 +4,7 @@
 Plugin Name: ACF Photo Gallery Field
 Plugin URI: http://www.navz.me/
 Description: An extension for Advance Custom Fields which lets you add photo gallery functionality on your websites.
-Version: 3.0
+Version: 3.1
 Author: Navneil Naicker
 Author URI: http://www.navz.me/
 License: GPLv2 or later
@@ -40,13 +40,12 @@ if( !class_exists('acf_plugin_photo_gallery') ) :
 		
 		function __construct() {
 			$this->settings = array(
-				'version' => '3.0',
+				'version' => '3.1',
 				'url' => plugin_dir_url( __FILE__ ),
 				'path' => plugin_dir_path( __FILE__ ),
 				'elementor_pro_vesion' => $this->get_elementor_pro_version(),
 				'nonce_name' => 'acf-photo-gallery-field\navz-photo-gallery-nonce'
 			);
-			load_plugin_textdomain('acf-photo_gallery', false, plugin_basename( dirname( __FILE__ ) ) . '/lang'); 
 			add_action('admin_enqueue_scripts', array($this, 'acf_photo_gallery_sortable'));			
 			add_action('acf/include_field_types', array($this, 'include_field_types')); // v5
 			add_action('acf/register_fields', array($this, 'include_field_types')); // v4
@@ -119,7 +118,6 @@ if( !class_exists('acf_plugin_photo_gallery') ) :
 					'post_type' => 'acf-field',
 					'orderby' => 'menu_order',
 					'order' => 'ASC',
-					'suppress_filters' => true,
 					'post_parent' => $group['ID'],
 					'post_status' => 'publish',
 					'update_post_meta_cache' => false
@@ -155,23 +153,20 @@ if( !class_exists('acf_plugin_photo_gallery') ) :
 
 		function apgf_admin_head()
 		{
-			if(current_user_can('administrator')){
+			if( current_user_can('administrator') ){
 ?>
 		<script>
 			let apgf_show_donation = true;
-			jQuery.get("<?php echo admin_url('admin-ajax.php'); ?>?action=apgf_update_donation", function( data ) {
-				data = JSON.parse(data);
-				if(data){
-					apgf_show_donation = data.show;
-				}
+			jQuery.get("<?php echo esc_url(admin_url('admin-ajax.php')); ?>?action=apgf_update_donation", function( data ) {
+				apgf_show_donation = data.show;
 			});
 		</script>
-<?php
-			}
-?>
-		<script>
-			const apgf_nonce = "<?php echo wp_create_nonce($this->settings['nonce_name']) ?>";
-		</script>
+<?php } ?>
+<?php $screen = get_current_screen(); if ( $screen->base === 'post' ) { ?>
+	<script>
+		const apgf_nonce = "<?php echo esc_js( wp_create_nonce($this->settings['nonce_name']) ); ?>";
+	</script>
+<?php } ?>
 <?php
 		}
 	}
