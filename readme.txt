@@ -155,7 +155,7 @@ From your WordPress dashboard
 
 == Changelog ==
 =3.1=
-* [Fixed] WordPress secuirty fix and plugin check fix.
+* [Fixed] WordPress security fix and plugin check fix.
 
 =3.0=
 * [Fixed] URL and target not saving into the database.
