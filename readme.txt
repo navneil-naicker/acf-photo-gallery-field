@@ -154,6 +154,9 @@ From your WordPress dashboard
 4. **Watch** the tutorial to [get started](https://www.youtube.com/watch?v=c7u9FwVLe9Q)
 
 == Changelog ==
+=3.1=
+* [Fixed] WordPress secuirty fix and plugin check fix.
+
 =3.0=
 * [Fixed] URL and target not saving into the database.
 
